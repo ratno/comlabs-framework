@@ -8,12 +8,29 @@ require_once("framework/base.php");
 $url = $_SERVER['REQUEST_URI'];
 $url = 	str_replace(array(SUBDIR.INDEX,"/index.php"),"",$url);
 
+$array_uri = preg_split('[\\/]', $url, -1, PREG_SPLIT_NO_EMPTY);
 
-$array_tmp_uri = preg_split('[\\/]', $url, -1, PREG_SPLIT_NO_EMPTY);
+// ambil controller
+if(isset($array_uri[0])){
+	$uri['controller'] 	= $array_uri[0]; //class
+	unset($array_uri[0]);
+} else {
+	$uri['controller'] 	= DEFAULT_CONTROLLER;
+}	
 
-$array_uri['controller'] 	= ($array_tmp_uri[0])?$array_tmp_uri[0]:DEFAULT_CONTROLLER; //class
-$array_uri['method']		= $array_tmp_uri[1]; //function
-$array_uri['var']			= $array_tmp_uri[2]; //variable
+// ambil action/fungsi/method
+if(isset($array_uri[1])){
+	$uri['method']		= $array_uri[1];
+	unset($array_uri[1]);
+} else {
+	$uri['method']		= DEFAULT_ACTION;
+}
 
-$app = new application($array_uri);
-$app->loadController($array_uri['controller']);
+// ambil parameter 
+foreach($array_uri as $item_uri){
+	$arr_tmp = explode(":",str_replace("=",":",$item_uri));
+	$uri['var'][$arr_tmp[0]] = $arr_tmp[1];
+}
+
+$app = new application($uri);
+$app->loadController($uri['controller']);
