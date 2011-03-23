@@ -66,24 +66,33 @@ class application {
     function loadController($class) {
         $file = CONTROLLER.$this->uri['controller'].".php";
 
-        if(!file_exists($file)) die();
+        if(!file_exists($file)) header("location: ".BASEURL.SUBDIR);
 
         require_once($file);
 
         $controller = new $class();
 
         if(method_exists($controller, $this->uri['method'])) {
-
             $controller->{$this->uri['method']}($this->uri['var']);
         } else {
             $controller->index();
         }
     }
 
+	var $layout = "layout";
     function loadView($view,$vars="") {
         if(is_array($vars) && count($vars) > 0)
             extract($vars, EXTR_PREFIX_SAME, "wddx");
+		ob_start();
         require_once(VIEW.$view.'.php');
+		$main_content = ob_get_clean();
+		
+		$file = VIEW.$this->layout.'.php';
+		if(file_exists($file)) {
+			require_once($file);
+		} else {
+			echo $main_content;
+		}
     }
 
     function loadModel($model) {

@@ -1,5 +1,5 @@
 <?php
-error_reporting(~E_NOTICE);
+error_reporting(E_ALL & ~(E_STRICT|E_NOTICE));
 session_start();
 require_once("config.php");
 require_once("framework/func.php");
