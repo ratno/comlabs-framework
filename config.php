@@ -4,6 +4,7 @@ define('USERNAME',"root");
 define('PASSWORD',"");
 define('DATABASE',"");
 define('DEFAULT_CONTROLLER',"index");
+define('DEFAULT_ACTION',"index");
 define("BASEURL", "http://localhost");
 
 /* ubah jika perlu */
