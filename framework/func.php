@@ -1,10 +1,16 @@
 <?php
 function url($controller,$method=null,$var=null) {
-    $out = BASEURL.SUBDIR."/".INDEX."/$controller";
+    $out = BASEURL.SUBDIR."/".INDEX."$controller";
     if($method) {
         $out .= "/$method";
     }
-    if($var) {
+    if(is_array($var)) {
+		foreach($var as $k=>$c){
+			if($k && $c){
+				$out .= "/$k:$c";
+			}
+		}
+	} else {
         $out .= "/$var";
     }
     return $out;
@@ -17,4 +23,9 @@ function d($data,$die=false){ //debug
 	echo "\n--end debug--\n";
 	echo "</pre>";
 	if($die) die("-die-");
+}
+
+function selected($data,$pilihan){
+	if($data==$pilihan) return "selected=selected";
+	else return "";
 }

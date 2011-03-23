@@ -17,15 +17,19 @@ class application {
         mysql_select_db(DATABASE);
     }
 
-    function query($sql) {
+    function query($sql,$single=false) {
         $hasil = mysql_query($sql);
 
         $out = array();
-        while($data = mysql_fetch_array($hasil)) {
+        while($data = mysql_fetch_assoc($hasil)) {
             $out[] = $data;
         }
-
-        return $out;
+		
+		if($single){
+			return $out[0];
+		} else {
+			return $out;
+		}
     }
 
     function insert($data) {
@@ -53,14 +57,15 @@ class application {
         return mysql_query($sql);
     }
 
-    function delete($id) {
+    function delete($var) {
+		$id = $var['id'];
         $sql = "DELETE FROM ".$this->tabel." WHERE ".$this->pk." = ".$this->escape($id);
         return mysql_query($sql);
     }
 
     function escape($val) {
         $val = trim($val);
-        return is_numeric($val)?$val:"'".mysql_escape_string($val)."'";
+        return is_numeric($val)?"'$val'":"'".mysql_escape_string($val)."'";
     }
 
     function loadController($class) {
@@ -86,7 +91,6 @@ class application {
 		ob_start();
         require_once(VIEW.$view.'.php');
 		$main_content = ob_get_clean();
-		
 		$file = VIEW.$this->layout.'.php';
 		if(file_exists($file)) {
 			require_once($file);

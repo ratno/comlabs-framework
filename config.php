@@ -2,7 +2,7 @@
 define('SERVER',"localhost");
 define('USERNAME',"root");
 define('PASSWORD',"");
-define('DATABASE',"");
+define('DATABASE',"cl_framework");
 define('DEFAULT_CONTROLLER',"index");
 define('DEFAULT_ACTION',"index");
 define("BASEURL", "http://localhost");
