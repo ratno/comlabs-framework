@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Ratno Putro Sulistiyono, ratno@comlabs.itb.ac.id
+ * Fungsi-fungsi untuk  mendukung framework sederhana yang digunakan untuk pelatihan di Comlabs USDI ITB
+ */
 function url($controller,$method=null,$var=null) {
     $out = BASEURL.SUBDIR."/".INDEX."$controller";
     if($method) {

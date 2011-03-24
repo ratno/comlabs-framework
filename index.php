@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author Ratno Putro Sulistiyono, ratno@comlabs.itb.ac.id
+ * bootstrap untuk sistem framework sederhana untuk pelatihan di Comlabs USDI ITB
+ */
 error_reporting(E_ALL & ~(E_STRICT|E_NOTICE));
 session_start();
 require_once("config.php");

@@ -1,4 +1,8 @@
-<?php 
+<?php
+/**
+ * @author Ratno Putro Sulistiyono, ratno@comlabs.itb.ac.id
+ * Basis kelas untuk framework sederhana yang digunakan untuk pelatihan di Comlabs USDI ITB
+ */ 
 if (!defined('BASEURL')) die('Liat apa kamoe!!!');
 
 class application {
