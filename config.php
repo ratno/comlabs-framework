@@ -11,7 +11,7 @@ define("BASEURL", "http://localhost");
 define("MOD_REWRITE",true);
 define("BASEDIR",$_SERVER["DOCUMENT_ROOT"]);
 define("APP","/application");
-$path = substr(dirname(__FILE__),strlen(BASEDIR));
+$path = str_replace("\\","/",substr(dirname(__FILE__),strlen(BASEDIR)));
 define("SUBDIR",$path);
 define("CONTROLLER",BASEDIR.SUBDIR.APP."/controller/");
 define("MODEL",BASEDIR.SUBDIR.APP."/model/");
