@@ -61,8 +61,7 @@ class application {
         return mysql_query($sql);
     }
 
-    function delete($var) {
-		$id = $var['id'];
+    function delete($id) {
         $sql = "DELETE FROM ".$this->tabel." WHERE ".$this->pk." = ".$this->escape($id);
         return mysql_query($sql);
     }
