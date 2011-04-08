@@ -16,6 +16,7 @@ define("SUBDIR",$path);
 define("CONTROLLER",BASEDIR.SUBDIR.APP."/controller/");
 define("MODEL",BASEDIR.SUBDIR.APP."/model/");
 define("VIEW",BASEDIR.SUBDIR.APP."/view/");
+define("FILES",BASEDIR.SUBDIR."/files/");
 
 if(MOD_REWRITE){
 	define("INDEX","");
