@@ -155,3 +155,11 @@ function opsi($data_dari_database,$nama_pilihan,$pilihan="id"){
   }
   return $out;
 }
+
+function upload($name,$basepath,$location){
+	$filename = $_FILES[$name]['name'];
+  $path = str_replace("\\", "/",implode("/",array($basepath,$location,$filename)));
+  
+	move_uploaded_file($_FILES[$name]['tmp_name'],$location.$filename);
+	return $location."/".$filename;
+}
