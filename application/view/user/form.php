@@ -28,18 +28,6 @@
 			</td>	
 		</tr>
 		<tr>
-			<td>Atasan</td>
-			<td>
-        <?php pilihan("atasan_id", opsi($atasan,"nama"), $data) ?>
-			</td>
-		</tr>
-		<tr>
-			<td>Foto</td>
-			<td>
-        <?php input('foto',$data,'file') ?>
-			</td>
-		</tr>
-		<tr>
 			<td colspan="2"><input type="submit" value="Kirim" /></td>
 		</tr>
 	</table>
