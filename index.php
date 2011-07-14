@@ -16,7 +16,7 @@ $array_uri = preg_split('[\\/]', $url, -1, PREG_SPLIT_NO_EMPTY);
 
 // ambil controller
 if(isset($array_uri[0])){
-	$uri['controller'] 	= $array_uri[0];
+	$uri['controller'] 	= str_replace(array("-"), "_", $array_uri[0]);
 	unset($array_uri[0]);
 } else {
 	$uri['controller'] 	= DEFAULT_CONTROLLER;
@@ -24,7 +24,7 @@ if(isset($array_uri[0])){
 
 // ambil action/fungsi/method
 if(isset($array_uri[1])){
-	$uri['method']		= $array_uri[1];
+	$uri['method']		= str_replace(array("-"), "_", $array_uri[1]);
 	if(in_array($uri['method'],array("db","query","insert","update","delete","escape","loadController","loadView","loadModel"))) {
 		die("mohon ubah nama aksi <b>{$uri['method']}</b> di <b>class {$uri['controller']}</b>, karena penamaan fungsi ini digunakan oleh sistem framework<br />--ratno");
 	}
