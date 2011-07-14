@@ -69,15 +69,15 @@ function angka($angka, $desimal=2) {
   }
 }
 
-function tabel($controller, $data, $kolom, $tampilkan_aksi=true) {
+function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
   $out = '<table border="1" cellspacing="0" cellpadding="5">';
   // bikin baris header
   $out .= "<tr>";
   foreach ($kolom as $header => $field) {
     $out .= "<th>" . $header . "</th>";
   }
-  if($tampilkan_aksi){
-    $out .= "<th>" . "Aksi" . "</th>";
+  if(count($aksi)>0){
+    $out .= "<th>" . $aksi_header . "</th>";
   }
   $out .= "</tr>";
 
@@ -93,10 +93,11 @@ function tabel($controller, $data, $kolom, $tampilkan_aksi=true) {
       $out .= eval('return ' . $field . ';');
       $out .= "</td>";
     }
-    if($tampilkan_aksi){
+    if(count($aksi)>0){
       $out .= "<td>";
-      $out .= "[" . buat_link("Ubah","ubah", $controller, $item['id']) . "]";
-      $out .= "[" . buat_link("Hapus","hapus", $controller, $item['id']) . "]";
+      foreach ($aksi as $method => $name) {
+        $out .= "[" . buat_link($name,$method, $controller, $item['id']) . "]";  
+      }
       $out .= "</td>";
     }
     $out .= "</tr>";
@@ -109,6 +110,10 @@ function tabel($controller, $data, $kolom, $tampilkan_aksi=true) {
 
 function buat_link($nama,$action, $controller, $id) {
   return '<a href="' . url($controller, $action, array("id" => $id)) . '">' . ucwords($nama) . '</a>';
+}
+
+function link_tambah($nama,$teks="Tambah Data"){
+  return '<a href="'. url($nama,"tambah").'">'.$teks.'</a>';
 }
 
 function form_properties($controller, $aksi, $id, $file_upload=false) {
@@ -131,6 +136,16 @@ function input($name, $data="", $type="text") {
   }
 
   echo '<input type="' . $type . '" name="' . $name . '"' . $value . ' />';
+}
+
+function submit($value="kirim",$type="submit",$name=""){
+  if($name != ""){
+    $name_property = ' name="'.$name.'"';
+  } else {
+    $name_property = "";
+  }
+  
+  echo '<input type="'.$type.'" value="'.$value.'"'.$name.' />';
 }
 
 function pilihan($name, $opsi, $data) {
