@@ -6,6 +6,6 @@ tabel("user",$data,array(
     "Handphone"=>'angka($item["hp"],0)',
     "Username"=>'$item["username"]',
     "Role"=>'$item["role"]'
-));
+),$aksi);
 ?>
-<a href="<?php echo url("user","tambah") ?>">Tambah Data</a>
+<?php echo $link_tambah ?>
