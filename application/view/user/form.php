@@ -28,7 +28,7 @@
 			</td>	
 		</tr>
 		<tr>
-			<td colspan="2"><input type="submit" value="Kirim" /></td>
+      <td colspan="2"><?php submit(); ?></td>
 		</tr>
 	</table>
 </form>
