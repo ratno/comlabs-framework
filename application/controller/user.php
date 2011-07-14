@@ -11,7 +11,7 @@ class user extends application {
   }
 
   function index() {
-    cek_keamanan(array("admin", "user"));
+    cek_keamanan(array("admin"));
     $data['judul'] = "Halaman User";
     $data['data'] = $this->model_user->ambil_data();
     $this->loadView("user/index", $data);
