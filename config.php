@@ -23,3 +23,5 @@ if(MOD_REWRITE){
 } else {
 	define("INDEX","index.php");
 }
+
+date_default_timezone_get('Asia/Krasnoyarsk');
