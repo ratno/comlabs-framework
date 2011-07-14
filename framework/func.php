@@ -140,7 +140,7 @@ function pilihan($name, $opsi, $data) {
     $terpilih = $data;
   }
 
-  $out = '<select name="role">';
+  $out = '<select name="'.$name.'">';
   foreach ($opsi as $pilihan => $nama_pilihan) {
     $out .= '<option value="' . $pilihan . '"' . selected($terpilih, $pilihan) . '>' . ucwords($nama_pilihan) . '</option>';
   }
@@ -154,12 +154,4 @@ function opsi($data_dari_database,$nama_pilihan,$pilihan="id"){
     $out[$item[$pilihan]] = $item[$nama_pilihan];
   }
   return $out;
-}
-
-function upload($name,$basepath,$location){
-	$filename = $_FILES[$name]['name'];
-  $path = str_replace("\\", "/",implode("/",array($basepath,$location,$filename)));
-  
-	move_uploaded_file($_FILES[$name]['tmp_name'],$location.$filename);
-	return $location."/".$filename;
 }
