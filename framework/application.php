@@ -49,17 +49,19 @@ class application {
     
     if(isset ($_FILES)){
       foreach ($_FILES as $file_form=>$file){
-        $nama_file = date('Y.m.d.h.i.s.').$file['name'];
-        move_uploaded_file($file['tmp_name'], FILES.$nama_file);
-        $kolom[] = $file_form;
-        $isi[] = $this->escape($nama_file);
+        if(is_array($file) && $file['tmp_name'] != "" && !empty ($file['tmp_name'])){
+          $nama_file = date('Y.m.d.h.i.s.').$file['name'];
+          move_uploaded_file($file['tmp_name'], FILES.$nama_file);
+          $kolom[] = $file_form;
+          $isi[] = $this->escape($nama_file);
+        }
       }
     }
 
     $sql = "INSERT INTO " . $this->tabel;
     $sql .= " (" . implode(",", $kolom) . ")";
     $sql .= " VALUES (" . implode(",", $isi) . ")";
-    die($sql);
+//    die($sql);
     return mysql_query($sql);
   }
 
@@ -71,9 +73,11 @@ class application {
 
    if(isset ($_FILES)){
       foreach ($_FILES as $file_form=>$file){
-        $nama_file = date('Y.m.d.h.i.s.').$file['name'];
-        move_uploaded_file($file['tmp_name'], FILES.$nama_file);
-        $update[] = $file_form ."=". $this->escape($nama_file);
+        if(is_array($file) && $file['tmp_name'] != "" && !empty ($file['tmp_name'])){
+          $nama_file = date('Y.m.d.h.i.s.').$file['name'];
+          move_uploaded_file($file['tmp_name'], FILES.$nama_file);
+          $update[] = $file_form ."=". $this->escape($nama_file);
+        }
       }
     }
 
