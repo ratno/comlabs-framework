@@ -1,5 +1,5 @@
-CREATE DATABASE cl_framework;
-USE cl_framework;
+-- CREATE DATABASE cl_framework;
+-- USE cl_framework;
 
 CREATE TABLE user (
 	id int primary key auto_increment,
