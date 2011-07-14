@@ -108,8 +108,15 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
   echo $out;
 }
 
+function link_href($link,$name="",$class="",$id=""){
+  $name = ($name != "")?$name:$link;
+  $class = ($class != "")?' class="'.$class.'"':"";
+  $id = ($id != "")?' id="'.$id.'"':"";
+  return '<a'.$id.$class.' href="'.$link.'">'.$name.'</a>';
+}
+
 function buat_link($nama,$action, $controller, $id) {
-  return '<a href="' . url($controller, $action, array("id" => $id)) . '">' . ucwords($nama) . '</a>';
+  return link_href(url($controller, $action, array("id" => $id)), ucwords($nama));
 }
 
 function link_tambah($nama,$teks="Tambah Data"){
