@@ -1,8 +1,11 @@
 <?php
+// settingan untuk koneksi ke database
 define('SERVER',"localhost");
 define('USERNAME',"root");
 define('PASSWORD',"");
 define('DATABASE',"cl_framework");
+
+//settingan untuk aplikasi dan web server
 define('DEFAULT_CONTROLLER',"index");
 define('DEFAULT_ACTION',"index");
 define("BASEURL", "http://localhost");
@@ -17,6 +20,11 @@ define("CONTROLLER",BASEDIR.SUBDIR.APP."/controller/");
 define("MODEL",BASEDIR.SUBDIR.APP."/model/");
 define("VIEW",BASEDIR.SUBDIR.APP."/view/");
 define("FILES",BASEDIR.SUBDIR."/files/");
+
+define("WEB_URL",BASEURL.SUBDIR."/");
+define('FILES_URL', WEB_URL."files/");
+define('CSS_URL', WEB_URL."css/");
+define('IMAGES_URL', WEB_URL."images/");
 
 if(MOD_REWRITE){
 	define("INDEX","");
