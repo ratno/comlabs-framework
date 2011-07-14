@@ -14,6 +14,8 @@ class user extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Halaman User";
     $data['data'] = $this->model_user->ambil_data();
+    $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
+    $data['link_tambah'] = link_tambah("user");
     $this->loadView("user/index", $data);
   }
 
