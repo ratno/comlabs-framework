@@ -177,3 +177,9 @@ function opsi($data_dari_database,$nama_pilihan,$pilihan="id"){
   }
   return $out;
 }
+
+function gambar($file,$path=IMAGES_URL,$width="",$height=""){
+  $width = ($width != "")?' width="'.$width.'"':"";
+  $height = ($height != "")?' height="'.$height.'"':"";
+  return '<img'.$width.$height.' src="'.$path.$file.'" />';
+}
