@@ -181,6 +181,7 @@ function pilihan($name, $opsi, $data) {
   }
 
   $out = '<select name="'.$name.'">';
+  $out .= '<option value="null">- Pilih -</option>';
   foreach ($opsi as $pilihan => $nama_pilihan) {
     $out .= '<option value="' . $pilihan . '"' . selected($terpilih, $pilihan) . '>' . ucwords($nama_pilihan) . '</option>';
   }
