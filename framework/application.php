@@ -124,7 +124,11 @@ class application {
     $main_content = ob_get_clean();
     
     ob_start();
-    $file = VIEW . $this->layout . '.php';
+    if($this->layout){
+      $file = VIEW . $this->layout . '.php';
+    } else {
+      $file = "";
+    }
     if (file_exists($file)) {
       require_once($file);
     } else {
