@@ -17,9 +17,6 @@ class user extends application {
     if(cek_role("admin")){
       $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("user");
-    } else {
-      $data['aksi'] = array();
-      $data['link_tambah'] = "";
     }
     $this->loadView("user/index", $data);
   }
@@ -28,7 +25,6 @@ class user extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Tambah User";
     $data['aksi'] = "simpan_tambah";
-    $data['atasan'] = $this->model_user->ambil_data();
     $this->loadView('user/form', $data);
   }
 
@@ -57,4 +53,32 @@ class user extends application {
     $this->model_user->delete($var['id']);
     $this->redirect();
   }
+    
+  function cari(){
+    $data['judul'] = "Cari User";
+    $data['aksi'] = "hasil_pencarian";
+    $this->loadView('user/cari', $data);
+  }
+  
+  function hasil_pencarian(){
+    $kondisi_pencarian = array();
+    foreach ($_POST as $field=>$isian){
+      if($isian && $isian != "null"){
+        $kondisi_pencarian[] = "$field like '%$isian%'";
+      }
+    }
+    
+    $kondisi = "WHERE ".implode(" and ", $kondisi_pencarian);
+    $data['judul'] = "Hasil Pencarian User";
+    $data['data'] = $this->model_user->ambil_data($kondisi);
+    $this->loadView("user/index",$data);
+  }
+  
+  function laporan(){
+    $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
+    $data['judul'] = "Laporan User";
+    $data['data'] = $this->model_user->ambil_data();
+    $this->loadView("user/index",$data);
+  }
+
 }
