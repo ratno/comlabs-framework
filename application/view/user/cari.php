@@ -18,17 +18,13 @@
 			<td><?php input("username", $data) ?></td>
 		</tr>
 		<tr>
-			<td>Password</td>
-			<td><?php input("password", $data, "password") ?></td>
-		</tr>
-		<tr>
 			<td>Role</td>
 			<td>
         <?php pilihan("role", array("admin"=>"Admin","user"=>"User"), $data) ?>
 			</td>	
 		</tr>
 		<tr>
-      <td colspan="2"><?php submit(); ?></td>
+      <td colspan="2"><?php submit('Cari'); ?></td>
 		</tr>
 	</table>
 </form>
