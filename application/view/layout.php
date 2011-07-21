@@ -11,6 +11,7 @@ $arr_menu = array(
     "user" => array(
         "index/index" => "Home",
         "index/control_panel" => "Control Panel",
+        "user/index" => "Daftar User",
         "index/logout" => "Logout")
 );
 
