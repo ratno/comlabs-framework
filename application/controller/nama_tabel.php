@@ -57,4 +57,34 @@ class nama_tabel extends application {
     $this->model_nama_tabel->delete($var['id']);
     $this->redirect();
   }
+  
+  function cari(){
+    cek_keamanan(array("admin","user"));
+    $data['judul'] = "Cari nama_tabel";
+    $data['aksi'] = "hasil_pencarian";
+    $this->loadView('nama_tabel/cari', $data);
+  }
+  
+  function hasil_pencarian(){
+    cek_keamanan(array("admin","user"));
+    $kondisi_pencarian = array();
+    foreach ($_POST as $field=>$isian){
+      if($isian && $isian != "null"){
+        $kondisi_pencarian[] = "$field like '%$isian%'";
+      }
+    }
+    
+    $kondisi = "WHERE ".implode(" and ", $kondisi_pencarian);
+    $data['judul'] = "Hasil Pencarian nama_tabel";
+    $data['data'] = $this->model_nama_tabel->ambil_data($kondisi);
+    $this->loadView("nama_tabel/index",$data);
+  }
+  
+  function laporan(){
+    cek_keamanan(array("admin","user"));
+    $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
+    $data['judul'] = "Laporan nama_tabel";
+    $data['data'] = $this->model_nama_tabel->ambil_data();
+    $this->loadView("nama_tabel/index",$data);
+  }
 }
