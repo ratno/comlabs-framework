@@ -11,11 +11,16 @@ class user extends application {
   }
 
   function index() {
-    cek_keamanan(array("admin"));
+    cek_keamanan(array("admin","user"));
     $data['judul'] = "Halaman User";
     $data['data'] = $this->model_user->ambil_data();
-    $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
-    $data['link_tambah'] = link_tambah("user");
+    if(cek_role("admin")){
+      $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
+      $data['link_tambah'] = link_tambah("user");
+    } else {
+      $data['aksi'] = array();
+      $data['link_tambah'] = "";
+    }
     $this->loadView("user/index", $data);
   }
 
@@ -52,5 +57,4 @@ class user extends application {
     $this->model_user->delete($var['id']);
     $this->redirect();
   }
-
 }
