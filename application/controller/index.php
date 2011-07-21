@@ -43,7 +43,6 @@ class index extends application {
   function control_panel() {
     $user = cek_keamanan(array("admin", "user"));
     $data['judul'] = "Selamat Datang " . $user['nama'];
-    $this->loadView('index/index', $data);
+    $this->loadView('index/cpanel', $data);
   }
-
 }
