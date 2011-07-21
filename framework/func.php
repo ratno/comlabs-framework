@@ -53,11 +53,25 @@ function cek_keamanan($roles) {
       if (in_array($user['role'], $roles)) {
         return $user; // user boleh akses, maka berikan info user
       } else {
-        header("Location: " . url("index", "control_panel")); // ga boleh akses, lemparkan ke halaman control panel
+        $out = "<script>";
+        $out .= "alert('Maaf anda tidak memiliki privilege untuk mengakses halaman ini, anda akan dikembalikan ke halaman control panel.');";
+        $out .= "location.href='".url("index", "control_panel")."';";
+        $out .= "</script>";
+        die($out);
+//        header("Location: " . url("index", "control_panel")); // ga boleh akses, lemparkan ke halaman control panel
       }
     } else {
       header("Location: " . url("index", "login")); // belum punya login, lemparkan ke halaman login
     }
+  }
+}
+
+function cek_role($role){
+  $user = $_SESSION['data_user'];
+  if($role == $user['role']){
+    return TRUE;
+  } else {
+    return FALSE;
   }
 }
 
@@ -108,11 +122,15 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
   echo $out;
 }
 
-function link_href($link,$name="",$class="",$id=""){
-  $name = ($name != "")?$name:$link;
-  $class = ($class != "")?' class="'.$class.'"':"";
-  $id = ($id != "")?' id="'.$id.'"':"";
-  return '<a'.$id.$class.' href="'.$link.'">'.$name.'</a>';
+function link_href($link,$name="",$prefix="",$class="",$id=""){
+  if($link){
+    $name = ($name != "")?$name:$link;
+    $class = ($class != "")?' class="'.$class.'"':"";
+    $id = ($id != "")?' id="'.$id.'"':"";
+    return '<a'.$id.$class.' href="'.$prefix.$link.'">'.$name.'</a>';
+  } else {
+    return "";
+  }
 }
 
 function buat_link($nama,$action, $controller, $id) {
@@ -179,7 +197,11 @@ function opsi($data_dari_database,$nama_pilihan,$pilihan="id"){
 }
 
 function gambar($file,$path=IMAGES_URL,$width="",$height=""){
-  $width = ($width != "")?' width="'.$width.'"':"";
-  $height = ($height != "")?' height="'.$height.'"':"";
-  return '<img'.$width.$height.' src="'.$path.$file.'" />';
+  if($file != ""){
+    $width = ($width != "")?' width="'.$width.'"':"";
+    $height = ($height != "")?' height="'.$height.'"':"";
+    return '<img'.$width.$height.' src="'.$path.$file.'" />';
+  } else {
+    return "";
+  }
 }
