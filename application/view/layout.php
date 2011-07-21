@@ -7,11 +7,15 @@ $arr_menu = array(
         "index/index" => "Home",
         "index/control_panel" => "Control Panel",
         "user/index" => "Daftar User",
+        "user/cari" => "Pencarian User",
+        "user/laporan" => "Laporan User",
         "index/logout" => "Logout"),
     "user" => array(
         "index/index" => "Home",
         "index/control_panel" => "Control Panel",
         "user/index" => "Daftar User",
+        "user/cari" => "Pencarian User",
+        "user/laporan" => "Laporan User",
         "index/logout" => "Logout")
 );
 
