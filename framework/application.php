@@ -25,6 +25,7 @@ class application {
   }
 
   function query($sql, $single=false) {
+//    die($sql);
     $hasil = mysql_query($sql);
 
     $out = array();
@@ -115,17 +116,29 @@ class application {
 
   var $layout = "layout";
 
-  function loadView($view, $vars="") {
+  function loadView($view, $vars="",$echo=true,$return="all") {
     if (is_array($vars) && count($vars) > 0)
       extract($vars, EXTR_PREFIX_SAME, "wddx");
     ob_start();
     require_once(VIEW . $view . '.php');
     $main_content = ob_get_clean();
+    
+    ob_start();
     $file = VIEW . $this->layout . '.php';
     if (file_exists($file)) {
       require_once($file);
     } else {
       echo $main_content;
+    }
+    $out = ob_get_clean();
+    if($echo){
+      echo $out;
+    } else {
+      if($return == "main"){
+        return $main_content;
+      } else {
+        return $out;
+      }
     }
   }
 
