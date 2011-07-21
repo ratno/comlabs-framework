@@ -55,12 +55,14 @@ class user extends application {
   }
     
   function cari(){
+    cek_keamanan(array("admin","user"));
     $data['judul'] = "Cari User";
     $data['aksi'] = "hasil_pencarian";
     $this->loadView('user/cari', $data);
   }
   
   function hasil_pencarian(){
+    cek_keamanan(array("admin","user"));
     $kondisi_pencarian = array();
     foreach ($_POST as $field=>$isian){
       if($isian && $isian != "null"){
@@ -75,6 +77,7 @@ class user extends application {
   }
   
   function laporan(){
+    cek_keamanan(array("admin","user"));
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan User";
     $data['data'] = $this->model_user->ambil_data();
