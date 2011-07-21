@@ -5,12 +5,11 @@ define('USERNAME',"root");
 define('PASSWORD',"");
 define('DATABASE',"cl_framework");
 
+/* ubah jika perlu */
 //settingan untuk aplikasi dan web server
 define('DEFAULT_CONTROLLER',"index");
 define('DEFAULT_ACTION',"index");
-define("BASEURL", "http://localhost");
-
-/* ubah jika perlu */
+define("BASEURL", "http://".$_SERVER['SERVER_NAME']);
 define("MOD_REWRITE",true);
 define("BASEDIR",$_SERVER["DOCUMENT_ROOT"]);
 define("APP","/application");
