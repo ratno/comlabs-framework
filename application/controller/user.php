@@ -73,6 +73,7 @@ class user extends application {
     $kondisi = "WHERE ".implode(" and ", $kondisi_pencarian);
     $data['judul'] = "Hasil Pencarian User";
     $data['data'] = $this->model_user->ambil_data($kondisi);
+    $data['link_tambah'] = "<a href='".url("user","cari")."'>Kembali</a>";
     $this->loadView("user/index",$data);
   }
   
@@ -83,5 +84,4 @@ class user extends application {
     $data['data'] = $this->model_user->ambil_data();
     $this->loadView("user/index",$data);
   }
-
 }
