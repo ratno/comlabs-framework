@@ -94,6 +94,9 @@ class application {
 
   function escape($val) {
     $val = trim($val);
+    if($val=="" || empty ($val) ||  is_null($val) || $val == 'null'){
+      return 'null';
+    }
     return is_numeric($val) ? "'$val'" : "'" . mysql_escape_string($val) . "'";
   }
 
