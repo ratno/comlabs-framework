@@ -70,11 +70,15 @@ class user extends application {
       }
     }
     
-    $kondisi = "WHERE ".implode(" and ", $kondisi_pencarian);
-    $data['judul'] = "Hasil Pencarian User";
-    $data['data'] = $this->model_user->ambil_data($kondisi);
-    $data['link_tambah'] = "<a href='".url("user","cari")."'>Kembali</a>";
-    $this->loadView("user/index",$data);
+    if(count($kondisi_pencarian) > 0){
+      $kondisi = "WHERE ".implode(" and ", $kondisi_pencarian);
+      $data['judul'] = "Hasil Pencarian User";
+      $data['data'] = $this->model_user->ambil_data($kondisi);
+      $data['link_tambah'] = "<a href='".url("user","cari")."'>Kembali</a>";
+      $this->loadView("user/index",$data);
+    } else {
+      $this->cari();
+    }
   }
   
   function laporan(){
