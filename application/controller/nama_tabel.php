@@ -77,7 +77,7 @@ class nama_tabel extends application {
       $kondisi = "WHERE ".implode(" and ", $kondisi_pencarian);
       $data['judul'] = "Hasil Pencarian nama_tabel";
       $data['data'] = $this->model_nama_tabel->ambil_data($kondisi);
-      $data['link_tambah'] = "<a href='".url("user","cari")."'>Kembali</a>";
+      $data['link_tambah'] = "<a href='".url("nama_tabel","cari")."'>Kembali</a>";
       $this->loadView("nama_tabel/index",$data);
     } else {
       $this->cari();
