@@ -28,7 +28,12 @@ class nama_tabel extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Tambah nama_tabel";
     $data['aksi'] = "simpan_tambah";
-    $data['atasan'] = $this->model_nama_tabel->ambil_data();
+    $data['opsi_db'] = opsi($this->model_nama_tabel->ambil_data(),"nama");
+    $data['opsi_manual'] = array( "pilihan satu (ini yg disimpan di tabel)"=>"Pilihan Satu (ini yg muncul di halaman web)",
+                                  "pilihan dua (ini yg disimpan di tabel)"=>"Pilihan Dua (ini yg muncul di halaman web)",
+                                  "pilihan tiga (ini yg disimpan di tabel)"=>"Pilihan Tiga (ini yg muncul di halaman web)"
+                                 );
+    
     $this->loadView('nama_tabel/form', $data);
   }
 
@@ -62,7 +67,7 @@ class nama_tabel extends application {
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Cari nama_tabel";
     $data['aksi'] = "hasil_pencarian";
-    $this->loadView('nama_tabel/cari', $data);
+    $this->loadView('nama_tabel/form', $data);
   }
   
   function hasil_pencarian(){
