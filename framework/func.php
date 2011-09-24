@@ -189,6 +189,15 @@ function pilihan($name, $opsi, $data) {
   echo $out;
 }
 
+/**
+ * fungsi untuk membuat opsi yg akan digunakan oleh fungsi pilihan
+ * 
+ * @author Ratno Putro Sulistiyono
+ * @param string $data_dari_database data yg diperoleh dari model/query
+ * @param string $nama_pilihan nama kolom yg isinya akan dimunculkan sebagai opsi
+ * @param string $pilihan biasanya id dari pilihan yg jika pilihan di-select maka data ini akan disimpan dalam tabel
+ * @return array data opsi yg akan dilempar ke fungsi pilihan 
+ */
 function opsi($data_dari_database,$nama_pilihan,$pilihan="id"){
   $out = array();
   foreach ($data_dari_database as $item){
