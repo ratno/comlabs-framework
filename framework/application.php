@@ -40,7 +40,7 @@ class application {
     }
   }
 
-  function insert($data) {
+  function insert($data,$execute=true,$process_file=true, $tabel="") {
     
     $kolom = $isi = array();
     foreach ($data as $key => $value) {
@@ -48,7 +48,7 @@ class application {
       $isi[] = $this->escape($value);
     }
     
-    if(isset ($_FILES)){
+    if($process_file && isset ($_FILES)){
       foreach ($_FILES as $file_form=>$file){
         if(is_array($file) && $file['tmp_name'] != "" && !empty ($file['tmp_name'])){
           $nama_file = date('Y.m.d.h.i.s.').$file['name'];
@@ -58,12 +58,18 @@ class application {
         }
       }
     }
+    
+    if(!$tabel)
+      $tabel = $this->tabel;
 
-    $sql = "INSERT INTO " . $this->tabel;
+    $sql = "INSERT INTO " . $tabel;
     $sql .= " (" . implode(",", $kolom) . ")";
     $sql .= " VALUES (" . implode(",", $isi) . ")";
-//    die($sql);
-    return mysql_query($sql);
+    if($execute){
+      return mysql_query($sql);
+    } else {
+      return $sql;
+    }
   }
 
   function update($data, $id) {
@@ -149,5 +155,4 @@ class application {
     require_once(MODEL . $model . '.php');
     $this->$model = new $model;
   }
-
 }
