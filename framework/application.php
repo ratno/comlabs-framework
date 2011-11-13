@@ -25,26 +25,28 @@ class application {
   }
 
   function query($sql, $single=false) {
-//    die($sql);
     $hasil = mysql_query($sql);
-
-    $out = array();
-    $rows = mysql_num_rows($hasil);
-    if ($rows > 1) {
-      while ($data = mysql_fetch_assoc($hasil)) {
-        $out[] = $data;
+    if ($hasil === true) {
+      return mysql_affected_rows();
+    } elseif ($hasil === false) {
+      return false;
+    } else {
+      $out = array();
+      $rows = mysql_num_rows($hasil);
+      if ($rows > 1) {
+        while ($data = mysql_fetch_assoc($hasil)) {
+          $out[] = $data;
+        }
+      } else {
+        $out = mysql_fetch_assoc($hasil);
       }
-    } else {
-      $out = mysql_fetch_assoc($hasil);
+
+      if ($single) {
+        return $out[0];
+      } else {
+        return $out;
+      }
     }
-    
-    if($single){
-      return $out[0];
-    } else {
-      return $out;
-    }
-    
-    return $out;
   }
 
   function insert($data, $execute=true, $process_file=true, $tabel="") {
@@ -161,6 +163,86 @@ class application {
   function loadModel($model) {
     require_once(MODEL . $model . '.php');
     $this->$model = new $model;
+  }
+
+  function impor($controller) {
+    $data['judul'] = "Impor Data XLS";
+    $data['controller'] = $controller;
+    $data['aksi'] = "impor_preview";
+    $this->loadView("general/impor", $data);
+  }
+
+  function impor_preview() {
+    $xls = new Spreadsheet_Excel_Reader($_FILES['file_csv']['tmp_name']);
+
+    $sheet_num = $_POST['sheet_num'] - 1;
+    $header_row = $_POST['header_row'];
+    $first_row = $_POST['first_row'];
+    $last_row = ($_POST['last_row']) ? ($_POST['last_row']) : count($xls->rowInfo[$sheet_num]);
+    $tabel = "user";
+
+    $cells = $xls->sheets[$sheet_num]['cells'];
+
+    if (isset($_POST['columns']) && !empty($_POST['columns']) && $_POST['columns'] != '') {
+      $columns = explode(",", $_POST['columns']);
+    } else {
+      $columns = $cells[$header_row];
+    }
+
+    $col_num = count($cells[$header_row]);
+
+    $inserts = array();
+
+    // judul
+    $tbl_header = "";
+    $tbl_header .= "<tr>";
+    foreach ($cells[$header_row] as $col) {
+      $tbl_header .= "<td>" . $col . "</td>";
+    }
+    $tbl_header .= "</tr>";
+
+    // content
+    $tbl_content = "";
+    for ($i = $first_row; $i <= $last_row; $i++) {
+      $tbl_content .= "<tr>";
+      $row = array();
+      for ($c = 1; $c <= $col_num; $c++) {
+        $tbl_content .= "<td>" . $cells[$i][$c] . "</td>";
+
+        $row[$columns[$c]] = $cells[$i][$c];
+      }
+
+      $inserts[] = $this->insert($row, false, false, $tabel);
+      $tbl_content .= "</tr>";
+    }
+
+    $tbl = "<table border='1' cellpadding='5' cellspacing='0'>";
+    $tbl .= $tbl_header;
+    $tbl .= $tbl_content;
+    $tbl .= "</table>";
+
+    $data['judul'] = "Preview Data Hasil Impor";
+    $data['controller'] = "user";
+    $data['aksi'] = "impor_status";
+    $data['data'] = implode("||", $inserts);
+    $data['tabel'] = $tbl;
+    $this->loadView("general/impor_preview", $data);
+  }
+
+  function impor_status() {
+    $insert = explode('||', $_POST['insert']);
+    $data['judul'] = "Status Simpan Impor Data";
+    $data['hasil'] = "";
+    foreach ($insert as $sql) {
+      $hasil = $this->query($sql);
+      if ($hasil) {
+        $status = "sukses";
+      } else {
+        $status = "gagal";
+      }
+      $data['hasil'] .= "[$status] $sql<br />\n";
+    }
+    $this->loadView('general/impor_status', $data);
   }
 
 }
