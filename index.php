@@ -8,6 +8,7 @@ session_start();
 require_once("config.php");
 require_once("framework/func.php");
 require_once("framework/application.php");
+require_once("framework/excel_reader2.php");
 
 $url = $_SERVER['REQUEST_URI'];
 $url = 	str_replace(array(SUBDIR.INDEX,"/index.php"),"",$url);
