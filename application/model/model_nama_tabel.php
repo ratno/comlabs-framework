@@ -18,6 +18,6 @@ class model_nama_tabel extends application {
 
   function ambil_berdasar_id($id) {
     $sql = "SELECT * FROM " . $this->tabel . " WHERE " . $this->pk . "='$id'";
-    return $this->query($sql, true);
+    return $this->query($sql);
   }
 }

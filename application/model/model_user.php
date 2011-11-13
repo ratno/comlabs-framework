@@ -18,12 +18,12 @@ class model_user extends application {
 
   function ambil_berdasar_id($id) {
     $sql = "SELECT * FROM " . $this->tabel . " WHERE " . $this->pk . "='$id'";
-    return $this->query($sql, true);
+    return $this->query($sql);
   }
 
   function ambil_berdasar_username($username) {
     $sql = "SELECT * FROM " . $this->tabel . " WHERE username='$username'";
-    return $this->query($sql, true);
+    return $this->query($sql);
   }
 
 }
