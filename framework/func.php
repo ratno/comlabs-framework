@@ -215,3 +215,7 @@ function gambar($file,$path=IMAGES_URL,$width="",$height=""){
     return "";
   }
 }
+
+function hapus_file($file,$path = FILES){
+  unlink($file,$path);
+}
