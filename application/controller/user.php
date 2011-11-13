@@ -88,4 +88,8 @@ class user extends application {
     $data['data'] = $this->model_user->ambil_data();
     $this->loadView("user/index",$data);
   }
+  
+  function impor() {
+    parent::impor($this->model_user->tabel);
+  }
 }

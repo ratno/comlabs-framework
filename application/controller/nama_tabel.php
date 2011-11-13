@@ -96,4 +96,8 @@ class nama_tabel extends application {
     $data['data'] = $this->model_nama_tabel->ambil_data();
     $this->loadView("nama_tabel/index",$data);
   }
+  
+  function impor() {
+    parent::impor($this->model_nama_tabel->tabel);
+  }
 }
