@@ -7,6 +7,7 @@ $arr_menu = array(
         "index/index" => "Home",
         "index/control_panel" => "Control Panel",
         "user/index" => "Daftar User",
+        "user/impor" => "Impor User",
         "user/cari" => "Pencarian User",
         "user/laporan" => "Laporan User",
         "index/logout" => "Logout"),
