@@ -84,40 +84,44 @@ function angka($angka, $desimal=2) {
 }
 
 function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
-  $out = '<table border="1" cellspacing="0" cellpadding="5">';
-  // bikin baris header
-  $out .= "<tr>";
-  foreach ($kolom as $header => $field) {
-    $out .= "<th>" . $header . "</th>";
-  }
-  if(count($aksi)>0){
-    $out .= "<th>" . $aksi_header . "</th>";
-  }
-  $out .= "</tr>";
-
-  // bikin isi tabel
-  foreach ($data as $item) {
+  if(is_array($data) && count($data)>0){
+    $out = '<table border="1" cellspacing="0" cellpadding="5">';
+    // bikin baris header
     $out .= "<tr>";
-    foreach ($kolom as $field) {
-      $prop = "";
-      if (preg_match('/^(angka)/', $field)) {
-        $prop = 'style="text-align: right;"';
-      }
-      $out .= "<td $prop>";
-      $out .= eval('return ' . $field . ';');
-      $out .= "</td>";
+    foreach ($kolom as $header => $field) {
+      $out .= "<th>" . $header . "</th>";
     }
     if(count($aksi)>0){
-      $out .= "<td>";
-      foreach ($aksi as $method => $name) {
-        $out .= "[" . buat_link($name,$method, $controller, $item['id']) . "]";  
-      }
-      $out .= "</td>";
+      $out .= "<th>" . $aksi_header . "</th>";
     }
     $out .= "</tr>";
-  }
 
-  $out .= "</table>";
+    // bikin isi tabel
+    foreach ($data as $item) {
+      $out .= "<tr>";
+      foreach ($kolom as $field) {
+        $prop = "";
+        if (preg_match('/^(angka)/', $field)) {
+          $prop = 'style="text-align: right;"';
+        }
+        $out .= "<td $prop>";
+        $out .= eval('return ' . $field . ';');
+        $out .= "</td>";
+      }
+      if(count($aksi)>0){
+        $out .= "<td>";
+        foreach ($aksi as $method => $name) {
+          $out .= "[" . buat_link($name,$method, $controller, $item['id']) . "]";  
+        }
+        $out .= "</td>";
+      }
+      $out .= "</tr>";
+    }
+
+    $out .= "</table>";
+  } else {
+    $out = "Data Tidak Tersedia";
+  }
 
   echo $out;
 }
