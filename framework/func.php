@@ -97,26 +97,36 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
     $out .= "</tr>";
 
     // bikin isi tabel
-    foreach ($data as $item) {
-      $out .= "<tr>";
-      foreach ($kolom as $field) {
-        $prop = "";
-        if (preg_match('/^(angka)/', $field)) {
-          $prop = 'style="text-align: right;"';
-        }
-        $out .= "<td $prop>";
-        $out .= eval('return ' . $field . ';');
-        $out .= "</td>";
+    // jika $data['id'] ada, maka datanya cuman satu
+    if (is_array($data)) {
+      if (key_exists("id", $data)) {
+        $data_process[0] = $data;
+      } else {
+        $data_process = $data;
       }
-      if (count($aksi) > 0) {
-        $out .= "<td>";
-        foreach ($aksi as $method => $name) {
-          $out .= "[" . buat_link($name, $method, $controller, $item['id']) . "]";
+
+      foreach ($data_process as $item) {
+        $out .= "<tr>";
+        foreach ($kolom as $field) {
+          $prop = "";
+          if (preg_match('/^(angka)/', $field)) {
+            $prop = 'style="text-align: right;"';
+          }
+          $out .= "<td $prop>";
+          $out .= eval('return ' . $field . ';');
+          $out .= "</td>";
         }
-        $out .= "</td>";
+        if (count($aksi) > 0) {
+          $out .= "<td>";
+          foreach ($aksi as $method => $name) {
+            $out .= "[" . buat_link($name, $method, $controller, $item['id']) . "]";
+          }
+          $out .= "</td>";
+        }
+        $out .= "</tr>";
       }
-      $out .= "</tr>";
     }
+
 
     $out .= "</table>";
   } else {
