@@ -1,5 +1,7 @@
 <h1><?php echo $judul ?></h1>
 <form <?php form_properties($controller,$aksi,"",true) ?>>
+  <?php input('controller',$controller, 'hidden'); ?>
+  <?php input('tabel',$tabel, 'hidden'); ?>
 	<table border="0">
     
 		<tr>

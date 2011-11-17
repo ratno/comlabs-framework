@@ -90,6 +90,6 @@ class user extends application {
   }
   
   function impor() {
-    parent::impor($this->model_user->tabel);
+    parent::impor(__CLASS__,$this->model_user->tabel);
   }
 }

@@ -98,6 +98,6 @@ class nama_tabel extends application {
   }
   
   function impor() {
-    parent::impor($this->model_nama_tabel->tabel);
+    parent::impor(__CLASS__,$this->model_nama_tabel->tabel);
   }
 }

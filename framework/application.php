@@ -165,9 +165,10 @@ class application {
     $this->$model = new $model;
   }
 
-  function impor($controller) {
+  function impor($controller,$tabel) {
     $data['judul'] = "Impor Data XLS";
     $data['controller'] = $controller;
+    $data['tabel'] = $tabel;
     $data['aksi'] = "impor_preview";
     $this->loadView("general/impor", $data);
   }
@@ -179,7 +180,9 @@ class application {
     $header_row = $_POST['header_row'];
     $first_row = $_POST['first_row'];
     $last_row = ($_POST['last_row']) ? ($_POST['last_row']) : count($xls->rowInfo[$sheet_num]);
-    $tabel = "user";
+    
+    $controller = $_POST['controller'];
+    $tabel = $_POST['tabel'];
 
     $cells = $xls->sheets[$sheet_num]['cells'];
 
@@ -222,7 +225,7 @@ class application {
     $tbl .= "</table>";
 
     $data['judul'] = "Preview Data Hasil Impor";
-    $data['controller'] = "user";
+    $data['controller'] = $controller;
     $data['aksi'] = "impor_status";
     $data['data'] = implode("||", $inserts);
     $data['tabel'] = $tbl;
@@ -234,6 +237,7 @@ class application {
     $data['judul'] = "Status Simpan Impor Data";
     $data['hasil'] = "";
     foreach ($insert as $sql) {
+      $sql = str_replace("\\'", "'", $sql);
       $hasil = $this->query($sql);
       if ($hasil) {
         $status = "sukses";
