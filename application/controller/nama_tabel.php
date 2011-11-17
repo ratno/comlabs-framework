@@ -28,7 +28,7 @@ class nama_tabel extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Tambah nama_tabel";
     $data['aksi'] = "simpan_tambah";
-    $data['opsi_db'] = opsi($this->model_nama_tabel->ambil_data(),"nama");
+//    $data['opsi_db'] = opsi($this->model_nama_tabel->ambil_data(),"nama");
     $data['opsi_manual'] = array( "pilihan satu (ini yg disimpan di tabel)"=>"Pilihan Satu (ini yg muncul di halaman web)",
                                   "pilihan dua (ini yg disimpan di tabel)"=>"Pilihan Dua (ini yg muncul di halaman web)",
                                   "pilihan tiga (ini yg disimpan di tabel)"=>"Pilihan Tiga (ini yg muncul di halaman web)"
