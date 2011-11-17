@@ -98,6 +98,7 @@ class nama_tabel extends application {
   }
   
   function impor() {
+    cek_keamanan(array("admin","user"));
     parent::impor(__CLASS__,$this->model_nama_tabel->tabel);
   }
 }

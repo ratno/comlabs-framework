@@ -90,6 +90,7 @@ class user extends application {
   }
   
   function impor() {
+    cek_keamanan(array("admin","user"));
     parent::impor(__CLASS__,$this->model_user->tabel);
   }
 }

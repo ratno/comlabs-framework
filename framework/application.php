@@ -174,6 +174,10 @@ class application {
   }
 
   function impor_preview() {
+    if(!key_exists('controller', $_POST)){
+      header("location: " . url('index'));
+      die();
+    }
     $xls = new Spreadsheet_Excel_Reader($_FILES['file_csv']['tmp_name']);
 
     $sheet_num = $_POST['sheet_num'] - 1;
@@ -233,6 +237,10 @@ class application {
   }
 
   function impor_status() {
+    if(!key_exists('insert', $_POST)){
+      header("location: " . url('index'));
+      die();
+    }
     $insert = explode('||', $_POST['insert']);
     $data['judul'] = "Status Simpan Impor Data";
     $data['hasil'] = "";
