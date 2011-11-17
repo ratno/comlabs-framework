@@ -55,7 +55,7 @@ function cek_keamanan($roles) {
       } else {
         $out = "<script>";
         $out .= "alert('Maaf anda tidak memiliki privilege untuk mengakses halaman ini, anda akan dikembalikan ke halaman control panel.');";
-        $out .= "location.href='".url("index", "control_panel")."';";
+        $out .= "location.href='" . url("index", "control_panel") . "';";
         $out .= "</script>";
         die($out);
 //        header("Location: " . url("index", "control_panel")); // ga boleh akses, lemparkan ke halaman control panel
@@ -66,9 +66,9 @@ function cek_keamanan($roles) {
   }
 }
 
-function cek_role($role){
+function cek_role($role) {
   $user = $_SESSION['data_user'];
-  if($role == $user['role']){
+  if ($role == $user['role']) {
     return TRUE;
   } else {
     return FALSE;
@@ -84,14 +84,14 @@ function angka($angka, $desimal=2) {
 }
 
 function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
-  if(is_array($data) && count($data)>0){
+  if (is_array($data) && count($data) > 0) {
     $out = '<table border="1" cellspacing="0" cellpadding="5">';
     // bikin baris header
     $out .= "<tr>";
     foreach ($kolom as $header => $field) {
       $out .= "<th>" . $header . "</th>";
     }
-    if(count($aksi)>0){
+    if (count($aksi) > 0) {
       $out .= "<th>" . $aksi_header . "</th>";
     }
     $out .= "</tr>";
@@ -108,10 +108,10 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
         $out .= eval('return ' . $field . ';');
         $out .= "</td>";
       }
-      if(count($aksi)>0){
+      if (count($aksi) > 0) {
         $out .= "<td>";
         foreach ($aksi as $method => $name) {
-          $out .= "[" . buat_link($name,$method, $controller, $item['id']) . "]";  
+          $out .= "[" . buat_link($name, $method, $controller, $item['id']) . "]";
         }
         $out .= "</td>";
       }
@@ -126,23 +126,23 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
   echo $out;
 }
 
-function link_href($link,$name="",$prefix="",$class="",$id=""){
-  if($link){
-    $name = ($name != "")?$name:$link;
-    $class = ($class != "")?' class="'.$class.'"':"";
-    $id = ($id != "")?' id="'.$id.'"':"";
-    return '<a'.$id.$class.' href="'.$prefix.$link.'">'.$name.'</a>';
+function link_href($link, $name="", $prefix="", $class="", $id="") {
+  if ($link) {
+    $name = ($name != "") ? $name : $link;
+    $class = ($class != "") ? ' class="' . $class . '"' : "";
+    $id = ($id != "") ? ' id="' . $id . '"' : "";
+    return '<a' . $id . $class . ' href="' . $prefix . $link . '">' . $name . '</a>';
   } else {
     return "";
   }
 }
 
-function buat_link($nama,$action, $controller, $id) {
+function buat_link($nama, $action, $controller, $id) {
   return link_href(url($controller, $action, array("id" => $id)), ucwords($nama));
 }
 
-function link_tambah($nama,$teks="Tambah Data"){
-  return '<a href="'. url($nama,"tambah").'">'.$teks.'</a>';
+function link_tambah($nama, $teks="Tambah Data") {
+  return '<a href="' . url($nama, "tambah") . '">' . $teks . '</a>';
 }
 
 function form_properties($controller, $aksi, $id, $file_upload=false) {
@@ -167,14 +167,14 @@ function input($name, $data="", $type="text") {
   echo '<input type="' . $type . '" name="' . $name . '"' . $value . ' />';
 }
 
-function submit($value="kirim",$type="submit",$name=""){
-  if($name != ""){
-    $name_property = ' name="'.$name.'"';
+function submit($value="kirim", $type="submit", $name="") {
+  if ($name != "") {
+    $name_property = ' name="' . $name . '"';
   } else {
     $name_property = "";
   }
-  
-  echo '<input type="'.$type.'" value="'.$value.'"'.$name.' />';
+
+  echo '<input type="' . $type . '" value="' . $value . '"' . $name . ' />';
 }
 
 function pilihan($name, $opsi, $data) {
@@ -184,11 +184,14 @@ function pilihan($name, $opsi, $data) {
     $terpilih = $data;
   }
 
-  $out = '<select name="'.$name.'">';
+  $out = '<select name="' . $name . '">';
   $out .= '<option value="null">- Pilih -</option>';
-  foreach ($opsi as $pilihan => $nama_pilihan) {
-    $out .= '<option value="' . $pilihan . '"' . selected($terpilih, $pilihan) . '>' . ucwords($nama_pilihan) . '</option>';
+  if (is_array($opsi) && count($opsi) > 0) {
+    foreach ($opsi as $pilihan => $nama_pilihan) {
+      $out .= '<option value="' . $pilihan . '"' . selected($terpilih, $pilihan) . '>' . ucwords($nama_pilihan) . '</option>';
+    }
   }
+
   $out .= "</select>";
   echo $out;
 }
@@ -202,24 +205,26 @@ function pilihan($name, $opsi, $data) {
  * @param string $pilihan biasanya id dari pilihan yg jika pilihan di-select maka data ini akan disimpan dalam tabel
  * @return array data opsi yg akan dilempar ke fungsi pilihan 
  */
-function opsi($data_dari_database,$nama_pilihan,$pilihan="id"){
+function opsi($data_dari_database, $nama_pilihan, $pilihan="id") {
   $out = array();
-  foreach ($data_dari_database as $item){
-    $out[$item[$pilihan]] = $item[$nama_pilihan];
+  if (is_array($data_dari_database) && count($data_dari_database) > 0) {
+    foreach ($data_dari_database as $item) {
+      $out[$item[$pilihan]] = $item[$nama_pilihan];
+    }
   }
   return $out;
 }
 
-function gambar($file,$path=IMAGES_URL,$width="",$height=""){
-  if($file != ""){
-    $width = ($width != "")?' width="'.$width.'"':"";
-    $height = ($height != "")?' height="'.$height.'"':"";
-    return '<img'.$width.$height.' src="'.$path.$file.'" />';
+function gambar($file, $path=IMAGES_URL, $width="", $height="") {
+  if ($file != "") {
+    $width = ($width != "") ? ' width="' . $width . '"' : "";
+    $height = ($height != "") ? ' height="' . $height . '"' : "";
+    return '<img' . $width . $height . ' src="' . $path . $file . '" />';
   } else {
     return "";
   }
 }
 
-function hapus_file($file,$path = FILES){
-  unlink($file,$path);
+function hapus_file($file, $path = FILES) {
+  unlink($file, $path);
 }
