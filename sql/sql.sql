@@ -8,7 +8,8 @@ CREATE TABLE user (
 	hp varchar(30),
 	username varchar(20) unique,
 	password varchar(128),
-	role enum("admin","user")
+	role enum("admin","user"),
+  tgl_diangkat date
 );
 
 INSERT INTO user (nama, email, hp, username, password, role) VALUES ("Ratno Putro Sulistiyono [Admin]","ratno@comlabs.itb.ac.id","0817201101","ratno","ratno","admin");
