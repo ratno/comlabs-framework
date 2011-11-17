@@ -27,6 +27,10 @@
         <?php pilihan("role", array("admin"=>"Admin","user"=>"User"), $data) ?>
 			</td>	
 		</tr>
+    <tr>
+			<td>Tanggal Diangkat</td>
+			<td><?php input("tgl_diangkat", $data, "tgl") ?></td>
+		</tr>
 		<tr>
       <td colspan="2"><?php submit(); ?></td>
 		</tr>

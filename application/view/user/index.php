@@ -5,7 +5,8 @@ tabel("user",$data,array(
     "Email"=>'$item["email"]',
     "Handphone"=>'angka($item["hp"],0)',
     "Username"=>'$item["username"]',
-    "Role"=>'$item["role"]'
+    "Role"=>'$item["role"]',
+    "Tanggal Diangkat"=>'tanggal($item["tgl_diangkat"])'
 ),$aksi);
 ?>
 <?php echo $link_tambah ?>
