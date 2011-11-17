@@ -163,18 +163,37 @@ function form_properties($controller, $aksi, $id, $file_upload=false) {
   echo $out;
 }
 
-function input($name, $data="", $type="text") {
-  if (is_array($data) && isset($data[$name])) {
-    $value = ' value="' . $data[$name] . '"';
+function input($name, $data="", $type="text", $file_location=FILES_URL) {
+  $blnFileAda = false;
+  $file = "";
+  if (is_array($data)) {
+    if (key_exists($name, $data) && isset($data[$name])) {
+      if($type == 'file'){
+        $blnFileAda = true;
+        $file = $data[$name];
+      }
+      $value = ' value="' . $data[$name] . '"';
+    } else {
+      $value = "";
+    }
   } else {
     if ($data) {
+      if($type == 'file'){
+        $blnFileAda = true;
+        $file = $data;
+      }
       $value = ' value="' . $data . '"';
     } else {
       $value = "";
     }
   }
 
-  echo '<input type="' . $type . '" name="' . $name . '"' . $value . ' />';
+  $out = "";
+  if($type== 'file' && $blnFileAda && $file){
+    $out .= link_href($file_location.$file,$file) ."<br />";
+  }
+  $out .= '<input type="' . $type . '" name="' . $name . '"' . $value . ' />';
+  echo $out;
 }
 
 function submit($value="kirim", $type="submit", $name="") {
