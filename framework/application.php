@@ -53,6 +53,11 @@ class application {
 
     $kolom = $isi = array();
     foreach ($data as $key => $value) {
+      $arrkey = explode("___", $key);
+      if ($arrkey[0] == 'tgl') {
+        $key = $arrkey[1];
+        $value = tanggal($value);
+      }
       $kolom[] = $key;
       $isi[] = $this->escape($value);
     }
@@ -84,6 +89,11 @@ class application {
   function update($data, $id) {
     $update = array();
     foreach ($data as $key => $value) {
+      $arrkey = explode("___", $key);
+      if ($arrkey[0] == 'tgl') {
+        $key = $arrkey[1];
+        $value = tanggal($value);
+      }
       $update[] = $key . "=" . $this->escape($value);
     }
 
@@ -165,7 +175,7 @@ class application {
     $this->$model = new $model;
   }
 
-  function impor($controller,$tabel) {
+  function impor($controller, $tabel) {
     $data['judul'] = "Impor Data XLS";
     $data['controller'] = $controller;
     $data['tabel'] = $tabel;
@@ -174,7 +184,7 @@ class application {
   }
 
   function impor_preview() {
-    if(!key_exists('controller', $_POST)){
+    if (!key_exists('controller', $_POST)) {
       header("location: " . url('index'));
       die();
     }
@@ -184,7 +194,7 @@ class application {
     $header_row = $_POST['header_row'];
     $first_row = $_POST['first_row'];
     $last_row = ($_POST['last_row']) ? ($_POST['last_row']) : count($xls->rowInfo[$sheet_num]);
-    
+
     $controller = $_POST['controller'];
     $tabel = $_POST['tabel'];
 
@@ -237,7 +247,7 @@ class application {
   }
 
   function impor_status() {
-    if(!key_exists('insert', $_POST)){
+    if (!key_exists('insert', $_POST)) {
       header("location: " . url('index'));
       die();
     }

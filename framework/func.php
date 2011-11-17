@@ -171,6 +171,8 @@ function input($name, $data="", $type="text", $file_location=FILES_URL) {
       if($type == 'file'){
         $blnFileAda = true;
         $file = $data[$name];
+      } elseif($type == 'tanggal' || $type == 'tgl'){
+        $data[$name] = tanggal($data[$name]);
       }
       $value = ' value="' . $data[$name] . '"';
     } else {
@@ -181,6 +183,8 @@ function input($name, $data="", $type="text", $file_location=FILES_URL) {
       if($type == 'file'){
         $blnFileAda = true;
         $file = $data;
+      } elseif($type == 'tanggal' || $type == 'tgl'){
+        $data = tanggal($data);
       }
       $value = ' value="' . $data . '"';
     } else {
@@ -191,6 +195,8 @@ function input($name, $data="", $type="text", $file_location=FILES_URL) {
   $out = "";
   if($type== 'file' && $blnFileAda && $file){
     $out .= link_href($file_location.$file,$file) ."<br />";
+  } elseif($type=="tanggal" || $type=="tgl"){
+    $name = "tgl___" . $name;
   }
   $out .= '<input type="' . $type . '" name="' . $name . '"' . $value . ' />';
   echo $out;
@@ -256,4 +262,12 @@ function gambar($file, $path=IMAGES_URL, $width="", $height="") {
 
 function hapus_file($file, $path = FILES) {
   unlink($file, $path);
+}
+
+function tanggal($tgl,$delimiter = "-"){
+  $tgl = str_replace(array("/","."), "-", $tgl);
+  $array_tgl = explode("-", $tgl);
+  $swap_tgl = array($array_tgl[2],$array_tgl[1],$array_tgl[0]);
+  $out = implode($delimiter, $swap_tgl);
+  return $out;
 }
