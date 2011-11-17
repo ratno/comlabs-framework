@@ -120,7 +120,7 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
 
     $out .= "</table>";
   } else {
-    $out = "Data Tidak Tersedia";
+    $out = "<h3>Data Tidak Tersedia</h3>";
   }
 
   echo $out;
