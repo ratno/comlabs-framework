@@ -196,7 +196,7 @@ function input($name, $data="", $type="text", $file_location=FILES_URL) {
   if($type== 'file' && $blnFileAda && $file){
     $out .= link_href($file_location.$file,$file) ."<br />";
   } elseif($type=="tanggal" || $type=="tgl"){
-    $name = "tgl___" . $name;
+    $name = "ztglz___" . $name;
   }
   $out .= '<input type="' . $type . '" name="' . $name . '"' . $value . ' />';
   echo $out;

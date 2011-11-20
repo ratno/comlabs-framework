@@ -54,7 +54,7 @@ class application {
     $kolom = $isi = array();
     foreach ($data as $key => $value) {
       $arrkey = explode("___", $key);
-      if ($arrkey[0] == 'tgl') {
+      if ($arrkey[0] == 'ztglz') {
         $key = $arrkey[1];
         $value = tanggal($value);
       }
@@ -90,7 +90,7 @@ class application {
     $update = array();
     foreach ($data as $key => $value) {
       $arrkey = explode("___", $key);
-      if ($arrkey[0] == 'tgl') {
+      if ($arrkey[0] == 'ztglz') {
         $key = $arrkey[1];
         $value = tanggal($value);
       }
