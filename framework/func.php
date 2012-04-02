@@ -198,7 +198,7 @@ function input($name, $data="", $type="text", $file_location=FILES_URL) {
   } elseif($type=="tanggal" || $type=="tgl"){
     $name = "ztglz___" . $name;
   }
-  $out .= '<input type="' . $type . '" name="' . $name . '"' . $value . ' />';
+  $out .= '<input type="' . $type . '" id="inputbox_' . $name . '" name="' . $name . '"' . $value . ' />';
   echo $out;
 }
 
@@ -219,7 +219,7 @@ function pilihan($name, $opsi, $data) {
     $terpilih = $data;
   }
 
-  $out = '<select name="' . $name . '">';
+  $out = '<select id="selectbox_' . $name . '"  name="' . $name . '">';
   $out .= '<option value="null">- Pilih -</option>';
   if (is_array($opsi) && count($opsi) > 0) {
     foreach ($opsi as $pilihan => $nama_pilihan) {
