@@ -5,7 +5,7 @@ function opsi_berantai(id_selectbox_asal,id_selectbox_tujuan,url_sumber_data,get
 			if($(this).attr('selected') == "selected"){
 				$.ajax({
 					type: 'GET',
-					url: url_sumber_data+'?'+get_param+'='+$(this).attr('value'),
+					url: url_sumber_data+get_param+':'+$(this).attr('value'),
 					success: function(data) {
 						$('#'+id_selectbox_tujuan).html(data);
 					},
