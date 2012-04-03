@@ -23,6 +23,7 @@ define("FILES",BASEDIR.SUBDIR."/files/");
 define("WEB_URL",BASEURL.SUBDIR."/");
 define('FILES_URL', WEB_URL."files/");
 define('CSS_URL', WEB_URL."css/");
+define('JS_URL', WEB_URL."js/");
 define('IMAGES_URL', WEB_URL."images/");
 
 if(MOD_REWRITE){
