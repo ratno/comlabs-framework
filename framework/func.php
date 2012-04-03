@@ -213,20 +213,14 @@ function submit($value="kirim", $type="submit", $name="") {
 }
 
 function pilihan($name, $opsi, $data) {
-  if (is_array($data) && isset($data[$name])) {
-    $terpilih = $data[$name];
-  } else {
-    $terpilih = $data;
-  }
+//  if (is_array($data) && isset($data[$name])) {
+//    $terpilih = $data[$name];
+//  } else {
+//    $terpilih = $data;
+//  }
 
   $out = '<select id="selectbox_' . $name . '"  name="' . $name . '">';
-  $out .= '<option value="null">- Pilih -</option>';
-  if (is_array($opsi) && count($opsi) > 0) {
-    foreach ($opsi as $pilihan => $nama_pilihan) {
-      $out .= '<option value="' . $pilihan . '"' . selected($terpilih, $pilihan) . '>' . ucwords($nama_pilihan) . '</option>';
-    }
-  }
-
+  $out .= buat_opsi($opsi,$data);
   $out .= "</select>";
   echo $out;
 }
@@ -279,6 +273,17 @@ function opsi($data_dari_database, $nama_pilihan="nama", $pilihan="id") {
       }
     }
   }
+  return $out;
+}
+
+function buat_opsi($opsi, $data_terpilih=""){
+  $out = '<option value="null">- Pilih -</option>';
+  if (is_array($opsi) && count($opsi) > 0) {
+    foreach ($opsi as $pilihan => $nama_pilihan) {
+      $out .= '<option value="' . $pilihan . '"' . selected($data_terpilih, $pilihan) . '>' . ucwords($nama_pilihan) . '</option>';
+    }
+  }
+  
   return $out;
 }
 
