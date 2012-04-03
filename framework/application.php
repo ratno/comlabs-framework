@@ -181,9 +181,13 @@ class application {
     
     $script = "";
     if(is_array($this->script) && count($this->script)>0){
+      $script .= "<script type='text/javascript'>\n";
+      $script .= '$(function(){'."\n";
       foreach ($this->script as $item_script){
-        $script .= "<script type='text/javascript'>$script</script>\n";
+        $script .= "\t".$item_script."\n";
       }
+      $script .= '});'."\n";
+      $script .= "</script>\n";
     }
 
     ob_start();
