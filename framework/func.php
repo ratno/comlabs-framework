@@ -240,7 +240,7 @@ function pilihan($name, $opsi, $data) {
  * @param string $pilihan biasanya id dari pilihan yg jika pilihan di-select maka data ini akan disimpan dalam tabel
  * @return array data opsi yg akan dilempar ke fungsi pilihan 
  */
-function opsi($data_dari_database, $nama_pilihan, $pilihan="id") {
+function opsi($data_dari_database, $nama_pilihan="nama", $pilihan="id") {
   $out = array();
   if (is_array($data_dari_database) && count($data_dari_database) > 0) {
     foreach ($data_dari_database as $item) {
