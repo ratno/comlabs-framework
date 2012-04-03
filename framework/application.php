@@ -162,7 +162,8 @@ class application {
   
   /*
    * usage:
-   *  -> $this->rantai("selectbox1", "selectbox2", url('class','method'));
+   *  -> $this->rantai("selectbox1", "selectbox2", url('user','ambil_opsi'));
+   * pada class user, function ambil_opsi, jalankan buat_opsi($data_array);
    */
   function rantai($selectbox_from,$selectbox_to,$url_data){
     $this->js(array('jquery.min.js','opsi_berantai.js'));
