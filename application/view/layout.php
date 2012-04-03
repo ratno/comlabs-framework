@@ -52,5 +52,7 @@ if ($user = $_SESSION['data_user']) {
     <?php endforeach; ?>
     <div class="clear"></div>
     <?php echo $main_content ?>
+    <?php echo $js ?>
+    <?php echo $script ?>
   </body>
 </html>
