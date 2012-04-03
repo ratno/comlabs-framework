@@ -83,7 +83,7 @@ function angka($angka, $desimal=2) {
   }
 }
 
-function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
+function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $blnReturn = false) {
   if (is_array($data) && count($data) > 0) {
     $out = '<table border="1" cellspacing="0" cellpadding="5">';
     // bikin baris header
@@ -133,7 +133,11 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi") {
     $out = "<h3>Data Tidak Tersedia</h3>";
   }
 
-  echo $out;
+  if($blnReturn){
+    return $out;
+  } else {
+    echo $out;
+  }
 }
 
 function link_href($link, $name="", $prefix="", $class="", $id="") {
@@ -155,15 +159,19 @@ function link_tambah($nama, $teks="Tambah Data") {
   return '<a href="' . url($nama, "tambah") . '">' . $teks . '</a>';
 }
 
-function form_properties($controller, $aksi, $id, $file_upload=false) {
+function form_properties($controller, $aksi, $id, $file_upload=false, $blnReturn = false) {
   $out = 'action="' . url($controller, $aksi, array("id" => $id)) . '" method="POST"';
   if ($file_upload) {
     $out .= ' enctype="multipart/form-data"';
   }
-  echo $out;
+  if($blnReturn){
+    return $out;
+  } else {
+    echo $out;
+  }
 }
 
-function input($name, $data="", $type="text", $file_location=FILES_URL) {
+function input($name, $data="", $type="text", $file_location=FILES_URL,$blnReturn = false) {
   $blnFileAda = false;
   $file = "";
   if (is_array($data)) {
@@ -199,20 +207,29 @@ function input($name, $data="", $type="text", $file_location=FILES_URL) {
     $name = "ztglz___" . $name;
   }
   $out .= '<input type="' . $type . '" id="inputbox_' . $name . '" name="' . $name . '"' . $value . ' />';
-  echo $out;
+  if($blnReturn){
+    return $out;
+  } else {
+    echo $out;
+  }
 }
 
-function submit($value="kirim", $type="submit", $name="") {
+function submit($value="kirim", $type="submit", $name="",$blnReturn = false) {
   if ($name != "") {
     $name_property = ' name="' . $name . '"';
   } else {
     $name_property = "";
   }
 
-  echo '<input type="' . $type . '" value="' . $value . '"' . $name . ' />';
+  $out = '<input type="' . $type . '" value="' . $value . '"' . $name . ' />';
+  if($blnReturn){
+    return $out;
+  } else {
+    echo $out;
+  }
 }
 
-function pilihan($name, $opsi, $data) {
+function pilihan($name, $opsi, $data,$blnReturn = false) {
 //  if (is_array($data) && isset($data[$name])) {
 //    $terpilih = $data[$name];
 //  } else {
@@ -220,9 +237,13 @@ function pilihan($name, $opsi, $data) {
 //  }
 
   $out = '<select id="selectbox_' . $name . '"  name="' . $name . '">';
-  $out .= buat_opsi($opsi,$data);
+  $out .= buat_opsi($opsi,$data, true);
   $out .= "</select>";
-  echo $out;
+  if($blnReturn){
+    return $out;
+  } else {
+    echo $out;
+  }
 }
 
 /**
@@ -276,7 +297,7 @@ function opsi($data_dari_database, $nama_pilihan="nama", $pilihan="id") {
   return $out;
 }
 
-function buat_opsi($opsi, $data_terpilih=""){
+function buat_opsi($opsi, $data_terpilih="", $blnReturn=false){
   $out = '<option value="null">- Pilih -</option>';
   if (is_array($opsi) && count($opsi) > 0) {
     foreach ($opsi as $pilihan => $nama_pilihan) {
@@ -284,7 +305,11 @@ function buat_opsi($opsi, $data_terpilih=""){
     }
   }
   
-  return $out;
+  if($blnReturn){
+    return $out;
+  } else {
+    echo $out;
+  }
 }
 
 function gambar($file, $path=IMAGES_URL, $width="", $height="") {
