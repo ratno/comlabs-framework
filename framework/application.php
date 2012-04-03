@@ -149,15 +149,20 @@ class application {
   function js($js_file) {
     if(is_array($js_file)){
       foreach ($js_file as $item_js_file) {
-        $this->js[] = $item_js_file;
+        $this->js[$item_js_file] = $item_js_file;
       }
     } else {
-      $this->js[] = $js_file;
+      $this->js[$js_file] = $js_file;
     }
   }
   
   function script($script) {
     $this->script[] = $script;
+  }
+  
+  function rantai($selectbox_from,$selectbox_to,$url_data){
+    $this->js(array('jquery.min.js','opsi_berantai.js'));
+    $this->script("opsi_berantai('selectbox_$selectbox_from','selectbox_$selectbox_to','$url_data');");
   }
 
   function loadView($view="", $vars="", $echo=true, $return="all") {
