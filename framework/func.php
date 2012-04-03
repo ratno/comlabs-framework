@@ -230,12 +230,6 @@ function submit($value="kirim", $type="submit", $name="",$blnReturn = false) {
 }
 
 function pilihan($name, $opsi, $data,$blnReturn = false) {
-//  if (is_array($data) && isset($data[$name])) {
-//    $terpilih = $data[$name];
-//  } else {
-//    $terpilih = $data;
-//  }
-
   $out = '<select id="selectbox_' . $name . '"  name="' . $name . '">';
   $out .= buat_opsi($opsi,$data, true);
   $out .= "</select>";
