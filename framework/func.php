@@ -253,6 +253,10 @@ function pilihan($name, $opsi="", $data="", $blnReturn = false) {
  * @param string $nama_pilihan nama kolom yg isinya akan dimunculkan sebagai opsi
  * @param string $pilihan biasanya id dari pilihan yg jika pilihan di-select maka data ini akan disimpan dalam tabel
  * @return array data opsi yg akan dilempar ke fungsi pilihan 
+ * 
+ * usage:
+ * formatted options from array
+ *  -> opsi($this->model_user->ambil_data(),array("nama","role","email","format"=>"%s [%s/%s]"));
  */
 function opsi($data_dari_database="", $nama_pilihan="nama", $pilihan="id") {
   $out = array();
