@@ -243,8 +243,40 @@ function pilihan($name, $opsi, $data) {
 function opsi($data_dari_database, $nama_pilihan="nama", $pilihan="id") {
   $out = array();
   if (is_array($data_dari_database) && count($data_dari_database) > 0) {
+    $blnArrayNamaPilihan = false;
+    if(is_array($nama_pilihan) && count($nama_pilihan) > 0){
+      $blnArrayNamaPilihan = true;
+      $format = "";
+      $blnFormat = false;
+      $delimiter = " ";
+
+      if(key_exists("format", $nama_pilihan)){
+        $blnFormat = true;
+        $format = $nama_pilihan['format'];
+        unset($nama_pilihan['format']);
+      }
+
+      if(key_exists("delimiter", $nama_pilihan)){
+        $delimiter = $nama_pilihan['delimiter'];
+        unset($nama_pilihan['delimiter']);
+      }
+    }
+    
     foreach ($data_dari_database as $item) {
-      $out[$item[$pilihan]] = $item[$nama_pilihan];
+      if($blnArrayNamaPilihan){
+        $arrData = array();
+        foreach ($nama_pilihan as $kolom_nama_pilihan) {
+          $arrData[$kolom_nama_pilihan] = $item[$kolom_nama_pilihan];
+        }
+        
+        if($blnFormat) {
+          $out[$item[$pilihan]] = vsprintf($format,$arrData);
+        } else {
+          $out[$item[$pilihan]] = implode($delimiter, $arrData);
+        }
+      } else {
+        $out[$item[$pilihan]] = $item[$nama_pilihan];
+      }
     }
   }
   return $out;
@@ -270,4 +302,13 @@ function tanggal($tgl,$delimiter = "-"){
   $swap_tgl = array($array_tgl[2],$array_tgl[1],$array_tgl[0]);
   $out = implode($delimiter, $swap_tgl);
   return $out;
+}
+
+function is_empty($data) {
+  $blnToReturn = false;
+  if(empty($data) || $data=="" || is_null($data)){
+    $blnToReturn = true;
+  }
+  
+  return $blnToReturn;
 }
