@@ -143,13 +143,48 @@ class application {
   }
 
   var $layout = "layout";
+  var $js;
+  var $script;
+  
+  function js($js_file) {
+    if(is_array($js_file)){
+      foreach ($js_file as $item_js_file) {
+        $this->js[] = $item_js_file;
+      }
+    } else {
+      $this->js[] = $js_file;
+    }
+  }
+  
+  function script($script) {
+    $this->script[] = $script;
+  }
 
-  function loadView($view, $vars="", $echo=true, $return="all") {
+  function loadView($view="", $vars="", $echo=true, $return="all") {
     if (is_array($vars) && count($vars) > 0)
       extract($vars, EXTR_PREFIX_SAME, "wddx");
     ob_start();
-    require_once(VIEW . $view . '.php');
+    $template_file = VIEW . $view . '.php';
+    if(file_exists($template_file)) {
+      require_once($template_file);
+    } else {
+      echo $view;
+    }
     $main_content = ob_get_clean();
+    
+    $js = "";
+    if(is_array($this->js) && count($this->js)>0){
+      foreach ($this->js as $item_js){
+        $js .= "<script type='text/javascript' src='".JS_URL."$item_js'></script>\n";
+      }
+    }
+    
+    $script = "";
+    if(is_array($this->script) && count($this->script)>0){
+      foreach ($this->script as $item_script){
+        $script .= "<script type='text/javascript'>$script</script>\n";
+      }
+    }
 
     ob_start();
     $file = VIEW . $this->layout . '.php';
