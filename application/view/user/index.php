@@ -1,4 +1,5 @@
 <h1><?php echo $judul ?></h1>
+<?php echo $link_tambah ?>
 <?php
 tabel("user",$data,array(
     "Nama"=>'$item["nama"]',
@@ -9,4 +10,3 @@ tabel("user",$data,array(
     "Tanggal Diangkat"=>'tanggal($item["tgl_diangkat"])'
 ),$aksi);
 ?>
-<?php echo $link_tambah ?>

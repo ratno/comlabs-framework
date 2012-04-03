@@ -1,4 +1,5 @@
 <h1><?php echo $judul ?></h1>
+<?php echo $link_tambah ?>
 <?php
 tabel("nama_tabel",$data,array(
     "Judul Kolom 1"=>'$item["nama_kolom1_di_tabel"]',
@@ -8,4 +9,3 @@ tabel("nama_tabel",$data,array(
     
 ),$aksi);
 ?>
-<?php echo $link_tambah ?>
