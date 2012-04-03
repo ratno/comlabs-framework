@@ -160,6 +160,10 @@ class application {
     $this->script[] = $script;
   }
   
+  /*
+   * usage:
+   *  -> $this->rantai("selectbox1", "selectbox2", url('class','method'));
+   */
   function rantai($selectbox_from,$selectbox_to,$url_data){
     $this->js(array('jquery.min.js','opsi_berantai.js'));
     $this->script("opsi_berantai('selectbox_$selectbox_from','selectbox_$selectbox_to','$url_data');");
