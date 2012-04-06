@@ -186,10 +186,10 @@ class application {
   
   /*
    * usage:
-   *  -> $this->rantai("selectbox1", "selectbox2", url('user','ambil_opsi'));
+   *  -> $this->ikat("selectbox1", "selectbox2", url('user','ambil_opsi'));
    * pada class user, function ambil_opsi, jalankan buat_opsi($data_array);
    */
-  function rantai($selectbox_from,$selectbox_to,$url_data){
+  function ikat($selectbox_from,$selectbox_to,$url_data){
     $this->js(array('jquery.min.js','opsi_berantai.js'));
     $this->script("opsi_berantai('selectbox_$selectbox_from','selectbox_$selectbox_to','$url_data');");
   }
@@ -220,7 +220,9 @@ class application {
     if(is_array($this->script) && count($this->script)>0){
       $script .= "<script type='text/javascript'>\n";
       $script .= '$(function(){'."\n";
-      $script .= "\tbaseurl = '".BASEURL.SUBDIR."';\n";
+      $script .= "\tweb_url = '".WEB_URL."';\n";
+      $script .= "\tjs_url = '".JS_URL."';\n";
+      $script .= "\tcss_url = '".CSS_URL."';\n";
       foreach ($this->script as $item_script){
         $script .= "\t".$item_script."\n";
       }
