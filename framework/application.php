@@ -5,7 +5,7 @@
  * Basis kelas untuk framework sederhana yang digunakan untuk pelatihan di Comlabs USDI ITB
  */
 if (!defined('BASEURL'))
-  die('Liat apa kamoe!!!');
+  die('Authorized Personnel Only!!!');
 
 class application {
 
@@ -147,7 +147,8 @@ class application {
   var $script;
   
   function js($js_file) {
-    if(is_array($js_file)){
+    // ambil dari application->js
+    if(is_array($js_file) && count($js_file)>0){
       foreach ($js_file as $item_js_file) {
         $this->js[$item_js_file] = $item_js_file;
       }
@@ -157,7 +158,30 @@ class application {
   }
   
   function script($script) {
+    // ambil dari application->script
     $this->script[] = $script;
+  }
+  
+  function populateGlobals(){
+    // ambil dari global variabel
+    if(key_exists('js', $GLOBALS)){
+      if(is_array($GLOBALS['js']) && count($GLOBALS['js'])>0){
+        foreach ($GLOBALS['js'] as $item_js_file_global) {
+          $this->js[$item_js_file_global] = $item_js_file_global;
+        }
+      } else {
+        if(is_string($GLOBALS['js'])){
+          $this->js[$GLOBALS['js']] = $GLOBALS['js'];
+        }
+      }
+      unset($GLOBALS['js']);
+    }
+    // ambil dari global variabel
+    if(key_exists('script',$GLOBALS) && is_array($GLOBALS['script']) && count($GLOBALS['script'])>0){
+      foreach ($GLOBALS['script'] as $item_script_global)
+      $this->script[] = $item_script_global;
+      unset($GLOBALS['script']);
+    } 
   }
   
   /*
@@ -182,6 +206,9 @@ class application {
     }
     $main_content = ob_get_clean();
     
+    //populate globals variabels
+    $this->populateGlobals();
+    
     $js = "";
     if(is_array($this->js) && count($this->js)>0){
       foreach ($this->js as $item_js){
@@ -193,6 +220,7 @@ class application {
     if(is_array($this->script) && count($this->script)>0){
       $script .= "<script type='text/javascript'>\n";
       $script .= '$(function(){'."\n";
+      $script .= "\tbaseurl = '".BASEURL.SUBDIR."';\n";
       foreach ($this->script as $item_script){
         $script .= "\t".$item_script."\n";
       }
