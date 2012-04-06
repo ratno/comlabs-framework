@@ -374,7 +374,7 @@ function textarea($name,$data="",$blnReturn=false,$class='tinymce'){
         theme_advanced_resizing : true
       });';
   }
-  $out = "<textarea id='inputbox_".$name."' name='".$name."' class='".$class."'>".$data."</textarea>";
+  $out = "<textarea id='inputbox_".$name."' name='".$name."' class='".$class."'>".$isi."</textarea>";
   if($blnReturn){
     return $out;
   } else {
