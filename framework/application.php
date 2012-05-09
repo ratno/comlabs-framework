@@ -18,6 +18,10 @@ class application {
   function __construct($uri) {
     $this->uri = $uri;
   }
+  
+  function preLoad(){
+    $this->js(JQUERY);
+  }
 
   function db() {
     $this->db = mysql_connect(SERVER, USERNAME, PASSWORD);
@@ -134,6 +138,7 @@ class application {
     require_once($file);
 
     $controller = new $class();
+    $controller->preLoad();
 
     if (method_exists($controller, $this->uri['method'])) {
       $controller->{$this->uri['method']}($this->uri['var']);
@@ -215,10 +220,15 @@ class application {
    * pada class user, function ambil_opsi, jalankan buat_opsi($data_array);
    */
   function ikat($selectbox_from,$selectbox_to,$url_data){
-    $this->js(array('jquery.min.js','opsi_berantai.js'));
+    $this->js('opsi_berantai.js');
     $this->script("opsi_berantai('selectbox_$selectbox_from','selectbox_$selectbox_to','$url_data');");
   }
-
+  
+  function loadJQueryUI() {
+    $this->js(JQUERY_UI);
+    $this->css(JQUERY_UI_CSS);
+  }
+ 
   function loadView($view="", $vars="", $echo=true, $return="all") {
     if (is_array($vars) && count($vars) > 0)
       extract($vars, EXTR_PREFIX_SAME, "wddx");
