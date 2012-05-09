@@ -357,7 +357,6 @@ function textarea($name,$data="",$blnReturn=false,$class='tinymce', $theme="simp
   }
   
   if($class == 'tinymce'){
-    $GLOBALS['js'][] = 'jquery.min.js';
     $GLOBALS['js'][] = 'tiny_mce/jquery.tinymce.js';
     $GLOBALS['script'][] = '
       $("textarea.tinymce").tinymce({
