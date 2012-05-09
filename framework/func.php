@@ -346,7 +346,7 @@ function is_empty($data) {
   return $blnToReturn;
 }
 
-function textarea($name,$data="",$blnReturn=false,$class='tinymce'){
+function textarea($name,$data="",$blnReturn=false,$class='tinymce', $theme="simple"){
   if (is_array($data) && isset($data[$name])) {
     $isi = $data[$name];
   } else {
@@ -360,7 +360,7 @@ function textarea($name,$data="",$blnReturn=false,$class='tinymce'){
       $("textarea.tinymce").tinymce({
         script_url : js_url+"tiny_mce/tiny_mce.js",
         // General options
-        theme : "advanced",
+        theme : "'.$theme.'",
         plugins : "autolink,lists,pagebreak,style,layer,table,save,advhr,advimage,advlink,emotions,iespell,inlinepopups,insertdatetime,preview,media,searchreplace,print,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template,advlist",
 
         // Theme options
