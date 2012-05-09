@@ -36,4 +36,6 @@ if(MOD_REWRITE){
 	define("INDEX","index.php");
 }
 
-date_default_timezone_set('Asia/Krasnoyarsk');
+date_default_timezone_set('Asia/Krasnoyarsk'); // Waktu Indonesia Bagian Barat
+//date_default_timezone_set('Asia/Brunei'); // Waktu Indonesia Bagian Tengah
+//date_default_timezone_set('Asia/Seoul'); // Waktu Indonesia Bagian Timur
