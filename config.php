@@ -27,6 +27,10 @@ define('CSS_URL', WEB_URL."css/");
 define('JS_URL', WEB_URL."js/");
 define('IMAGES_URL', WEB_URL."images/");
 
+define('JQUERY', "jquery.min.js");
+define('JQUERY_UI', "jquery-ui.min.js");
+define('JQUERY_UI_CSS', "ui-lightness/jquery-ui.css");
+
 if(DB_NAME == "") {
   define('DATABASE',"cl_framework");
 } else {
