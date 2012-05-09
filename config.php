@@ -3,7 +3,7 @@
 define('SERVER',"localhost");
 define('USERNAME',"root");
 define('PASSWORD',"");
-define('DATABASE',"cl_framework");
+define('DATABASE',""); // mohon edit nama databasenya sesuai dengan database anda
 
 /* ubah jika perlu */
 //settingan untuk aplikasi dan web server
@@ -26,10 +26,14 @@ define('CSS_URL', WEB_URL."css/");
 define('JS_URL', WEB_URL."js/");
 define('IMAGES_URL', WEB_URL."images/");
 
+if(!defined(DATABASE)) {
+  define('DATABASE',"cl_framework");
+}
+
 if(MOD_REWRITE){
 	define("INDEX","");
 } else {
 	define("INDEX","index.php");
 }
 
-date_default_timezone_get('Asia/Krasnoyarsk');
+date_default_timezone_set('Asia/Krasnoyarsk');
