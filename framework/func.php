@@ -301,9 +301,12 @@ function opsi($data_dari_database="", $nama_pilihan="nama", $pilihan="id") {
 }
 
 function buat_opsi($opsi, $data_terpilih="", $blnReturn=false){
+  $blnReplicate = false;
   $out = '<option value="null">- Pilih -</option>';
   if (is_array($opsi) && count($opsi) > 0) {
     foreach ($opsi as $pilihan => $nama_pilihan) {
+      if(!$blnReplicate && $pilihan == 0) $blnReplicate = true;
+      if($blnReplicate) $pilihan = $nama_pilihan;
       $out .= '<option value="' . $pilihan . '"' . selected($data_terpilih, $pilihan) . '>' . ucwords($nama_pilihan) . '</option>';
     }
   }
