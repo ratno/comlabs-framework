@@ -4,6 +4,7 @@ define('SERVER',"localhost");
 define('USERNAME',"root");
 define('PASSWORD',"");
 define('DATABASE',""); // mohon edit nama databasenya sesuai dengan database anda
+define('IDTIMEZONE',"WIB"); // mohon edit nama databasenya sesuai dengan database anda
 
 /* ubah jika perlu */
 //settingan untuk aplikasi dan web server
@@ -36,6 +37,8 @@ if(MOD_REWRITE){
 	define("INDEX","index.php");
 }
 
-date_default_timezone_set('Asia/Krasnoyarsk'); // Waktu Indonesia Bagian Barat
-//date_default_timezone_set('Asia/Brunei'); // Waktu Indonesia Bagian Tengah
-//date_default_timezone_set('Asia/Seoul'); // Waktu Indonesia Bagian Timur
+switch (IDTIMEZONE) {
+  case 'WIB': date_default_timezone_set('Asia/Krasnoyarsk'); break;
+  case 'WITA': date_default_timezone_set('Asia/Brunei'); break;
+  case 'WIT': date_default_timezone_set('Asia/Seoul'); break;
+}
