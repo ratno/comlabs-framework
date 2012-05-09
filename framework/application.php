@@ -145,6 +145,7 @@ class application {
   var $layout = "layout";
   var $js;
   var $script;
+  var $css;
   
   function js($js_file) {
     // ambil dari application->js
@@ -162,6 +163,17 @@ class application {
     $this->script[] = $script;
   }
   
+  function css($css_file){
+    // ambil dari application->css
+    if(is_array($css_file) && count($css_file)>0){
+      foreach ($css_file as $item_css_file) {
+        $this->css[$item_css_file] = $item_css_file;
+      }
+    } else {
+      $this->css[$css_file] = $css_file;
+    }
+  }
+  
   function populateGlobals(){
     // ambil dari global variabel
     if(key_exists('js', $GLOBALS)){
@@ -175,6 +187,19 @@ class application {
         }
       }
       unset($GLOBALS['js']);
+    }
+    // ambil dari global variabel
+    if(key_exists('css', $GLOBALS)){
+      if(is_array($GLOBALS['css']) && count($GLOBALS['css'])>0){
+        foreach ($GLOBALS['css'] as $item_css_file_global) {
+          $this->css[$item_css_file_global] = $item_css_file_global;
+        }
+      } else {
+        if(is_string($GLOBALS['css'])){
+          $this->css[$GLOBALS['css']] = $GLOBALS['css'];
+        }
+      }
+      unset($GLOBALS['css']);
     }
     // ambil dari global variabel
     if(key_exists('script',$GLOBALS) && is_array($GLOBALS['script']) && count($GLOBALS['script'])>0){
@@ -228,6 +253,13 @@ class application {
       }
       $script .= '});'."\n";
       $script .= "</script>\n";
+    }
+    
+    $css = "";
+    if(is_array($this->css) && count($this->css)>0){
+      foreach ($this->css as $item_css){
+        $css .= "<link rel='stylesheet' type='text/css' href='".CSS_URL."$item_css' />\n";
+      }
     }
 
     ob_start();
