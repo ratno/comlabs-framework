@@ -43,6 +43,7 @@ if ($user = $_SESSION['data_user']) {
         clear: both;
       }
     </style>
+    <?php echo $css ?>
   </head>
   <body>
     <?php foreach ($menu as $menu_link => $menu_name) : ?>
