@@ -67,7 +67,7 @@ class nama_tabel extends application {
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Cari nama_tabel";
     $data['aksi'] = "hasil_pencarian";
-    $this->loadView('nama_tabel/form', $data);
+    $this->loadView('nama_tabel/cari', $data);
   }
   
   function hasil_pencarian(){
