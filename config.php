@@ -3,8 +3,8 @@
 define('SERVER',"localhost");
 define('USERNAME',"root");
 define('PASSWORD',"");
-define('DATABASE',""); // mohon edit nama databasenya sesuai dengan database anda
-define('IDTIMEZONE',"WIB"); // mohon edit nama databasenya sesuai dengan database anda
+define('DB_NAME',""); // mohon edit nama databasenya sesuai dengan database anda
+define('IDTIMEZONE',"WIB");
 
 /* ubah jika perlu */
 //settingan untuk aplikasi dan web server
@@ -27,8 +27,10 @@ define('CSS_URL', WEB_URL."css/");
 define('JS_URL', WEB_URL."js/");
 define('IMAGES_URL', WEB_URL."images/");
 
-if(!defined(DATABASE)) {
+if(DB_NAME == "") {
   define('DATABASE',"cl_framework");
+} else {
+  define('DATABASE',DB_NAME);
 }
 
 if(MOD_REWRITE){
