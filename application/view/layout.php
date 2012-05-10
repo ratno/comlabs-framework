@@ -43,6 +43,7 @@ if ($user = $_SESSION['data_user']) {
         clear: both;
       }
       
+      table.grid {background-color: steelblue;}
       tr.baris_judul {background-color: cadetblue;}
       tr.baris_ganjil {background-color: #ffe45c;}
       tr.baris_genap {background-color: #efff5c;}

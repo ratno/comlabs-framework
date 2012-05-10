@@ -85,7 +85,7 @@ function angka($angka, $desimal=2) {
 
 function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $blnReturn = false) {
   if (is_array($data) && count($data) > 0) {
-    $out = '<table border="0" cellpadding="5">';
+    $out = '<table border="0" cellpadding="5" class="grid">';
     // bikin baris header
     $out .= "<thead>";
     $out .= "<tr class='baris_judul'>";
