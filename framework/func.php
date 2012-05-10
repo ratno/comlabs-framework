@@ -203,10 +203,17 @@ function input($name, $data="", $type="text", $file_location=FILES_URL,$blnRetur
   $out = "";
   if($type== 'file' && $blnFileAda && $file){
     $out .= link_href($file_location.$file,$file) ."<br />";
+    $id = "inputfile_".$name;
   } elseif($type=="tanggal" || $type=="tgl"){
-    $name = "ztglz___" . $name;
+    $id = "inputtgl_".$name;
+    $name = $id;
+    $GLOBALS['js'][] = JQUERY_UI;
+    $GLOBALS['css'][] = JQUERY_UI_CSS;
+    $GLOBALS['script'][] = '$("#'.$id.'").datepicker({ dateFormat:"dd-mm-yy", changeMonth: true, changeYear: true, yearRange:"-70:+1" });';
+  } else {
+    $id = "inputbox_".$name;
   }
-  $out .= '<input type="' . $type . '" id="inputbox_' . $name . '" name="' . $name . '"' . $value . ' />';
+  $out .= '<input type="' . $type . '" id="' . $id . '" name="' . $name . '"' . $value . ' />';
   if($blnReturn){
     return $out;
   } else {
