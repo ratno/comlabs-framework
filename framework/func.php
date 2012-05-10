@@ -85,9 +85,11 @@ function angka($angka, $desimal=2) {
 
 function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $blnReturn = false) {
   if (is_array($data) && count($data) > 0) {
-    $out = '<table border="1" cellspacing="0" cellpadding="5">';
+    $out = '<table border="0" cellpadding="5">';
     // bikin baris header
-    $out .= "<tr>";
+    $out .= "<thead>";
+    $out .= "<tr class='baris_judul'>";
+    $out .= "<th>#</th>";
     foreach ($kolom as $header => $field) {
       $out .= "<th>" . $header . "</th>";
     }
@@ -95,18 +97,22 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $
       $out .= "<th>" . $aksi_header . "</th>";
     }
     $out .= "</tr>";
+    $out .= "</thead>";
 
     // bikin isi tabel
     // jika $data['id'] ada, maka datanya cuman satu
+    $out .= "<tbody>";
     if (is_array($data)) {
       if (key_exists("id", $data)) {
         $data_process[0] = $data;
       } else {
         $data_process = $data;
       }
-
+      $nomor = 1;
       foreach ($data_process as $item) {
-        $out .= "<tr>";
+        $tr_class = ($nomor%2==0)?"baris_genap":"baris_ganjil";
+        $out .= "<tr class='$tr_class'>";
+        $out .= "<td style='text-align: right;'>".$nomor++."</td>";
         foreach ($kolom as $field) {
           $prop = "";
           if (preg_match('/^(angka)/', $field)) {
@@ -126,8 +132,7 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $
         $out .= "</tr>";
       }
     }
-
-
+    $out .= "</tbody>";
     $out .= "</table>";
   } else {
     $out = "<h3>Data Tidak Tersedia</h3>";
