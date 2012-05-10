@@ -57,9 +57,8 @@ class application {
 
     $kolom = $isi = array();
     foreach ($data as $key => $value) {
-      $arrkey = explode("___", $key);
-      if ($arrkey[0] == 'ztglz') {
-        $key = $arrkey[1];
+      if(preg_match("/^(inputtgl_)/", $key)){
+        $key = substr($key, 9);
         $value = tanggal($value);
       }
       $kolom[] = $key;
@@ -93,9 +92,8 @@ class application {
   function update($data, $id) {
     $update = array();
     foreach ($data as $key => $value) {
-      $arrkey = explode("___", $key);
-      if ($arrkey[0] == 'ztglz') {
-        $key = $arrkey[1];
+      if(preg_match("/^(inputtgl_)/", $key)){
+        $key = substr($key, 9);
         $value = tanggal($value);
       }
       $update[] = $key . "=" . $this->escape($value);
