@@ -12,6 +12,8 @@ class model_nama_tabel extends application {
     $sql = "SELECT * FROM " . $this->tabel;
     if ($klausa) {
       $sql .= " " . $klausa;
+    } else {
+      $sql .= " ORDER BY id";
     }
     return $this->query($sql);
   }

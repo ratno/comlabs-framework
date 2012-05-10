@@ -12,6 +12,8 @@ class model_user extends application {
     $sql = "SELECT * FROM " . $this->tabel;
     if ($klausa) {
       $sql .= " " . $klausa;
+    } else {
+      $sql .= " ORDER BY id";
     }
     return $this->query($sql);
   }
