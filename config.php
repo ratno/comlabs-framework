@@ -16,9 +16,10 @@ define("BASEDIR",$_SERVER["DOCUMENT_ROOT"]);
 define("APP","/application");
 $path = str_replace("\\","/",substr(dirname(__FILE__),strlen(BASEDIR)));
 define("SUBDIR",$path);
-define("CONTROLLER",BASEDIR.SUBDIR.APP."/controller/");
-define("MODEL",BASEDIR.SUBDIR.APP."/model/");
-define("VIEW",BASEDIR.SUBDIR.APP."/view/");
+define("APPDIR",BASEDIR.SUBDIR.APP);
+define("CONTROLLER",APPDIR."/controller/");
+define("MODEL",APPDIR."/model/");
+define("VIEW",APPDIR."/view/");
 define("FILES",BASEDIR.SUBDIR."/files/");
 
 define("WEB_URL",BASEURL.SUBDIR."/");
