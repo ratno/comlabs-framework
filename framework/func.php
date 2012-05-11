@@ -394,3 +394,38 @@ function textarea($name,$data="",$blnReturn=false,$class='tinymce', $theme="simp
     echo $out;
   }
 }
+
+function menu($menu, $blnReturn=false){
+  $out ='<ul id="ldd_menu" class="ldd_menu">';
+  foreach ($menu as $key => $value) {
+    if(is_array($value) && count($value)>0){
+      $out .=  "<li>";
+      $out .=  "<span>$key</span>";
+      $out .=  "<div class='ldd_submenu'>";
+      $out .=  "<ul>";
+      $foot = "";
+      $blnFoot = false;
+      foreach ($value as $subkey=>$subvalue){
+        $link = BASEURL . SUBDIR . "/" .$subvalue;
+        if(!$blnFoot && preg_match("/^(Tambah)/", $subkey)){
+          $foot = "<a class='ldd_subfoot' href='$link'>+ $subkey</a>";
+          $blnFoot = true;
+        } else {
+          $out .=  "<li><a href='$link'>$subkey</a></li>";
+        }
+      }
+      $out .=  "</ul>";
+      $out .=  $foot;
+      $out .=  "</div>";
+    } else {
+      $link = BASEURL . SUBDIR . "/" .$value;
+      $out .=  "<li><span><a href='$link'>$key</a></span></li>";
+    }
+  }
+  $out .= '</ul>';
+  if($blnReturn){
+    return $out;
+  } else {
+    echo $out;
+  }
+}
