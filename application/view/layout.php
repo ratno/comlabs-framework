@@ -1,64 +1,43 @@
-<?php
-$arr_menu = array(
-    "public" => array(
-        "index/index" => "Home",
-        "index/login" => "Login"),
-    "admin" => array(
-        "index/index" => "Home",
-        "index/control_panel" => "Control Panel",
-        "user/index" => "Daftar User",
-        "user/impor" => "Impor User",
-        "user/cari" => "Pencarian User",
-        "user/laporan" => "Laporan User",
-        "index/logout" => "Logout"),
-    "user" => array(
-        "index/index" => "Home",
-        "index/control_panel" => "Control Panel",
-        "user/index" => "Daftar User",
-        "user/cari" => "Pencarian User",
-        "user/laporan" => "Laporan User",
-        "index/logout" => "Logout")
-);
-
-if ($user = $_SESSION['data_user']) {
-  $menu = $arr_menu[$user['role']];
-} else {
-  $menu = $arr_menu['public'];
-}
-?>
 <html>
   <head>
     <title><?php echo $judul ?></title>
-    <style>
-      a.menu {
-        display: block; height: 20px; border: 1px solid grey; padding: 10px; background-color: cornflowerblue; float: left;
-        text-align: center; text-decoration: none; margin-right: 1px;
-      }
-      
-      a.menu:hover {
-        background-color: dodgerblue;
-      }
-      
-      .clear {
-        clear: both;
-      }
-      
-      table.grid {background-color: steelblue;}
-      tr.baris_judul {background-color: cadetblue;}
-      tr.baris_ganjil {background-color: #ffe45c;}
-      tr.baris_genap {background-color: #efff5c;}
-    </style>
+    <link rel="stylesheet" type="text/css" href="<?php echo CSS_URL ?>/menu.css" />
     <?php echo $css ?>
   </head>
   <body>
-    <?php foreach ($menu as $menu_link => $menu_name) : ?>
-      <a class="menu" href="<?php echo BASEURL . SUBDIR . "/$menu_link"; ?>">
-        <?php echo $menu_name ?>
-      </a>
-    <?php endforeach; ?>
+    <?php menu($menu); ?>
     <div class="clear"></div>
     <?php echo $main_content ?>
     <?php echo $js ?>
     <?php echo $script ?>
+    <script type="text/javascript">
+      $(function() {
+        /**
+         * the menu
+         */
+        var $menu = $('#ldd_menu');
+				
+        /**
+         * for each list element,
+         * we show the submenu when hovering and
+         * expand the span element (title) to 510px
+         */
+        $menu.children('li').each(function(){
+          var $this = $(this);
+          var $span = $this.children('span');
+          $span.data('width',$span.width());
+					
+          $this.bind('mouseenter',function(){
+            $menu.find('.ldd_submenu').stop(true,true).hide();
+            $span.stop().animate({'width':'120px'},300,function(){
+              $this.find('.ldd_submenu').slideDown(300);
+            });
+          }).bind('mouseleave',function(){
+            $this.find('.ldd_submenu').stop(true,true).hide();
+            $span.stop().animate({'width':$span.data('width')+'px'},300);
+          });
+        });
+      });
+    </script>
   </body>
 </html>
