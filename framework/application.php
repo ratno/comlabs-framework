@@ -270,6 +270,12 @@ class application {
       }
     }
 
+    $arr_menu = Spyc::YAMLLoad(APPDIR."/menu.yml");
+    if ($user = $_SESSION['data_user']) {
+      $menu = $arr_menu[$user['role']];
+    } else {
+      $menu = $arr_menu['public'];
+    }
     ob_start();
     $file = VIEW . $this->layout . '.php';
     if (file_exists($file)) {
