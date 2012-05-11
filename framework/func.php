@@ -419,7 +419,7 @@ function menu($menu, $blnReturn=false){
       $out .=  "</div>";
     } else {
       $link = BASEURL . SUBDIR . "/" .$value;
-      $out .=  "<li><span><a href='$link'>$key</a></span></li>";
+      $out .=  "<li><a href='$link'>$key</a></li>";
     }
   }
   $out .= '</ul>';
