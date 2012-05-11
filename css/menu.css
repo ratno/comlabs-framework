@@ -32,6 +32,18 @@ ul.ldd_menu > li > span{
 	border-right:1px solid #DF7B61;
 	border-left:1px solid #C44D37;
 }
+ul.ldd_menu > li > a{
+	float:left;
+	color:#fff;
+	background-color:#D04528;
+	height:50px;
+	line-height:50px;
+	cursor:pointer;
+	padding:0px 20px;
+	text-shadow:0px 0px 1px #fff;
+	border-right:1px solid #DF7B61;
+	border-left:1px solid #C44D37;
+}
 ul.ldd_menu .ldd_submenu{
 	position:absolute;
 	top:50px;
