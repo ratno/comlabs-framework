@@ -215,6 +215,7 @@ function input($name, $data="", $type="text", $file_location=FILES_URL,$blnRetur
     $GLOBALS['js'][] = JQUERY_UI;
     $GLOBALS['css'][] = JQUERY_UI_CSS;
     $GLOBALS['script'][] = '$("#'.$id.'").datepicker({ dateFormat:"dd-mm-yy", changeMonth: true, changeYear: true, yearRange:"-70:+1" });';
+    $type = "text";
   } else {
     $id = "inputbox_".$name;
   }
@@ -360,14 +361,16 @@ function is_empty($data) {
   return $blnToReturn;
 }
 
-function textarea($name,$data="",$blnReturn=false,$class='tinymce', $theme="simple"){
+function textarea($name,$data="", $class="simple",$blnReturn=false){
   if (is_array($data) && isset($data[$name])) {
     $isi = $data[$name];
   } else {
     $isi = $data;
   }
   
-  if($class == 'tinymce'){
+  if($class == 'simple' || $class == 'advanced'){
+    $theme = $class;
+    $class = 'tinymce';
     $GLOBALS['js'][] = 'tiny_mce/jquery.tinymce.js';
     $GLOBALS['script'][] = '
       $("textarea.tinymce").tinymce({
