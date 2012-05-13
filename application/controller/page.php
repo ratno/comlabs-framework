@@ -11,6 +11,10 @@ class page extends application {
   }
 
   function index() {
+    $this->daftar();
+  }
+  
+  function daftar() {
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Daftar Page";
     $data['data'] = $this->model_page->ambil_data();
