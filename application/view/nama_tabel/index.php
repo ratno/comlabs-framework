@@ -21,10 +21,6 @@
  *        keterangan: 
  *        - hasil uploadan biasanya disimpan di folder files (dalam contoh diwakili oleh FILES_URL)
  *        - untuk ukuran width, bisa diatur dengan memasukkan parameter ketiga (dalam contoh diwakili oleh 200)
- * 
- *      
- * 
- * 
  */
 ?>
 <h1><?php echo $judul ?></h1>
