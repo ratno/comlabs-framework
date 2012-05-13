@@ -57,6 +57,7 @@ ul.ldd_menu .ldd_submenu{
 	-moz-box-shadow:0px 3px 4px #591E12 inset;
 	-webkit-box-shadow:0px 3px 4px #591E12 inset;
 	-box-shadow:0px 3px 4px #591E12 inset;
+  z-index: 10000;
 }
 a.ldd_subfoot{
 	background-color:#f0f0f0;
