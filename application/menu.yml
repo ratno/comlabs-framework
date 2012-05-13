@@ -7,13 +7,13 @@ admin:
   Dashboard: index/control_panel
   User:
     Tambah User: user/tambah
-    Daftar User: user/index
+    Daftar User: user/daftar
     Impor Data: user/impor
     Cari User: user/cari
     Laporan User: user/laporan
   Page:
     Tambah Page: page/tambah
-    Daftar Page: page/index
+    Daftar Page: page/daftar
   Logout: index/logout
   
 user:
