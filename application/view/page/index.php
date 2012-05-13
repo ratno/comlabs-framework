@@ -3,5 +3,6 @@
 tabel("page",$data,array(
     "Kode"=>'$item["kode"]',
     "Nama"=>'$item["nama"]',
+    "Akses"=>'$item["akses"]',
 ),$aksi);
 ?>

@@ -36,6 +36,10 @@
       <td>Isi</td>
       <td><?php textarea("isi", $data) ?></td>
     </tr>
+    <tr>
+      <td>Akses</td>
+      <td><?php input("akses", $data) ?></td>
+    </tr>
 
     <tr>
       <td colspan="2"><?php submit(); ?></td>
