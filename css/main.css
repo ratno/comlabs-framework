@@ -19,3 +19,7 @@ tr.baris_genap {
 tr.baris_ganjil {
   background: #ccae29;
 }
+
+body {
+  background: url('IMAGES_URL/bg.png');
+}
