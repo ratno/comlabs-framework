@@ -19,5 +19,6 @@ CREATE TABLE page (
   id int primary key auto_increment,
   kode varchar(100) unique,
   nama varchar(255),
-  isi text
+  isi text,
+  akses varchar(255)
 );
