@@ -135,7 +135,7 @@ class application {
 
     require_once($file);
 
-    $controller = new $class();
+    $controller = new $class($this->uri);
     $controller->preLoad();
 
     if (method_exists($controller, $this->uri['method'])) {

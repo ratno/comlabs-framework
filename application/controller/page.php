@@ -2,7 +2,8 @@
 
 class page extends application {
 
-  function __construct() {
+  function __construct($uri) {
+    parent::__construct($uri);
     $this->loadModel("model_page");
   }
 
