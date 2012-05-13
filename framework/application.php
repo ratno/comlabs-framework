@@ -230,10 +230,17 @@ class application {
   function loadView($view="", $vars="", $echo=true, $return="all") {
     if (is_array($vars) && count($vars) > 0)
       extract($vars, EXTR_PREFIX_SAME, "wddx");
+    
+    // read the layout, to capture any globals
+    ob_start();
+    $readlayout = VIEW . $this->layout . '.php';
+    if (file_exists($readlayout)) require($readlayout);
+    ob_end_clean();
+    
     ob_start();
     $template_file = VIEW . $view . '.php';
     if(file_exists($template_file)) {
-      require_once($template_file);
+      require($template_file);
     } else {
       echo $view;
     }
@@ -279,7 +286,7 @@ class application {
     ob_start();
     $file = VIEW . $this->layout . '.php';
     if (file_exists($file)) {
-      require_once($file);
+      require($file);
     } else {
       echo $main_content;
     }
