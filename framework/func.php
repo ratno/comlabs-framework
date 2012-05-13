@@ -396,6 +396,8 @@ function textarea($name,$data="",$blnReturn=false,$class='tinymce', $theme="simp
 }
 
 function menu($menu, $blnReturn=false){
+  $GLOBALS['css'][] = 'menu.css';
+  $GLOBALS['js'][] = 'menu.js';
   $out ='<ul id="ldd_menu" class="ldd_menu">';
   foreach ($menu as $key => $value) {
     if(is_array($value) && count($value)>0){
