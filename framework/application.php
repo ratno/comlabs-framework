@@ -274,7 +274,7 @@ class application {
     $css = "";
     if(is_array($this->css) && count($this->css)>0){
       foreach ($this->css as $item_css){
-        $css .= "<link rel='stylesheet' type='text/css' href='".CSS_URL."$item_css' />\n";
+        $css .= "<link rel='stylesheet' type='text/css' href='".WEB_URL."css.php?f=$item_css' />\n";
       }
     }
 

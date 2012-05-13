@@ -21,6 +21,7 @@ define("CONTROLLER",APPDIR."/controller/");
 define("MODEL",APPDIR."/model/");
 define("VIEW",APPDIR."/view/");
 define("FILES",BASEDIR.SUBDIR."/files/");
+define("CSSDIR",BASEDIR.SUBDIR."/css/");
 
 define("WEB_URL",BASEURL.SUBDIR."/");
 define('FILES_URL', WEB_URL."files/");
