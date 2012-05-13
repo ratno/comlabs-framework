@@ -24,7 +24,6 @@
  */
 ?>
 <h1><?php echo $judul ?></h1>
-<?php echo $link_tambah ?>
 <?php
 tabel("nama_tabel",$data,array(
     "Judul Kolom"=>'$item["nama_kolom"]',
