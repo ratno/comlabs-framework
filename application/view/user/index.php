@@ -1,5 +1,4 @@
 <h1><?php echo $judul ?></h1>
-<?php echo $link_tambah ?>
 <?php
 tabel("user",$data,array(
     "Nama"=>'$item["nama"]',
