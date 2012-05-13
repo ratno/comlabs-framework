@@ -25,7 +25,7 @@ class nama_tabel extends application {
       $data['aksi'] = array();
       $data['link_tambah'] = "";
     }
-    $this->loadView("nama_tabel/index", $data);
+    $this->loadView("nama_tabel/daftar", $data);
   }
 
   function tambah() {

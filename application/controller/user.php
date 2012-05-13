@@ -23,7 +23,7 @@ class user extends application {
       $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("user");
     }
-    $this->loadView("user/index", $data);
+    $this->loadView("user/daftar", $data);
   }
 
   function tambah() {

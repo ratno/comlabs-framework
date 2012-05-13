@@ -46,7 +46,7 @@ class page extends application {
       $data['aksi'] = array();
       $data['link_tambah'] = "";
     }
-    $this->loadView("page/index", $data);
+    $this->loadView("page/daftar", $data);
   }
 
   function tambah() {
