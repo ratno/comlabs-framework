@@ -21,6 +21,7 @@ class application {
   
   function preLoad(){
     $this->js(JQUERY);
+    $this->css("main.css");
   }
 
   function db() {

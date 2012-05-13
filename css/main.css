@@ -1,0 +1,21 @@
+/* 
+    Document   : main
+    Created on : May 13, 2012, 8:54:37 PM
+    Author     : ratno
+    Description:
+        Stylesheet untuk tampilan utama
+*/
+
+table.grid {
+  background: #333;
+}
+
+tr.baris_judul {
+  background: #4d8199;
+}
+tr.baris_genap {
+  background: #cf7c29;
+}
+tr.baris_ganjil {
+  background: #ccae29;
+}
