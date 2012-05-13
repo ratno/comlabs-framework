@@ -22,4 +22,9 @@ class model_page extends application {
     $sql = "SELECT * FROM " . $this->tabel . " WHERE " . $this->pk . "='$id'";
     return $this->query($sql);
   }
+  
+  function ambil_berdasar_kode($kode) {
+    $sql = "SELECT * FROM " . $this->tabel . " WHERE kode='$kode'";
+    return $this->query($sql);
+  }
 }
