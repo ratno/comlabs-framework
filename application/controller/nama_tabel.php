@@ -11,6 +11,10 @@ class nama_tabel extends application {
   }
 
   function index() {
+    $this->daftar();
+  }
+  
+  function daftar() {
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Halaman nama_tabel";
     $data['data'] = $this->model_nama_tabel->ambil_data();

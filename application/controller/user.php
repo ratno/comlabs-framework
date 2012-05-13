@@ -11,6 +11,10 @@ class user extends application {
   }
 
   function index() {
+    $this->daftar();
+  }
+  
+  function daftar() {
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Halaman User";
     $data['data'] = $this->model_user->ambil_data();
