@@ -1,6 +1,6 @@
 public:
-  home: index/index
-  login: index/login
+  Home: index/index
+  Login: index/login
   
 admin:
   Home: index/index
