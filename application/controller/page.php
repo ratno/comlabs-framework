@@ -11,8 +11,28 @@ class page extends application {
     header("location: " . url('page'));
   }
 
-  function index() {
-    $this->daftar();
+  function index($param=null) {
+    // kita cek, jika ada halamannya berdasar kode, maka kita tampilkan
+    $data = $this->model_page->ambil_berdasar_kode($this->uri['request']);
+    if($data){
+      $this->display($param,$data);
+    } else {
+      $this->daftar();
+    }
+  }
+  
+  function display($param,$data=null){
+    if(!$data){
+      $kode = key($param);
+      $data = $this->model_page->ambil_berdasar_kode($kode);
+    }
+    if(is_empty($data['akses'])){
+      $akses = array("public");
+    } else {
+      $akses = explode(",", $data['akses']);
+    }
+    cek_keamanan($akses);
+    $this->loadView("page/display",$data);
   }
   
   function daftar() {
