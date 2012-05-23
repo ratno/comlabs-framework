@@ -80,7 +80,7 @@ class user extends application {
       $data['judul'] = "Hasil Pencarian User";
       $data['data'] = $this->model_user->ambil_data($kondisi);
       $data['link_tambah'] = "<a href='".url("user","cari")."'>Kembali</a>";
-      $this->loadView("user/index",$data);
+      $this->loadView("user/daftar",$data);
     } else {
       $this->cari();
     }

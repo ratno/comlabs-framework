@@ -108,7 +108,7 @@ class page extends application {
       $data['judul'] = "Hasil Pencarian page";
       $data['data'] = $this->model_page->ambil_data($kondisi);
       $data['link_tambah'] = "<a href='".url("page","cari")."'>Kembali</a>";
-      $this->loadView("page/index",$data);
+      $this->loadView("page/daftar",$data);
     } else {
       $this->cari();
     }
