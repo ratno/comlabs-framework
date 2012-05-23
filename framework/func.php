@@ -274,6 +274,21 @@ function pilihan($name, $opsi="", $data="", $blnReturn = false) {
 function opsi($data_dari_database="", $nama_pilihan="nama", $pilihan="id") {
   $out = array();
   if (is_array($data_dari_database) && count($data_dari_database) > 0) {
+    // cek dulu apakah data dari db tsb cuman satu? dengan mengecek $nama_pilihan sebagai key
+    if(is_array($nama_pilihan)){
+        $cek_kolom = $nama_pilihan[0];
+    } else {
+        $cek_kolom = $nama_pilihan;
+    }
+    
+    if(key_exists($cek_kolom, $data_dari_database)){
+        // data tunggal, harus dimasukkan kedalam array lagi
+        $temp = $data_dari_database;
+        $data_dari_database = array();
+        $data_dari_database[] = $temp;
+        unset($temp);
+    }
+      
     $blnArrayNamaPilihan = false;
     if(is_array($nama_pilihan) && count($nama_pilihan) > 0){
       $blnArrayNamaPilihan = true;
