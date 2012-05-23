@@ -46,7 +46,7 @@ if(MOD_REWRITE){
 }
 
 switch (IDTIMEZONE) {
-  case 'WIB': date_default_timezone_set('Asia/Krasnoyarsk'); break;
-  case 'WITA': date_default_timezone_set('Asia/Brunei'); break;
-  case 'WIT': date_default_timezone_set('Asia/Seoul'); break;
+  case 'WIB': date_default_timezone_set('Asia/Jakarta'); break;
+  case 'WITA': date_default_timezone_set('Asia/Pontianak'); break;
+  case 'WIT': date_default_timezone_set('Asia/Jayapura'); break;
 }
