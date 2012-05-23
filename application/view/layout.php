@@ -2,6 +2,7 @@
   <head>
     <title><?php echo $judul ?></title>
     <?php echo $css ?>
+    <?php echo $jquery ?>
   </head>
   <body>
     <?php menu($menu); ?>

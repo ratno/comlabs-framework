@@ -20,7 +20,6 @@ class application {
   }
   
   function preLoad(){
-    $this->js(JQUERY);
     $this->css("main.css");
   }
 
@@ -249,6 +248,8 @@ class application {
     
     //populate globals variabels
     $this->populateGlobals();
+    
+    $jquery = "<script type='text/javascript' src='".JS_URL.JQUERY."'></script>";
     
     $js = "";
     if(is_array($this->js) && count($this->js)>0){
