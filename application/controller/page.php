@@ -72,19 +72,19 @@ class page extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Ubah Page";
     $data['aksi'] = "simpan_ubah";
-    $data['data'] = $this->model_page->ambil_berdasar_id($var['id']);
+    $data['data'] = $this->model_page->ambil_berdasar_id($var[model_page::pk()]);
     $this->loadView('page/form', $data);
   }
 
   function simpan_ubah($var) {
     cek_keamanan(array("admin"));
-    $this->model_page->update($_POST, $var['id']);
+    $this->model_page->update($_POST, $var[model_page::pk()]);
     $this->redirect();
   }
 
   function hapus($var) {
     cek_keamanan(array("admin"));
-    $this->model_page->delete($var['id']);
+    $this->model_page->delete($var[model_page::pk()]);
     $this->redirect();
   }
   
