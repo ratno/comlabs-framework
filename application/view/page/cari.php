@@ -1,5 +1,5 @@
 <h1><?php echo $judul ?></h1>
-<form <?php form_properties("page",$aksi,$data['id'],true) ?>>
+<form <?php form_properties("page",$aksi,$data[model_page::pk()],true) ?>>
 	<table border="0">
     
 		<tr>
