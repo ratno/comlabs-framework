@@ -21,7 +21,7 @@
 ?>
 
 <h1><?php echo $judul ?></h1>
-<form <?php form_properties("nama_tabel", $aksi, $data['id'], true) ?>>
+<form <?php form_properties("nama_tabel", $aksi, $data[model_nama_tabel::pk()], true) ?>>
   <table border="0">
 
     <tr>
