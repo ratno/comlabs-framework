@@ -43,19 +43,19 @@ class user extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Ubah User";
     $data['aksi'] = "simpan_ubah";
-    $data['data'] = $this->model_user->ambil_berdasar_id($var['id']);
+    $data['data'] = $this->model_user->ambil_berdasar_id($var[model_user::pk()]);
     $this->loadView('user/form', $data);
   }
 
   function simpan_ubah($var) {
     cek_keamanan(array("admin"));
-    $this->model_user->update($_POST, $var['id']);
+    $this->model_user->update($_POST, $var[model_user::pk()]);
     $this->redirect();
   }
 
   function hapus($var) {
     cek_keamanan(array("admin"));
-    $this->model_user->delete($var['id']);
+    $this->model_user->delete($var[model_user::pk()]);
     $this->redirect();
   }
     
