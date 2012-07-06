@@ -2,10 +2,13 @@
 
 class model_user extends application {
 
+  public static $static_tabel = "user";
+  public static $static_pk = "id";
+
   function __construct() {
     $this->db(); // koneksi ke database
-    $this->tabel = "user";
-    $this->pk = "id";
+    $this->tabel = self::$static_tabel;
+    $this->pk = self::$static_pk;
   }
 
   function ambil_data($klausa=null) {
@@ -13,7 +16,7 @@ class model_user extends application {
     if ($klausa) {
       $sql .= " " . $klausa;
     } else {
-      $sql .= " ORDER BY id";
+      $sql .= " ORDER BY ". $this->pk;
     }
     return $this->query($sql);
   }
@@ -27,5 +30,8 @@ class model_user extends application {
     $sql = "SELECT * FROM " . $this->tabel . " WHERE username='$username'";
     return $this->query($sql);
   }
-
+  
+  static function pk(){
+    return self::$static_pk;
+  }
 }
