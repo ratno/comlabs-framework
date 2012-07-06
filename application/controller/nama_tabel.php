@@ -51,19 +51,19 @@ class nama_tabel extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Ubah nama_tabel";
     $data['aksi'] = "simpan_ubah";
-    $data['data'] = $this->model_nama_tabel->ambil_berdasar_id($var['id']);
+    $data['data'] = $this->model_nama_tabel->ambil_berdasar_id($var[model_nama_tabel::pk()]);
     $this->loadView('nama_tabel/form', $data);
   }
 
   function simpan_ubah($var) {
     cek_keamanan(array("admin"));
-    $this->model_nama_tabel->update($_POST, $var['id']);
+    $this->model_nama_tabel->update($_POST, $var[model_nama_tabel::pk()]);
     $this->redirect();
   }
 
   function hapus($var) {
     cek_keamanan(array("admin"));
-    $this->model_nama_tabel->delete($var['id']);
+    $this->model_nama_tabel->delete($var[model_nama_tabel::pk()]);
     $this->redirect();
   }
   
