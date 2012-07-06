@@ -125,7 +125,8 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $
         if (count($aksi) > 0) {
           $out .= "<td>";
           foreach ($aksi as $method => $name) {
-            $out .= "[" . buat_link($name, $method, $controller, $item['id']) . "]";
+            $model_name = "model_".$controller;
+            $out .= "[" . buat_link($name, $method, $controller, $item[$model_name::pk()]) . "]";
           }
           $out .= "</td>";
         }
