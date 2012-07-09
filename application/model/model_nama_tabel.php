@@ -11,7 +11,7 @@ class model_nama_tabel extends application {
     $this->pk = self::$static_pk;
   }
 
-  function ambil_data($klausa=null) {
+  function ambil_data($klausa=null,$page=null,$jml_data_per_page=10) {
     $kolom[] = kolom(self::tabel(), "*");
     
     $sql[] = "SELECT";
@@ -19,10 +19,16 @@ class model_nama_tabel extends application {
     $sql[] = "FROM " . self::tabel();
     
     if ($klausa) {
-      $sql[] = $klausa;
+      $sql[] = implode(" ", $klausa);
     } else {
       $sql[] = "ORDER BY ". kolom(self::tabel(), self::pk());
     }
+    
+    if(!is_empty($page)) {
+      $start = ($page-1)*$jml_data_per_page;
+      $sql[] = "LIMIT $start,$jml_data_per_page";
+    }
+    
     return $this->query(implode(" ", $sql));
   }
 
