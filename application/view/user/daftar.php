@@ -7,5 +7,5 @@ tabel("user",$data,array(
     "Username"=>'$item["username"]',
     "Role"=>'$item["role"]',
     "Tanggal Diangkat"=>'tanggal($item["tgl_diangkat"])'
-),$aksi);
+),$aksi,$no_page,$jml_data_per_page,$total_data,$method);
 ?>

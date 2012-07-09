@@ -27,5 +27,5 @@
 <?php
 tabel("nama_tabel",$data,array(
     "Judul Kolom"=>'$item["nama_kolom"]',
-),$aksi);
+),$aksi,$no_page,$jml_data_per_page,$total_data,$method);
 ?>
