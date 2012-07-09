@@ -85,26 +85,28 @@ function angka($angka, $desimal=2) {
 
 function tabel($controller, $data, $kolom, $aksi=array(), $no_page=null, $jml_data_per_page=null, $total_data=null,$method=null, $aksi_header="Aksi", $blnReturn = false) {
   if (is_array($data) && count($data) > 0) {
-    $total_page = ceil($total_data/$jml_data_per_page);
-    $paging = "";
-    if ($no_page > 1)
-      $paging .=  link_href(url($controller, $method, array("page" => $no_page-1)), "&lt;&lt; Prev");
-    else
-      $paging .=  "&lt;&lt; Prev";
-    for($idx_no_page = 1; $idx_no_page <= $total_page; $idx_no_page++) {
-      if ((($idx_no_page >= $no_page - 3) && ($idx_no_page <= $no_page + 3)) || ($idx_no_page == 1) || ($idx_no_page == $total_page)){
-        if ($idx_no_page == $no_page)
-          $paging .= " <b>[".$idx_no_page."]</b> ";
-        else 
-          $paging .=  " " . link_href(url($controller, $method, array("page" => $idx_no_page)), $idx_no_page) ." ";
+    if(!is_empty($no_page)){
+      $total_page = ceil($total_data/$jml_data_per_page);
+      $paging = "";
+      if ($no_page > 1)
+        $paging .=  link_href(url($controller, $method, array("page" => $no_page-1)), "&lt;&lt; Prev");
+      else
+        $paging .=  "&lt;&lt; Prev";
+      for($idx_no_page = 1; $idx_no_page <= $total_page; $idx_no_page++) {
+        if ((($idx_no_page >= $no_page - 3) && ($idx_no_page <= $no_page + 3)) || ($idx_no_page == 1) || ($idx_no_page == $total_page)){
+          if ($idx_no_page == $no_page)
+            $paging .= " <b>[".$idx_no_page."]</b> ";
+          else 
+            $paging .=  " " . link_href(url($controller, $method, array("page" => $idx_no_page)), $idx_no_page) ." ";
+        }
       }
+      if ($no_page < $total_page) 
+        $paging .=  link_href(url($controller, $method, array("page" => $no_page+1)), "Next &gt;&gt;");
+      else
+        $paging .= "Next &gt;&gt;";
     }
-    if ($no_page < $total_page) 
-      $paging .=  link_href(url($controller, $method, array("page" => $no_page+1)), "Next &gt;&gt;");
-    else
-      $paging .= "Next &gt;&gt;";
     
-    $out = $paging;
+    $out = is_empty($no_page)?"":$paging;
     
     $out .= '<table border="0" cellpadding="5" class="grid">';
     // bikin baris header
@@ -160,7 +162,7 @@ function tabel($controller, $data, $kolom, $aksi=array(), $no_page=null, $jml_da
     }
     $out .= "</tbody>";
     $out .= "</table>";
-    $out .= $paging;
+    $out .= is_empty($no_page)?"":$paging;
   } else {
     $out = "<h3>Data Tidak Tersedia</h3>";
   }
