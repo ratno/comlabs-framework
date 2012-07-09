@@ -14,10 +14,14 @@ class nama_tabel extends application {
     $this->daftar();
   }
   
-  function daftar() {
+  function daftar($var) {
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Halaman nama_tabel";
-    $data['data'] = $this->model_nama_tabel->ambil_data();
+    $data['no_page'] = ($var['page'])?$var['page']:1;
+    $data['jml_data_per_page'] = 10;
+    $data['total_data'] = $this->model_nama_tabel->hitung_data();
+    $data['data'] = $this->model_nama_tabel->ambil_data(null,$data['no_page'],$data['jml_data_per_page']);
+    $data['method'] = __FUNCTION__;
     if(cek_role("admin")){
       $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("nama_tabel");

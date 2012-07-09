@@ -35,10 +35,14 @@ class page extends application {
     $this->loadView("page/display",$data);
   }
   
-  function daftar() {
+  function daftar($var) {
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Daftar Page";
-    $data['data'] = $this->model_page->ambil_data();
+    $data['no_page'] = ($var['page'])?$var['page']:1;
+    $data['jml_data_per_page'] = 10;
+    $data['total_data'] = $this->model_page->hitung_data();
+    $data['data'] = $this->model_page->ambil_data(null,$data['no_page'],$data['jml_data_per_page']);
+    $data['method'] = __FUNCTION__;
     if(cek_role("admin")){
       $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("page");
