@@ -83,9 +83,30 @@ function angka($angka, $desimal=2) {
   }
 }
 
-function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $blnReturn = false) {
+function tabel($controller, $data, $kolom, $aksi=array(), $no_page=null, $jml_data_per_page=null, $total_data=null,$method=null, $aksi_header="Aksi", $blnReturn = false) {
   if (is_array($data) && count($data) > 0) {
-    $out = '<table border="0" cellpadding="5" class="grid">';
+    $total_page = ceil($total_data/$jml_data_per_page);
+    $paging = "";
+    if ($no_page > 1)
+      $paging .=  link_href(url($controller, $method, array("page" => $no_page-1)), "&lt;&lt; Prev");
+    else
+      $paging .=  "&lt;&lt; Prev";
+    for($idx_no_page = 1; $idx_no_page <= $total_page; $idx_no_page++) {
+      if ((($idx_no_page >= $no_page - 3) && ($idx_no_page <= $no_page + 3)) || ($idx_no_page == 1) || ($idx_no_page == $total_page)){
+        if ($idx_no_page == $no_page)
+          $paging .= " <b>[".$idx_no_page."]</b> ";
+        else 
+          $paging .=  " " . link_href(url($controller, $method, array("page" => $idx_no_page)), $idx_no_page) ." ";
+      }
+    }
+    if ($no_page < $total_page) 
+      $paging .=  link_href(url($controller, $method, array("page" => $no_page+1)), "Next &gt;&gt;");
+    else
+      $paging .= "Next &gt;&gt;";
+    
+    $out = $paging;
+    
+    $out .= '<table border="0" cellpadding="5" class="grid">';
     // bikin baris header
     $out .= "<thead>";
     $out .= "<tr class='baris_judul'>";
@@ -98,7 +119,7 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $
     }
     $out .= "</tr>";
     $out .= "</thead>";
-
+    
     // bikin isi tabel
     // jika $data['id'] ada, maka datanya cuman satu
     $out .= "<tbody>";
@@ -108,7 +129,11 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $
       } else {
         $data_process = $data;
       }
-      $nomor = 1;
+      if(is_empty($no_page)){
+        $nomor = 1;
+      } else {
+        $nomor = (($no_page-1)*$jml_data_per_page)+1;
+      }
       foreach ($data_process as $item) {
         $tr_class = ($nomor%2==0)?"baris_genap":"baris_ganjil";
         $out .= "<tr class='$tr_class'>";
@@ -135,6 +160,7 @@ function tabel($controller, $data, $kolom, $aksi=array(), $aksi_header="Aksi", $
     }
     $out .= "</tbody>";
     $out .= "</table>";
+    $out .= $paging;
   } else {
     $out = "<h3>Data Tidak Tersedia</h3>";
   }
@@ -451,8 +477,12 @@ function menu($menu, $blnReturn=false){
   }
 }
 
-function kolom($tbl,$kolom,$alias=null){
-  $out = "$tbl.$kolom";
+function kolom($tbl,$kolom,$alias=null,$fungsi=null){
+  if(is_empty($fungsi)) {
+    $out = "$tbl.$kolom";
+  } else {
+    $out = "$fungsi($tbl.$kolom)";
+  }
   if(!is_empty($alias)){
     $out .= " as $alias";
   }
