@@ -31,6 +31,21 @@ class model_page extends application {
     
     return $this->query(implode(" ", $sql));
   }
+  
+  function hitung_data($klausa=null) {
+    $kolom[] = kolom(self::tabel(), self::pk(),"total","count");
+    
+    $sql[] = "SELECT";
+    $sql[] = implode(",", $kolom); 
+    $sql[] = "FROM " . self::tabel();
+    
+    if ($klausa) {
+      $sql[] = implode(" ", $klausa);
+    }
+    
+    $data = $this->query(implode(" ", $sql));
+    return $data['total'];
+  }
 
   function ambil_berdasar_id($id) {
     $klausa = "WHERE ". kolom(self::tabel(), self::pk()) ." = '$id'";
