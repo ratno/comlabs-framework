@@ -19,7 +19,11 @@ class model_page extends application {
     $sql[] = "FROM " . self::tabel();
     
     if ($klausa) {
-      $sql[] = implode(" ", $klausa);
+      if(is_array($klausa)){
+        $sql[] = implode(" ", $klausa);
+      } else {
+        $sql[] = $klausa;
+      }
     } else {
       $sql[] = "ORDER BY ". kolom(self::tabel(), self::pk());
     }
@@ -40,7 +44,11 @@ class model_page extends application {
     $sql[] = "FROM " . self::tabel();
     
     if ($klausa) {
-      $sql[] = implode(" ", $klausa);
+      if(is_array($klausa)){
+        $sql[] = implode(" ", $klausa);
+      } else {
+        $sql[] = $klausa;
+      }
     }
     
     $data = $this->query(implode(" ", $sql));
