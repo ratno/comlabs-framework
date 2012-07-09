@@ -450,3 +450,11 @@ function menu($menu, $blnReturn=false){
     echo $out;
   }
 }
+
+function kolom($tbl,$kolom,$alias=null){
+  $out = "$tbl.$kolom";
+  if(!is_empty($alias)){
+    $out .= " as $alias";
+  }
+  return $out;
+}
