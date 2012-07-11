@@ -7,6 +7,7 @@ define('DB_NAME',""); // mohon edit nama databasenya sesuai dengan database anda
 define('IDTIMEZONE',"WIB");
 
 /* ubah jika perlu */
+error_reporting("E_ERROR");
 //settingan untuk aplikasi dan web server
 define('DEFAULT_CONTROLLER',"index");
 define('DEFAULT_ACTION',"index");
