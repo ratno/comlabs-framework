@@ -193,8 +193,8 @@ function link_tambah($nama, $teks="Tambah Data") {
   return '<a href="' . url($nama, "tambah") . '">' . $teks . '</a>';
 }
 
-function form_properties($controller, $aksi, $id=null, $file_upload=false, $blnReturn = false) {
-  $out = 'action="' . url($controller, $aksi, array("id" => $id)) . '" method="POST"';
+function form_properties($controller, $aksi, $id=null, $file_upload=false, $method="POST",$blnReturn = false) {
+  $out = 'action="' . url($controller, $aksi, array("id" => $id)) . '" method="'.$method.'"';
   if ($file_upload) {
     $out .= ' enctype="multipart/form-data"';
   }
