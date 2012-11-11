@@ -11,20 +11,6 @@ body {
   font-family: sans-serif;
 }
 
-table.grid {
-  background: #333;
-}
-
-tr.baris_judul {
-  background: #4d8199;
-}
-tr.baris_genap {
-  background: #cf7c29;
-}
-tr.baris_ganjil {
-  background: #ccae29;
-}
-
 input[type='text'], input[type='password'] {
   border-radius: 5px;
   -moz-border-radius: 5px;
