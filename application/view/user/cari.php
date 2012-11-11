@@ -1,5 +1,5 @@
 <h1><?php echo $judul ?></h1>
-<form <?php form_properties("user",$aksi,$data[model_user::pk()],true) ?>>
+<form <?php form_properties("user",$aksi,$data[model_user::pk()],true,$form_method) ?>>
 	<table border="0">
 		<tr>
 			<td>Nama</td>

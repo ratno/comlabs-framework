@@ -24,10 +24,17 @@ class user extends application {
     $data['data'] = $this->model_user->ambil_data(null,$data['no_page'],$data['jml_data_per_page']);
     $data['method'] = __FUNCTION__;
     if(cek_role("admin")){
-      $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
+      $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("user");
     }
     $this->loadView("user/daftar", $data);
+  }
+  
+  function view($var){
+    cek_keamanan(array("admin"));
+    $data['judul'] = "Detail User";
+    $data['data'] = $this->model_user->ambil_berdasar_id($var[model_user::pk()]);
+    $this->loadView('user/view', $data);
   }
 
   function tambah() {
@@ -66,6 +73,7 @@ class user extends application {
   function cari(){
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Cari User";
+    $data['form_method'] = "GET";
     $data['aksi'] = "hasil_pencarian";
     $this->loadView('user/cari', $data);
   }
@@ -73,7 +81,7 @@ class user extends application {
   function hasil_pencarian(){
     cek_keamanan(array("admin","user"));
     $kondisi_pencarian = array();
-    foreach ($_POST as $field=>$isian){
+    foreach ($_GET as $field=>$isian){
       if($isian && $isian != "null"){
         $kondisi_pencarian[] = "$field like '%$isian%'";
       }
@@ -84,6 +92,9 @@ class user extends application {
       $data['judul'] = "Hasil Pencarian User";
       $data['data'] = $this->model_user->ambil_data($kondisi);
       $data['link_tambah'] = "<a href='".url("user","cari")."'>Kembali</a>";
+      if(cek_role("admin")){
+        $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
+      }
       $this->loadView("user/daftar",$data);
     } else {
       $this->cari();
