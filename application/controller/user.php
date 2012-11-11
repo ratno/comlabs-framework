@@ -41,6 +41,7 @@ class user extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Tambah User";
     $data['aksi'] = "simpan_tambah";
+    $data['form_method'] = "POST";
     $this->loadView('user/form', $data);
   }
 
@@ -54,6 +55,7 @@ class user extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Ubah User";
     $data['aksi'] = "simpan_ubah";
+    $data['form_method'] = "POST";
     $data['data'] = $this->model_user->ambil_berdasar_id($var[model_user::pk()]);
     $this->loadView('user/form', $data);
   }
