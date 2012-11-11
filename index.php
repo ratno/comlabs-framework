@@ -15,6 +15,7 @@ require_once("framework/spyc.php");
 $url = $_SERVER['REQUEST_URI'];
 $url = substr($url, strlen(SUBDIR . INDEX));
 $url = str_replace(array("/index.php"), "", $url);
+$url = str_replace(array("?","&"), "/", $url);
 
 $array_uri = preg_split('[\\/]', $url, -1, PREG_SPLIT_NO_EMPTY);
 // ambil controller
