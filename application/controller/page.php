@@ -92,32 +92,6 @@ class page extends application {
     $this->redirect();
   }
   
-  function cari(){
-    cek_keamanan(array("admin","user"));
-    $data['judul'] = "Cari page";
-    $data['aksi'] = "hasil_pencarian";
-    $this->loadView('page/cari', $data);
-  }
-  
-  function hasil_pencarian(){
-    cek_keamanan(array("admin","user"));
-    $kondisi_pencarian = array();
-    foreach ($_POST as $field=>$isian){
-      if($isian && $isian != "null"){
-        $kondisi_pencarian[] = "$field like '%$isian%'";
-      }
-    }
-    if(count($kondisi_pencarian) > 0){
-      $kondisi = "WHERE ".implode(" and ", $kondisi_pencarian);
-      $data['judul'] = "Hasil Pencarian page";
-      $data['data'] = $this->model_page->ambil_data($kondisi);
-      $data['link_tambah'] = "<a href='".url("page","cari")."'>Kembali</a>";
-      $this->loadView("page/daftar",$data);
-    } else {
-      $this->cari();
-    }
-  }
-  
   function impor() {
     cek_keamanan(array("admin","user"));
     parent::impor(__CLASS__,$this->model_page->tabel);
