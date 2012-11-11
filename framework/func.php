@@ -108,7 +108,7 @@ function tabel($controller, $data, $kolom, $aksi=array(), $no_page=null, $jml_da
     
     $out = is_empty($no_page)?"":$paging;
     
-    $out .= '<table border="0" cellpadding="5" class="grid">';
+    $out .= '<table border="0" cellpadding="5" cellspacing="0" class="grid">';
     // bikin baris header
     $out .= "<thead>";
     $out .= "<tr class='baris_judul'>";
