@@ -23,13 +23,21 @@ class nama_tabel extends application {
     $data['data'] = $this->model_nama_tabel->ambil_data(null,$data['no_page'],$data['jml_data_per_page']);
     $data['method'] = __FUNCTION__;
     if(cek_role("admin")){
-      $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
+      $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("nama_tabel");
     } else {
       $data['aksi'] = array();
       $data['link_tambah'] = "";
     }
     $this->loadView("nama_tabel/daftar", $data);
+  }
+  
+  
+  function view($var){
+    cek_keamanan(array("admin"));
+    $data['judul'] = "Detail nama_tabel";
+    $data['data'] = $this->model_nama_tabel->ambil_berdasar_id($var[model_nama_tabel::pk()]);
+    $this->loadView('nama_tabel/view', $data);
   }
 
   function tambah() {
@@ -41,7 +49,7 @@ class nama_tabel extends application {
                                   "pilihan dua (ini yg disimpan di tabel)"=>"Pilihan Dua (ini yg muncul di halaman web)",
                                   "pilihan tiga (ini yg disimpan di tabel)"=>"Pilihan Tiga (ini yg muncul di halaman web)"
                                  );
-    
+    $data['form_method'] = "POST";
     $this->loadView('nama_tabel/form', $data);
   }
 
@@ -56,6 +64,7 @@ class nama_tabel extends application {
     $data['judul'] = "Ubah nama_tabel";
     $data['aksi'] = "simpan_ubah";
     $data['data'] = $this->model_nama_tabel->ambil_berdasar_id($var[model_nama_tabel::pk()]);
+    $data['form_method'] = "POST";
     $this->loadView('nama_tabel/form', $data);
   }
 
@@ -75,13 +84,14 @@ class nama_tabel extends application {
     cek_keamanan(array("admin","user"));
     $data['judul'] = "Cari nama_tabel";
     $data['aksi'] = "hasil_pencarian";
+    $data['form_method'] = "GET";
     $this->loadView('nama_tabel/cari', $data);
   }
   
   function hasil_pencarian(){
     cek_keamanan(array("admin","user"));
     $kondisi_pencarian = array();
-    foreach ($_POST as $field=>$isian){
+    foreach ($_GET as $field=>$isian){
       if($isian && $isian != "null"){
         $kondisi_pencarian[] = "$field like '%$isian%'";
       }
@@ -91,6 +101,9 @@ class nama_tabel extends application {
       $data['judul'] = "Hasil Pencarian nama_tabel";
       $data['data'] = $this->model_nama_tabel->ambil_data($kondisi);
       $data['link_tambah'] = "<a href='".url("nama_tabel","cari")."'>Kembali</a>";
+      if(cek_role("admin")){
+        $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
+      }
       $this->loadView("nama_tabel/daftar",$data);
     } else {
       $this->cari();
