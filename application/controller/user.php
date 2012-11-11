@@ -95,7 +95,7 @@ class user extends application {
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan User";
     $data['data'] = $this->model_user->ambil_data();
-    $this->loadView("user/index",$data);
+    $this->loadView("user/daftar",$data);
   }
   
   function impor() {

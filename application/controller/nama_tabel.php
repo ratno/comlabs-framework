@@ -102,7 +102,7 @@ class nama_tabel extends application {
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan nama_tabel";
     $data['data'] = $this->model_nama_tabel->ambil_data();
-    $this->loadView("nama_tabel/index",$data);
+    $this->loadView("nama_tabel/daftar",$data);
   }
   
   function impor() {
