@@ -118,14 +118,6 @@ class page extends application {
     }
   }
   
-  function laporan(){
-    cek_keamanan(array("admin","user"));
-    $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
-    $data['judul'] = "Laporan page";
-    $data['data'] = $this->model_page->ambil_data();
-    $this->loadView("page/index",$data);
-  }
-  
   function impor() {
     cek_keamanan(array("admin","user"));
     parent::impor(__CLASS__,$this->model_page->tabel);
