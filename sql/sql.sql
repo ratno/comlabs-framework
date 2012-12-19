@@ -8,7 +8,7 @@ CREATE TABLE user (
 	hp varchar(30),
 	username varchar(20) unique,
 	password varchar(128),
-	role enum("admin","user"),
+	role varchar(30),
   tgl_diangkat date
 );
 
