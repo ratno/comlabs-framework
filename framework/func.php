@@ -406,7 +406,7 @@ function is_empty($data) {
 }
 
 function textarea($name,$data="", $class="simple",$blnReturn=false){
-  if (is_array($data) && isset($data[$name])) {
+  if (is_array($data) && key_exists($name,$data)) {
     $isi = $data[$name];
   } else {
     $isi = $data;
