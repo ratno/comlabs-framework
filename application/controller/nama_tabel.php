@@ -3,7 +3,7 @@
 class nama_tabel extends application {
 
   function __construct() {
-    $this->model("model_nama_tabel");
+    parent::__construct($uri);
   }
 
   function redirect() {
@@ -16,6 +16,7 @@ class nama_tabel extends application {
   
   function daftar($var) {
     cek_keamanan(array("admin","user"));
+    $this->model("model_nama_tabel");
     $data['judul'] = "Halaman nama_tabel";
     $data['no_page'] = ($var['page'])?$var['page']:1;
     $data['jml_data_per_page'] = 10;
@@ -35,6 +36,7 @@ class nama_tabel extends application {
   
   function view($var){
     cek_keamanan(array("admin"));
+    $this->model("model_nama_tabel");
     $data['judul'] = "Detail nama_tabel";
     $data['data'] = $this->model_nama_tabel->ambil_berdasar_id($var[model_nama_tabel::pk()]);
     $this->view('nama_tabel/view', $data);
@@ -42,6 +44,7 @@ class nama_tabel extends application {
 
   function tambah() {
     cek_keamanan(array("admin"));
+    $this->model("model_nama_tabel");
     $data['judul'] = "Tambah nama_tabel";
     $data['aksi'] = "simpan_tambah";
 //    $data['opsi_db'] = opsi($this->model_nama_tabel->ambil_data(),"nama");
@@ -55,12 +58,14 @@ class nama_tabel extends application {
 
   function simpan_tambah() {
     cek_keamanan(array("admin"));
+    $this->model("model_nama_tabel");
     $this->model_nama_tabel->insert($_POST);
     $this->redirect();
   }
 
   function ubah($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_nama_tabel");
     $data['judul'] = "Ubah nama_tabel";
     $data['aksi'] = "simpan_ubah";
     $data['data'] = $this->model_nama_tabel->ambil_berdasar_id($var[model_nama_tabel::pk()]);
@@ -70,12 +75,14 @@ class nama_tabel extends application {
 
   function simpan_ubah($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_nama_tabel");
     $this->model_nama_tabel->update($_POST, $var[model_nama_tabel::pk()]);
     $this->redirect();
   }
 
   function hapus($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_nama_tabel");
     $this->model_nama_tabel->delete($var[model_nama_tabel::pk()]);
     $this->redirect();
   }
@@ -90,6 +97,7 @@ class nama_tabel extends application {
   
   function hasil_pencarian(){
     cek_keamanan(array("admin","user"));
+    $this->model("model_nama_tabel");
     $kondisi_pencarian = array();
     foreach ($_GET as $field=>$isian){
       if(preg_match("/^(inputtgl_)/", $field)){
@@ -116,6 +124,7 @@ class nama_tabel extends application {
   
   function laporan(){
     cek_keamanan(array("admin","user"));
+    $this->model("model_nama_tabel");
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan nama_tabel";
     $data['data'] = $this->model_nama_tabel->ambil_data();
@@ -124,6 +133,7 @@ class nama_tabel extends application {
   
   function impor() {
     cek_keamanan(array("admin","user"));
+    $this->model("model_nama_tabel");
     parent::impor(__CLASS__,$this->model_nama_tabel->tabel);
   }
 }

@@ -4,7 +4,6 @@ class user extends application {
 
   function __construct($uri) {
     parent::__construct($uri);
-    $this->model("model_user");
   }
 
   function redirect() {
@@ -17,6 +16,7 @@ class user extends application {
   
   function daftar($var) {
     cek_keamanan(array("admin","user"));
+    $this->model("model_user");
     $data['judul'] = "Halaman User";
     $data['no_page'] = ($var['page'])?$var['page']:1;
     $data['jml_data_per_page'] = 10;
@@ -32,6 +32,7 @@ class user extends application {
   
   function view($var){
     cek_keamanan(array("admin"));
+    $this->model("model_user");
     $data['judul'] = "Detail User";
     $data['data'] = $this->model_user->ambil_berdasar_id($var[model_user::pk()]);
     $this->view('user/view', $data);
@@ -39,6 +40,7 @@ class user extends application {
 
   function tambah() {
     cek_keamanan(array("admin"));
+    $this->model("model_user");
     $data['judul'] = "Tambah User";
     $data['aksi'] = "simpan_tambah";
     $data['form_method'] = "POST";
@@ -47,12 +49,14 @@ class user extends application {
 
   function simpan_tambah() {
     cek_keamanan(array("admin"));
+    $this->model("model_user");
     $this->model_user->insert($_POST);
     $this->redirect();
   }
 
   function ubah($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_user");
     $data['judul'] = "Ubah User";
     $data['aksi'] = "simpan_ubah";
     $data['form_method'] = "POST";
@@ -62,12 +66,14 @@ class user extends application {
 
   function simpan_ubah($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_user");
     $this->model_user->update($_POST, $var[model_user::pk()]);
     $this->redirect();
   }
 
   function hapus($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_user");
     $this->model_user->delete($var[model_user::pk()]);
     $this->redirect();
   }
@@ -82,6 +88,7 @@ class user extends application {
   
   function hasil_pencarian(){
     cek_keamanan(array("admin","user"));
+    $this->model("model_user");
     $kondisi_pencarian = array();
     foreach ($_GET as $field=>$isian){
       if(preg_match("/^(inputtgl_)/", $field)){
@@ -109,6 +116,7 @@ class user extends application {
   
   function laporan(){
     cek_keamanan(array("admin","user"));
+    $this->model("model_user");
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan User";
     $data['data'] = $this->model_user->ambil_data();
@@ -117,6 +125,7 @@ class user extends application {
   
   function impor() {
     cek_keamanan(array("admin","user"));
+    $this->model("model_user");
     parent::impor(__CLASS__,$this->model_user->tabel);
   }
 }

@@ -4,7 +4,6 @@ class page extends application {
 
   function __construct($uri) {
     parent::__construct($uri);
-    $this->model("model_page");
   }
 
   function redirect() {
@@ -12,6 +11,7 @@ class page extends application {
   }
 
   function index($param=null) {
+    $this->model("model_page");
     // kita cek, jika ada halamannya berdasar kode, maka kita tampilkan
     $data = $this->model_page->ambil_berdasar_kode($this->uri['request']);
     if($data){
@@ -22,6 +22,7 @@ class page extends application {
   }
   
   function display($param,$data=null){
+    $this->model("model_page");
     if(!$data){
       $kode = key($param);
       $data = $this->model_page->ambil_berdasar_kode($kode);
@@ -37,6 +38,7 @@ class page extends application {
   
   function daftar($var) {
     cek_keamanan(array("admin","user"));
+    $this->model("model_page");
     $data['judul'] = "Daftar Page";
     $data['no_page'] = ($var['page'])?$var['page']:1;
     $data['jml_data_per_page'] = 10;
@@ -55,6 +57,7 @@ class page extends application {
 
   function tambah() {
     cek_keamanan(array("admin"));
+    $this->model("model_page");
     $data['judul'] = "Tambah Page";
     $data['aksi'] = "simpan_tambah";
 //    $data['opsi_db'] = opsi($this->model_page->ambil_data(),"nama");
@@ -68,12 +71,14 @@ class page extends application {
 
   function simpan_tambah() {
     cek_keamanan(array("admin"));
+    $this->model("model_page");
     $this->model_page->insert($_POST);
     $this->redirect();
   }
 
   function ubah($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_page");
     $data['judul'] = "Ubah Page";
     $data['aksi'] = "simpan_ubah";
     $data['data'] = $this->model_page->ambil_berdasar_id($var[model_page::pk()]);
@@ -82,18 +87,21 @@ class page extends application {
 
   function simpan_ubah($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_page");
     $this->model_page->update($_POST, $var[model_page::pk()]);
     $this->redirect();
   }
 
   function hapus($var) {
     cek_keamanan(array("admin"));
+    $this->model("model_page");
     $this->model_page->delete($var[model_page::pk()]);
     $this->redirect();
   }
   
   function impor() {
     cek_keamanan(array("admin","user"));
+    $this->model("model_page");
     parent::impor(__CLASS__,$this->model_page->tabel);
   }
 }

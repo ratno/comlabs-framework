@@ -4,7 +4,6 @@ class index extends application {
 
   function __construct($uri) {
     parent::__construct($uri);
-    $this->model("model_user");
   }
 
   function index() {
@@ -13,6 +12,7 @@ class index extends application {
   }
 
   function login() {
+    $this->model("model_user");
     $data['judul'] = "Halaman Login";
     if ($_POST) {
       $username = $_POST['username'];
