@@ -3,7 +3,7 @@
 class nama_tabel extends application {
 
   function __construct() {
-    $this->loadModel("model_nama_tabel");
+    $this->model("model_nama_tabel");
   }
 
   function redirect() {
@@ -29,7 +29,7 @@ class nama_tabel extends application {
       $data['aksi'] = array();
       $data['link_tambah'] = "";
     }
-    $this->loadView("nama_tabel/daftar", $data);
+    $this->view("nama_tabel/daftar", $data);
   }
   
   
@@ -37,7 +37,7 @@ class nama_tabel extends application {
     cek_keamanan(array("admin"));
     $data['judul'] = "Detail nama_tabel";
     $data['data'] = $this->model_nama_tabel->ambil_berdasar_id($var[model_nama_tabel::pk()]);
-    $this->loadView('nama_tabel/view', $data);
+    $this->view('nama_tabel/view', $data);
   }
 
   function tambah() {
@@ -50,7 +50,7 @@ class nama_tabel extends application {
                                   "pilihan tiga (ini yg disimpan di tabel)"=>"Pilihan Tiga (ini yg muncul di halaman web)"
                                  );
     $data['form_method'] = "POST";
-    $this->loadView('nama_tabel/form', $data);
+    $this->view('nama_tabel/form', $data);
   }
 
   function simpan_tambah() {
@@ -65,7 +65,7 @@ class nama_tabel extends application {
     $data['aksi'] = "simpan_ubah";
     $data['data'] = $this->model_nama_tabel->ambil_berdasar_id($var[model_nama_tabel::pk()]);
     $data['form_method'] = "POST";
-    $this->loadView('nama_tabel/form', $data);
+    $this->view('nama_tabel/form', $data);
   }
 
   function simpan_ubah($var) {
@@ -85,7 +85,7 @@ class nama_tabel extends application {
     $data['judul'] = "Cari nama_tabel";
     $data['aksi'] = "hasil_pencarian";
     $data['form_method'] = "GET";
-    $this->loadView('nama_tabel/cari', $data);
+    $this->view('nama_tabel/cari', $data);
   }
   
   function hasil_pencarian(){
@@ -108,7 +108,7 @@ class nama_tabel extends application {
       if(cek_role("admin")){
         $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       }
-      $this->loadView("nama_tabel/daftar",$data);
+      $this->view("nama_tabel/daftar",$data);
     } else {
       $this->cari();
     }
@@ -119,7 +119,7 @@ class nama_tabel extends application {
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan nama_tabel";
     $data['data'] = $this->model_nama_tabel->ambil_data();
-    $this->loadView("nama_tabel/daftar",$data);
+    $this->view("nama_tabel/daftar",$data);
   }
   
   function impor() {

@@ -4,7 +4,7 @@ class user extends application {
 
   function __construct($uri) {
     parent::__construct($uri);
-    $this->loadModel("model_user");
+    $this->model("model_user");
   }
 
   function redirect() {
@@ -27,14 +27,14 @@ class user extends application {
       $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("user");
     }
-    $this->loadView("user/daftar", $data);
+    $this->view("user/daftar", $data);
   }
   
   function view($var){
     cek_keamanan(array("admin"));
     $data['judul'] = "Detail User";
     $data['data'] = $this->model_user->ambil_berdasar_id($var[model_user::pk()]);
-    $this->loadView('user/view', $data);
+    $this->view('user/view', $data);
   }
 
   function tambah() {
@@ -42,7 +42,7 @@ class user extends application {
     $data['judul'] = "Tambah User";
     $data['aksi'] = "simpan_tambah";
     $data['form_method'] = "POST";
-    $this->loadView('user/form', $data);
+    $this->view('user/form', $data);
   }
 
   function simpan_tambah() {
@@ -57,7 +57,7 @@ class user extends application {
     $data['aksi'] = "simpan_ubah";
     $data['form_method'] = "POST";
     $data['data'] = $this->model_user->ambil_berdasar_id($var[model_user::pk()]);
-    $this->loadView('user/form', $data);
+    $this->view('user/form', $data);
   }
 
   function simpan_ubah($var) {
@@ -77,7 +77,7 @@ class user extends application {
     $data['judul'] = "Cari User";
     $data['form_method'] = "GET";
     $data['aksi'] = "hasil_pencarian";
-    $this->loadView('user/cari', $data);
+    $this->view('user/cari', $data);
   }
   
   function hasil_pencarian(){
@@ -101,7 +101,7 @@ class user extends application {
       if(cek_role("admin")){
         $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       }
-      $this->loadView("user/daftar",$data);
+      $this->view("user/daftar",$data);
     } else {
       $this->cari();
     }
@@ -112,7 +112,7 @@ class user extends application {
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan User";
     $data['data'] = $this->model_user->ambil_data();
-    $this->loadView("user/daftar",$data);
+    $this->view("user/daftar",$data);
   }
   
   function impor() {

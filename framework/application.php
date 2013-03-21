@@ -110,7 +110,7 @@ class application {
     }
 
     $sql = "UPDATE " . $this->tabel . " SET " . implode(",", $update) . " WHERE " . $this->pk . "=" . $this->escape($id);
-    //die($sql);
+//    die($sql);
     return mysql_query($sql);
   }
 
@@ -227,7 +227,7 @@ class application {
     $this->css(JQUERY_UI_CSS);
   }
  
-  function loadView($view="", $vars="", $echo=true, $return="all") {
+  function view($view="", $vars="", $echo=true, $return="all") {
     if (is_array($vars) && count($vars) > 0)
       extract($vars, EXTR_PREFIX_SAME, "wddx");
     
@@ -304,9 +304,13 @@ class application {
     }
   }
 
-  function loadModel($model) {
+  function model($model,$alias="") {
     require_once(MODEL . $model . '.php');
-    $this->$model = new $model;
+    if($alias) {
+      $this->$alias = new $model;
+    } else {
+      $this->$model = new $model;
+    }
   }
 
   function impor($controller, $tabel) {
@@ -314,7 +318,7 @@ class application {
     $data['controller'] = $controller;
     $data['tabel'] = $tabel;
     $data['aksi'] = "impor_preview";
-    $this->loadView("general/impor", $data);
+    $this->view("general/impor", $data);
   }
 
   function impor_preview() {
@@ -377,7 +381,7 @@ class application {
     $data['aksi'] = "impor_status";
     $data['data'] = implode("||", $inserts);
     $data['tabel'] = $tbl;
-    $this->loadView("general/impor_preview", $data);
+    $this->view("general/impor_preview", $data);
   }
 
   function impor_status() {
@@ -398,7 +402,7 @@ class application {
       }
       $data['hasil'] .= "[$status] $sql<br />\n";
     }
-    $this->loadView('general/impor_status', $data);
+    $this->view('general/impor_status', $data);
   }
 
 }

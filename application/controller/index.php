@@ -4,12 +4,12 @@ class index extends application {
 
   function __construct($uri) {
     parent::__construct($uri);
-    $this->loadModel("model_user");
+    $this->model("model_user");
   }
 
   function index() {
     $data['judul'] = "Selamat Datang";
-    $this->loadView('index/index', $data);
+    $this->view('index/index', $data);
   }
 
   function login() {
@@ -31,7 +31,7 @@ class index extends application {
       }
     }
 
-    $this->loadView('index/login', $data);
+    $this->view('index/login', $data);
   }
 
   function logout() {
@@ -44,6 +44,6 @@ class index extends application {
   function control_panel() {
     $user = cek_keamanan(array("admin", "user"));
     $data['judul'] = "Selamat Datang " . $user['nama'];
-    $this->loadView('index/cpanel', $data);
+    $this->view('index/cpanel', $data);
   }
 }

@@ -4,7 +4,7 @@ class page extends application {
 
   function __construct($uri) {
     parent::__construct($uri);
-    $this->loadModel("model_page");
+    $this->model("model_page");
   }
 
   function redirect() {
@@ -32,7 +32,7 @@ class page extends application {
       $akses = explode(",", $data['akses']);
     }
     cek_keamanan($akses);
-    $this->loadView("page/display",$data);
+    $this->view("page/display",$data);
   }
   
   function daftar($var) {
@@ -50,7 +50,7 @@ class page extends application {
       $data['aksi'] = array();
       $data['link_tambah'] = "";
     }
-    $this->loadView("page/daftar", $data);
+    $this->view("page/daftar", $data);
   }
 
   function tambah() {
@@ -63,7 +63,7 @@ class page extends application {
                                   "pilihan tiga (ini yg disimpan di tabel)"=>"Pilihan Tiga (ini yg muncul di halaman web)"
                                  );
     
-    $this->loadView('page/form', $data);
+    $this->view('page/form', $data);
   }
 
   function simpan_tambah() {
@@ -77,7 +77,7 @@ class page extends application {
     $data['judul'] = "Ubah Page";
     $data['aksi'] = "simpan_ubah";
     $data['data'] = $this->model_page->ambil_berdasar_id($var[model_page::pk()]);
-    $this->loadView('page/form', $data);
+    $this->view('page/form', $data);
   }
 
   function simpan_ubah($var) {
