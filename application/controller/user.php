@@ -24,13 +24,13 @@ class user extends application {
     $data['data'] = $this->model_user->ambil_data(null,$data['no_page'],$data['jml_data_per_page']);
     $data['method'] = __FUNCTION__;
     if(cek_role("admin")){
-      $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
+      $data['aksi'] = array("viewdetail"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("user");
     }
     $this->view("user/daftar", $data);
   }
   
-  function view($var){
+  function viewdetail($var){
     cek_keamanan(array("admin"));
     $this->model("model_user");
     $data['judul'] = "Detail User";

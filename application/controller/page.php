@@ -46,7 +46,7 @@ class page extends application {
     $data['data'] = $this->model_page->ambil_data(null,$data['no_page'],$data['jml_data_per_page']);
     $data['method'] = __FUNCTION__;
     if(cek_role("admin")){
-      $data['aksi'] = array("ubah"=>"Ubah","hapus"=>"Hapus");
+      $data['aksi'] = array("display"=>"Display","ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("page");
     } else {
       $data['aksi'] = array();

@@ -24,7 +24,7 @@ class nama_tabel extends application {
     $data['data'] = $this->model_nama_tabel->ambil_data(null,$data['no_page'],$data['jml_data_per_page']);
     $data['method'] = __FUNCTION__;
     if(cek_role("admin")){
-      $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
+      $data['aksi'] = array("viewdetail"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("nama_tabel");
     } else {
       $data['aksi'] = array();
@@ -34,7 +34,7 @@ class nama_tabel extends application {
   }
   
   
-  function view($var){
+  function viewdetail($var){
     cek_keamanan(array("admin"));
     $this->model("model_nama_tabel");
     $data['judul'] = "Detail nama_tabel";
