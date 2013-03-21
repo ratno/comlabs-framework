@@ -45,4 +45,4 @@ foreach ($array_uri as $item_uri) {
 }
 
 $app = new application($uri);
-$app->loadController($uri['controller']);
+$app->controller($uri['controller']);

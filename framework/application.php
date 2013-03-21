@@ -127,7 +127,7 @@ class application {
     return is_numeric($val) ? "'$val'" : "'" . mysql_escape_string($val) . "'";
   }
 
-  function loadController($class) {
+  function controller($class) {
     $file = CONTROLLER . $this->uri['controller'] . ".php";
 
     if (!file_exists($file))
