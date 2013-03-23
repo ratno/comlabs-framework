@@ -1,7 +1,7 @@
 <div class="page-header">
   <h1><?php echo $judul ?></h1>
 </div>
-<form <?php form_properties("nama_tabel",$aksi,$data[model_nama_tabel::pk()],true,$form_method) ?>>
+<form <?php form_properties("nama_tabel",$aksi,null,true,$form_method) ?>>
 	<table border="0">
     
 		<tr>

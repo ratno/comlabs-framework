@@ -1,7 +1,7 @@
 <div class="page-header">
   <h1><?php echo $judul ?></h1>
 </div>
-<form <?php form_properties("user",$aksi,$data[model_user::pk()],true,$form_method) ?>>
+<form <?php form_properties("user",$aksi,null,true,$form_method) ?>>
 	<table border="0">
 		<tr>
 			<td>Nama</td>
