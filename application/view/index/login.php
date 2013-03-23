@@ -5,15 +5,15 @@
   <table border="0" cellpadding=5>
     <tr>
       <td>Username</td>
-      <td><input type="text" name="username" /></td>
+      <td><?php input("username") ?></td>
     </tr>
     <tr>
       <td>Password</td>
-      <td><input type="password" name="password" /></td>
+      <td><?php input("password","","password") ?></td>
     </tr>
     <tr>
       <td colspan="2">
-        <input type="submit" value="login" />
+        <?php submit("login") ?>
       </td>
     </tr>
   </table>

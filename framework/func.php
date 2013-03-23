@@ -256,14 +256,14 @@ function input($name, $data="", $type="text", $file_location=FILES_URL,$blnRetur
   }
 }
 
-function submit($value="kirim", $type="submit", $name="",$blnReturn = false) {
+function submit($value="kirim",$class="btn", $type="submit", $name="",$blnReturn = false) {
   if ($name != "") {
     $name_property = ' name="' . $name . '"';
   } else {
     $name_property = "";
   }
 
-  $out = '<input type="' . $type . '" value="' . $value . '"' . $name . ' />';
+  $out = '<input type="' . $type . '" value="' . $value . '" class="'.$class.'"' . $name . ' />';
   if($blnReturn){
     return $out;
   } else {
