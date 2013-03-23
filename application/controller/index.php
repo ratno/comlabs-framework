@@ -24,13 +24,12 @@ class index extends application {
           set_keamanan($user);
           header("Location: " . url("index", "control_panel"));
         } else {
-          $data['pesan'] = "Password Anda Salah";
+          msg("Password Anda Salah");
         }
       } else {
-        $data['pesan'] = "Username Anda Tidak Ditemukan";
+        msg("Username Anda Tidak Ditemukan");
       }
     }
-
     $this->view('index/login', $data);
   }
 

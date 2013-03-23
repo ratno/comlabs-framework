@@ -1,22 +1,6 @@
-/* 
-    Document   : main
-    Created on : May 13, 2012, 8:54:37 PM
-    Author     : ratno
-    Description:
-        Stylesheet untuk tampilan utama
-*/
-
-body {
-  background: url('IMAGES_URL/bg.png');
-  font-family: sans-serif;
+#wrap > .container {
+  padding-top: 60px;
 }
-
-input[type='text'], input[type='password'] {
-  border-radius: 5px;
-  -moz-border-radius: 5px;
-  padding: 2px;
-  border: #bababa 1px solid;
-}
-input[type='text']:focus, input[type='password']:focus {
-  background-color: #FFE7A1;
+.container .credit {
+  margin: 20px 0;
 }

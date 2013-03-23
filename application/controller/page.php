@@ -25,7 +25,11 @@ class page extends application {
     $this->model("model_page");
     if(!$data){
       $kode = key($param);
-      $data = $this->model_page->ambil_berdasar_kode($kode);
+      if($param[$kode]) {
+        $data = $this->model_page->ambil_berdasar_id($param[$kode]);
+      } else {
+        $data = $this->model_page->ambil_berdasar_kode($kode);
+      }
     }
     if(is_empty($data['akses'])){
       $akses = array("public");
@@ -40,11 +44,7 @@ class page extends application {
     cek_keamanan(array("admin","user"));
     $this->model("model_page");
     $data['judul'] = "Daftar Page";
-    $data['no_page'] = ($var['page'])?$var['page']:1;
-    $data['jml_data_per_page'] = 10;
-    $data['total_data'] = $this->model_page->hitung_data();
-    $data['data'] = $this->model_page->ambil_data(null,$data['no_page'],$data['jml_data_per_page']);
-    $data['method'] = __FUNCTION__;
+    $data['data'] = $this->model_page->ambil_data();
     if(cek_role("admin")){
       $data['aksi'] = array("display"=>"Display","ubah"=>"Ubah","hapus"=>"Hapus");
       $data['link_tambah'] = link_tambah("page");

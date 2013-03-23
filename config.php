@@ -1,4 +1,6 @@
 <?php
+define('APPNAME',"My Apps");
+define('APPFOOTER',"&copy;2013 Comlabs USDI ITB");
 // settingan untuk koneksi ke database
 define('SERVER',"localhost");
 define('USERNAME',"root");

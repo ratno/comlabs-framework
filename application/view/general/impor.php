@@ -1,4 +1,6 @@
-<h1><?php echo $judul ?></h1>
+<div class="page-header">
+  <h1><?php echo $judul ?></h1>
+</div>
 <form <?php form_properties($controller,$aksi,"",true) ?>>
   <?php input('controller',$controller, 'hidden'); ?>
   <?php input('tabel',$tabel, 'hidden'); ?>

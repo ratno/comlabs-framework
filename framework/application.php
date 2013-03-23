@@ -20,7 +20,14 @@ class application {
   }
   
   function preLoad(){
+    $this->css("bootstrap.css");
+    $this->css("sticky.css");
+    $this->css("bootstrap-responsive.css");
     $this->css("main.css");
+    $this->css("jquery.dataTables.css");
+    $this->js("bootstrap.js");
+    $this->js("jquery.dataTables.js");
+    $this->script('$(".table").dataTable();');
   }
 
   function db() {
@@ -131,7 +138,7 @@ class application {
     $file = CONTROLLER . $this->uri['controller'] . ".php";
 
     if (!file_exists($file))
-      header("location: " . BASEURL . SUBDIR);
+      header("location: " . WEB_URL);
 
     require_once($file);
 
@@ -249,6 +256,10 @@ class application {
     //populate globals variabels
     $this->populateGlobals();
     
+    $html5shiv = "<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->";
+    $html5shiv .= "<!--[if lt IE 9]>";
+    $html5shiv .= "<script type='text/javascript' src='".JS_URL."html5shiv.js'></script>";
+    $html5shiv .= "<![endif]-->";
     $jquery = "<script type='text/javascript' src='".JS_URL.JQUERY."'></script>";
     
     $js = "";
@@ -285,6 +296,9 @@ class application {
     } else {
       $menu = $arr_menu['public'];
     }
+    
+    $appfooter = APPFOOTER;
+    
     ob_start();
     $file = VIEW . $this->layout . '.php';
     if (file_exists($file)) {
@@ -293,6 +307,8 @@ class application {
       echo $main_content;
     }
     $out = ob_get_clean();
+    
+    clear_msg();
     if ($echo) {
       echo $out;
     } else {

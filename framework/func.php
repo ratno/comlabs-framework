@@ -5,7 +5,7 @@
  * Fungsi-fungsi untuk  mendukung framework sederhana yang digunakan untuk pelatihan di Comlabs USDI ITB
  */
 function url($controller, $method=null, $var=null) {
-  $out = BASEURL . SUBDIR . "/" . INDEX . "$controller";
+  $out = WEB_URL . INDEX . "$controller";
   if ($method) {
     $out .= "/$method";
   }
@@ -108,7 +108,7 @@ function tabel($controller, $data, $kolom, $aksi=array(), $no_page=null, $jml_da
     
     $out = is_empty($no_page)?"":$paging;
     
-    $out .= '<table border="0" cellpadding="5" cellspacing="0" class="grid">';
+    $out .= '<table border="0" cellpadding="5" cellspacing="0" class="table table-bordered table-striped table-hover">';
     // bikin baris header
     $out .= "<thead>";
     $out .= "<tr class='baris_judul'>";
@@ -443,35 +443,39 @@ function textarea($name,$data="", $class="simple",$blnReturn=false){
 }
 
 function menu($menu, $blnReturn=false){
-  $GLOBALS['css'][] = 'menu.css';
-  $GLOBALS['js'][] = 'menu.js';
-  $out ='<ul id="ldd_menu" class="ldd_menu">';
-  foreach ($menu as $key => $value) {
-    if(is_array($value) && count($value)>0){
-      $out .=  "<li>";
-      $out .=  "<span>$key</span>";
-      $out .=  "<div class='ldd_submenu'>";
-      $out .=  "<ul>";
-      $foot = "";
-      $blnFoot = false;
-      foreach ($value as $subkey=>$subvalue){
-        $link = BASEURL . SUBDIR . "/" .$subvalue;
-        if(!$blnFoot && preg_match("/^(Tambah)/", $subkey)){
-          $foot = "<a class='ldd_subfoot' href='$link'>+ $subkey</a>";
-          $blnFoot = true;
-        } else {
-          $out .=  "<li><a href='$link'>$subkey</a></li>";
-        }
+  $out = '<div class="navbar navbar-fixed-top">';
+  $out .= '<div class="navbar-inner">';
+  $out .= '<div class="container">';
+  $out .= '<button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">';
+  $out .= '<span class="icon-bar"></span>';
+  $out .= '<span class="icon-bar"></span>';
+  $out .= '<span class="icon-bar"></span>';
+  $out .= '</button>';
+  $out .= '<a class="brand" href="'.WEB_URL.'">'.APPNAME.'</a>';
+  $out .= '<div class="nav-collapse collapse">';
+  $out .= '<ul class="nav">';
+    foreach ($menu as $menu_kelompok => $menu_item) {
+    if(is_array($menu_item)) {
+      $out .= '<li class="dropdown">';
+      $out .= '<a href="#" class="dropdown-toggle" data-toggle="dropdown">' . $menu_kelompok . '<b class="caret"></b></a>';
+      $out .= '<ul class="dropdown-menu">';
+      foreach ($menu_item as $menu_judul => $menu_link) {
+        $out .= '<li><a href="' . WEB_URL . $menu_link . '">' . $menu_judul . '</a></li>';
       }
-      $out .=  "</ul>";
-      $out .=  $foot;
-      $out .=  "</div>";
+      $out .= '</ul>';
+      $out .= '</li>';
     } else {
-      $link = BASEURL . SUBDIR . "/" .$value;
-      $out .=  "<li><a href='$link'>$key</a></li>";
+      $out .= '<li>';
+      $out .= '<a href="'. WEB_URL .$menu_item.'">'.$menu_kelompok.'</a>';
+      $out .= '</li>';
     }
   }
   $out .= '</ul>';
+  $out .= '</div><!--/.nav-collapse -->';
+  $out .= '</div>';
+  $out .= '</div>';
+  $out .= '</div>';
+  
   if($blnReturn){
     return $out;
   } else {
@@ -489,4 +493,41 @@ function kolom($tbl,$kolom,$alias=null,$fungsi=null){
     $out .= " as $alias";
   }
   return $out;
+}
+
+function msg($msg,$type="") {
+  $_SESSION['alert_msg'][$type][] = $msg;
+}
+
+function clear_msg() {
+  unset($_SESSION['alert_msg']);
+}
+
+function alert($blnReturn=false){
+  if(key_exists("alert_msg", $_SESSION) && isset($_SESSION['alert_msg'])) {
+    $alert_msg = $_SESSION['alert_msg'];
+    foreach($alert_msg as $type=>$messages) {
+      $class = ($type)?" alert-".$type:"";
+      $judul = ($type)?ucwords($type):"Warning!";
+      $out = "<div class='alert$class'>";
+      $out .= '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+      $out .= "<h4>$judul</h4>";
+      $out .= '<ul>';
+      foreach ($messages as $msg) {
+        $out .= "<li>";
+        $out .= "$msg.";
+        $out .= "</li>";
+      }
+      $out .= '</ul>';
+      $out .= '</div>';
+    }
+  } else {
+    $out = "";
+  }
+  
+  if($blnReturn){
+    return $out;
+  } else {
+    echo $out;
+  }
 }
