@@ -95,7 +95,8 @@ class user extends application {
     foreach ($_GET as $field=>$isian){
       if(preg_match("/^(inputtgl_)/", $field)){
         $field = substr($field, 9);
-        $isian = tanggal($isian);
+        if(!is_empty(str_replace("-", "", $isian)))
+          $isian = tanggal($isian);
       }
       if($isian && $isian != "null"){
         $kondisi_pencarian[] = "$field like '%$isian%'";
