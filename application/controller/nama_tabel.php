@@ -110,7 +110,7 @@ class nama_tabel extends application {
       $data['data'] = $this->model_nama_tabel->ambil_data($kondisi);
       $data['link_tambah'] = "<a href='".url("nama_tabel","cari")."'>Kembali</a>";
       if(cek_role("admin")){
-        $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
+        $data['aksi'] = array("viewdetail"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       }
       $this->view("nama_tabel/daftar",$data);
     } else {

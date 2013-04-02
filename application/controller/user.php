@@ -108,7 +108,7 @@ class user extends application {
       $data['data'] = $this->model_user->ambil_data($kondisi);
       $data['link_tambah'] = "<a href='".url("user","cari")."'>Kembali</a>";
       if(cek_role("admin")){
-        $data['aksi'] = array("view"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
+        $data['aksi'] = array("viewdetail"=>"View","ubah"=>"Ubah","hapus"=>"Hapus");
       }
       $this->view("user/daftar",$data);
     } else {
