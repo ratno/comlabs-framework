@@ -186,7 +186,7 @@ function link_href($link, $name="", $prefix="", $class="", $id="") {
 }
 
 function buat_link($nama, $action, $controller, $id) {
-  return link_href(url($controller, $action, array("id" => $id)), ucwords($nama));
+  return link_href(url($controller, $action, array("id" => $id)), ucwords($nama),"",$action);
 }
 
 function link_tambah($nama, $teks="Tambah Data") {

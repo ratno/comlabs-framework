@@ -17,8 +17,8 @@
     <div id="wrap">
       <?php menu($menu); ?>
       <div class="container">
-      <?php alert(); ?>
-      <?php echo $main_content ?>
+        <?php alert(); ?>
+        <?php echo $main_content ?>
       </div>
       <div id="push"></div>
     </div>
@@ -31,5 +31,10 @@
 
     <?php echo $js ?>
     <?php echo $script ?>
+    <script type="text/javascript">
+      $(".hapus").on("click", function() {
+        return confirm("Apakah anda yakin akan menghapus data ini?");
+      });
+    </script>
   </body>
 </html>
