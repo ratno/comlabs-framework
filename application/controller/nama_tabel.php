@@ -119,13 +119,27 @@ class nama_tabel extends application {
     }
   }
   
-  function laporan(){
+  function laporan($var){
     cek_keamanan(array("admin","user"));
     $this->model("model_nama_tabel");
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan nama_tabel";
     $data['data'] = $this->model_nama_tabel->ambil_data();
-    $this->view("nama_tabel/daftar",$data);
+    $out = $this->view("nama_tabel/daftar", $data, false);
+    if(key_exists("ekspor", $var)) {
+      switch ($var['ekspor']){
+        case "xls": 
+          xls($out); 
+          break;
+        case "pdf": 
+          pdf($out); 
+          break;
+        default: 
+          echo $out;
+      }
+    } else {
+      echo $out;
+    }
   }
   
   function impor() {

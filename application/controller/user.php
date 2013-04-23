@@ -117,13 +117,27 @@ class user extends application {
     }
   }
   
-  function laporan(){
+  function laporan($var){
     cek_keamanan(array("admin","user"));
     $this->model("model_user");
     $this->layout = "laporan"; // untuk layout laporan biasanya tanpa menu
     $data['judul'] = "Laporan User";
     $data['data'] = $this->model_user->ambil_data();
-    $this->view("user/daftar",$data);
+    $out = $this->view("user/daftar",$data,false);
+    if(key_exists("ekspor", $var)) {
+      switch ($var['ekspor']){
+        case "xls": 
+          xls($out); 
+          break;
+        case "pdf": 
+          pdf($out); 
+          break;
+        default: 
+          echo $out;
+      }
+    } else {
+      echo $out;
+    }
   }
   
   function impor() {
