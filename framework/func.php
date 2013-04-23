@@ -532,3 +532,19 @@ function alert($blnReturn=false){
     echo $out;
   }
 }
+
+function xls($html,$filename="laporan"){
+  header("Content-Type: application/vnd.ms-excel");
+  header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
+  echo $html;
+  die();
+}
+
+function pdf($html,$filename="laporan",$kertas="a4",$orientasi="portrait"){
+  $dompdf = new DOMPDF();
+  $dompdf->load_html($html);
+  $dompdf->set_paper($kertas, $orientasi);
+  $dompdf->render();
+  $dompdf->stream("$filename.pdf", array("Attachment" => false));
+  exit(0);
+}
