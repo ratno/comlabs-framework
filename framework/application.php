@@ -405,6 +405,7 @@ class application {
       header("location: " . url('index'));
       die();
     }
+    $this->db();
     $insert = explode('||', $_POST['insert']);
     $data['judul'] = "Status Simpan Impor Data";
     $data['hasil'] = "";
