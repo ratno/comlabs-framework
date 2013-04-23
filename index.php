@@ -11,6 +11,7 @@ require_once("framework/func.php");
 require_once("framework/application.php");
 require_once("framework/excel_reader2.php");
 require_once("framework/spyc.php");
+require_once("framework/dompdf/dompdf_config.inc.php");
 
 $url = $_SERVER['REQUEST_URI'];
 $url = substr($url, strlen(SUBDIR . INDEX));
