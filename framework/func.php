@@ -122,11 +122,12 @@ function tabel($controller, $data, $kolom, $aksi=array(), $no_page=null, $jml_da
     $out .= "</tr>";
     $out .= "</thead>";
     
+    $model_name = "model_".$controller;
     // bikin isi tabel
     // jika $data['id'] ada, maka datanya cuman satu
     $out .= "<tbody>";
     if (is_array($data)) {
-      if (key_exists("id", $data)) {
+      if (key_exists($model_name::pk(), $data)) {
         $data_process[0] = $data;
       } else {
         $data_process = $data;
@@ -195,7 +196,8 @@ function link_tambah($nama, $teks="Tambah Data") {
 }
 
 function form_properties($controller, $aksi, $id=null, $file_upload=false, $method="POST",$blnReturn = false) {
-  $out = 'action="' . url($controller, $aksi, array("id" => $id)) . '" method="'.$method.'"';
+  $model_name = "model_".$controller;
+  $out = 'action="' . url($controller, $aksi, array($model_name::pk() => $id)) . '" method="'.$method.'"';
   if ($file_upload) {
     $out .= ' enctype="multipart/form-data"';
   }
