@@ -147,4 +147,10 @@ class nama_tabel extends application {
     $this->model("model_nama_tabel");
     parent::impor(__CLASS__,$this->model_nama_tabel->tabel);
   }
+  
+  function impor_preview() {
+    cek_keamanan(array("admin","user"));
+    $this->model("model_nama_tabel");
+    parent::impor_preview();
+  }
 }
