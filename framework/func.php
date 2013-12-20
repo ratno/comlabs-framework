@@ -419,7 +419,7 @@ function textarea($name,$data="", $class="simple",$blnReturn=false){
     $theme = $class;
     $class = 'tinymce';
     $GLOBALS['js'][] = 'tiny_mce/jquery.tinymce.js';
-    $GLOBALS['script'][] = '
+    $GLOBALS['script']['tinymce'] = '
       $("textarea.tinymce").tinymce({
         script_url : js_url+"tiny_mce/tiny_mce.js",
         // General options
