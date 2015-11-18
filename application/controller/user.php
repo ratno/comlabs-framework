@@ -85,6 +85,7 @@ class user extends application {
     $data['judul'] = "Cari User";
     $data['form_method'] = "GET";
     $data['aksi'] = "hasil_pencarian";
+    $this->model("model_user");
     $this->view('user/cari', $data);
   }
   

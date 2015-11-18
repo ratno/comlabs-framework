@@ -88,6 +88,7 @@ class nama_tabel extends application {
     $data['judul'] = "Cari nama_tabel";
     $data['aksi'] = "hasil_pencarian";
     $data['form_method'] = "GET";
+    $this->model("model_nama_tabel");
     $this->view('nama_tabel/cari', $data);
   }
   
