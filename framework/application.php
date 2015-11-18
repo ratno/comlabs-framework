@@ -31,25 +31,24 @@ class application {
   }
 
   function db() {
-    $this->db = mysql_connect(SERVER, USERNAME, PASSWORD);
-    mysql_select_db(DATABASE);
+    $this->db = mysqli_connect(SERVER, USERNAME, PASSWORD, DATABASE);
   }
 
   function query($sql, $single=false) {
-    $hasil = mysql_query($sql);
+    $hasil = mysqli_query($this->db, $sql);
     if ($hasil === true) {
-      return mysql_affected_rows();
+      return mysqli_affected_rows($this->db);
     } elseif ($hasil === false) {
       return false;
     } else {
       $out = array();
-      $rows = mysql_num_rows($hasil);
+      $rows = mysqli_num_rows($hasil);
       if ($rows > 1) {
-        while ($data = mysql_fetch_assoc($hasil)) {
+        while ($data = mysqli_fetch_assoc($hasil)) {
           $out[] = $data;
         }
       } else {
-        $out = mysql_fetch_assoc($hasil);
+        $out = mysqli_fetch_assoc($hasil);
       }
 
       if ($single) {
@@ -90,7 +89,7 @@ class application {
     $sql .= " (" . implode(",", $kolom) . ")";
     $sql .= " VALUES (" . implode(",", $isi) . ")";
     if ($execute) {
-      return mysql_query($sql);
+      return mysqli_query($this->db, $sql);
     } else {
       return $sql;
     }
@@ -118,12 +117,12 @@ class application {
 
     $sql = "UPDATE " . $this->tabel . " SET " . implode(",", $update) . " WHERE " . $this->pk . "=" . $this->escape($id);
 //    die($sql);
-    return mysql_query($sql);
+    return mysqli_query($this->db, $sql);
   }
 
   function delete($id) {
     $sql = "DELETE FROM " . $this->tabel . " WHERE " . $this->pk . " = " . $this->escape($id);
-    return mysql_query($sql);
+    return mysqli_query($this->db, $sql);
   }
 
   function escape($val) {
@@ -131,7 +130,7 @@ class application {
     if ($val == "" || empty($val) || is_null($val) || $val == 'null') {
       return 'null';
     }
-    return is_numeric($val) ? "'$val'" : "'" . mysql_escape_string($val) . "'";
+    return is_numeric($val) ? "'$val'" : "'" . mysqli_escape_string($this->db, $val) . "'";
   }
 
   function controller($class) {
