@@ -133,6 +133,127 @@ class application {
     return is_numeric($val) ? "'$val'" : "'" . mysqli_escape_string($this->db, $val) . "'";
   }
 
+  function init(){
+    $this->db();
+    $sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='".DB_NAME."'";
+    $result = $this->query($sql);
+    $tables = array();
+    $create_user_flag = true;
+    $create_page_flag = true;
+
+    $template_controller = CONTROLLER."nama_tabel.php";
+    $template_model = MODEL."model_nama_tabel.php";
+    $template_daftar = VIEW."nama_tabel/daftar.php";
+    $template_form = VIEW."nama_tabel/form.php";
+    $template_detil = VIEW."nama_tabel/view.php";
+    $template_cari = VIEW."nama_tabel/cari.php";
+
+    if(count($result)) {
+      foreach ($result as $item) {
+        $table_name = $item['TABLE_NAME'];
+        // cek file exists
+        $controller = CONTROLLER.$table_name.".php";
+        $model = MODEL."model_".$table_name.".php";
+        $view_path = VIEW.$table_name;
+        $view_daftar = $view_path."/daftar.php";
+        $view_form = $view_path."/form.php";
+        $view_detil = $view_path."/view.php";
+        $view_cari = $view_path."/cari.php";
+
+        $this->create_file($controller,$template_controller,array($table_name));
+        $this->create_file($model,$template_model,array($table_name));
+
+        if(!file_exists($view_path)) {
+          mkdir($view_path);
+          chmod($view_path,0775);
+
+          $fields_result = mysqli_query($this->db,"SELECT * FROM $table_name");
+          $kolom_daftar = array();
+          $kolom_form = array();
+          $kolom_view = array();
+          $kolom_cari = array();
+          while($field = mysqli_fetch_field($fields_result)) {
+            $field_name = $field->name;
+            $field_judul = ucwords(str_replace("_"," ",$field_name));
+            if($field_name == 'id') {
+              // skip
+            } else {
+              $kolom_daftar[] = '"'.$field_judul.'"=>\'$item["'.$field_name.'"]\',';
+              $kolom_form[] = '
+    <tr>
+      <td>'.$field_judul.'</td>
+      <td><?php input("'.$field_name.'", $data) ?></td>
+    </tr>';
+              $kolom_view[] = '
+  <tr>
+    <td>'.$field_judul.'</td>
+    <td><?php echo $data["'.$field_name.'"] ?></td>
+  </tr>';
+              $kolom_cari[] = '
+    <tr>
+			<td>'.$field_judul.'</td>
+      <td><?php input("'.$field_name.'", $data) ?></td>
+		</tr>';
+            }
+          }
+
+          $this->create_file($view_daftar,$template_daftar,array($table_name,implode("\n",$kolom_daftar)),array("nama_tabel","/*#kolom#*/"));
+          $this->create_file($view_form,$template_form,array($table_name,implode("\n",$kolom_form)),array("nama_tabel","/*#kolom#*/"));
+          $this->create_file($view_detil,$template_detil,array($table_name,implode("\n",$kolom_view)),array("nama_tabel","/*#kolom#*/"));
+          $this->create_file($view_cari,$template_cari,array($table_name,implode("\n",$kolom_cari)),array("nama_tabel","/*#kolom#*/"));
+        }
+
+        if ($table_name == "user") {
+          $create_user_flag = false;
+        }
+        if ($table_name == "page") {
+          $create_page_flag = false;
+        }
+
+        $tables[] = $table_name;
+      }
+    }
+
+    if($create_user_flag && $create_page_flag) {
+      mysqli_query($this->db, "DROP TABLE IF EXISTS user");
+      mysqli_query($this->db,"
+        CREATE TABLE user (
+          id int primary key auto_increment,
+          nama varchar(100),
+          email varchar(100) unique,
+          hp varchar(30),
+          username varchar(20) unique,
+          password varchar(128),
+          role varchar(30),
+          tgl_diangkat date
+        )
+      ");
+
+      mysqli_query($this->db,'INSERT INTO user (nama, email, hp, username, password, role) VALUES ("Ratno Putro Sulistiyono [Admin]","ratno@comlabs.itb.ac.id","0817201101","ratno","ratno","admin")');
+      mysqli_query($this->db,'INSERT INTO user (nama, email, username, password, role) VALUES ("Ratno [User]","ratno@knoqdown.com","user","user","user")');
+
+      mysqli_query($this->db, "DROP TABLE IF EXISTS page");
+      mysqli_query($this->db,"
+        CREATE TABLE page (
+          id int primary key auto_increment,
+          kode varchar(100) unique,
+          nama varchar(255),
+          isi text,
+          akses varchar(255)
+        )
+      ");
+    }
+  }
+
+  function create_file($target,$template,$replace,$search=array("nama_tabel")){
+    if(!file_exists($target)) {
+      $f = fopen($target,"w+");
+      fwrite($f,str_replace($search,$replace,file_get_contents($template)));
+      fclose($f);
+      chmod($target,0775);
+    }
+  }
+
   function controller($class) {
     $file = CONTROLLER . $this->uri['controller'] . ".php";
 

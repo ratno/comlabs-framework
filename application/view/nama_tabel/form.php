@@ -24,11 +24,7 @@
 </div>
 <form <?php form_properties("nama_tabel", $aksi, $data[model_nama_tabel::pk()], true) ?>>
   <table border="0">
-
-    <tr>
-      <td>Nama Inputan/Isian Form</td>
-      <td><?php input("nama_kolom", $data) ?></td>
-    </tr>
+    /*#kolom#*/
 
     <tr>
       <td colspan="2"><?php submit(); ?></td>

@@ -46,4 +46,5 @@ foreach ($array_uri as $item_uri) {
 }
 
 $app = new application($uri);
+$app->init();
 $app->controller($uri['controller']);

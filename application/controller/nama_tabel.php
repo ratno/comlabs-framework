@@ -2,7 +2,7 @@
 
 class nama_tabel extends application {
 
-  function __construct() {
+  function __construct($uri) {
     parent::__construct($uri);
   }
 

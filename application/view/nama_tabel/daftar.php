@@ -28,6 +28,6 @@
 </div>
 <?php
 tabel("nama_tabel",$data,array(
-    "Judul Kolom"=>'$item["nama_kolom"]',
+    /*#kolom#*/
 ),$aksi);
 ?>
