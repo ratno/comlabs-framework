@@ -136,8 +136,7 @@ class application {
   function init(){
     $this->db();
     $sql = "SELECT * FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA='".DB_NAME."'";
-    $result = $this->query($sql);
-    $tables = array();
+    $result = mysqli_query($this->db,$sql);
     $create_user_flag = true;
     $create_page_flag = true;
 
@@ -148,69 +147,69 @@ class application {
     $template_detil = VIEW."nama_tabel/view.php";
     $template_cari = VIEW."nama_tabel/cari.php";
 
-    if(count($result)) {
-      foreach ($result as $item) {
-        $table_name = $item['TABLE_NAME'];
-        // cek file exists
-        $controller = CONTROLLER.$table_name.".php";
-        $model = MODEL."model_".$table_name.".php";
-        $view_path = VIEW.$table_name;
-        $view_daftar = $view_path."/daftar.php";
-        $view_form = $view_path."/form.php";
-        $view_detil = $view_path."/view.php";
-        $view_cari = $view_path."/cari.php";
+    while($item = mysqli_fetch_assoc($result)) {
+      $table_name = $item['TABLE_NAME'];
+      // cek file exists
+      $controller = CONTROLLER . $table_name . ".php";
+      $model = MODEL . "model_" . $table_name . ".php";
+      $view_path = VIEW . $table_name;
+      $view_daftar = $view_path . "/daftar.php";
+      $view_form = $view_path . "/form.php";
+      $view_detil = $view_path . "/view.php";
+      $view_cari = $view_path . "/cari.php";
 
-        $this->create_file($controller,$template_controller,array($table_name));
-        $this->create_file($model,$template_model,array($table_name));
+      $this->create_file($controller, $template_controller, array($table_name));
+      $this->create_file($model, $template_model, array($table_name));
 
-        if(!file_exists($view_path)) {
-          mkdir($view_path);
-          chmod($view_path,0775);
+      if (!file_exists($view_path)) {
+        mkdir($view_path);
+        chmod($view_path, 0775);
 
-          $fields_result = mysqli_query($this->db,"SELECT * FROM $table_name");
-          $kolom_daftar = array();
-          $kolom_form = array();
-          $kolom_view = array();
-          $kolom_cari = array();
-          while($field = mysqli_fetch_field($fields_result)) {
-            $field_name = $field->name;
-            $field_judul = ucwords(str_replace("_"," ",$field_name));
-            if($field_name == 'id') {
-              // skip
-            } else {
-              $kolom_daftar[] = '"'.$field_judul.'"=>\'$item["'.$field_name.'"]\',';
-              $kolom_form[] = '
+        $fields_result = mysqli_query($this->db, "SELECT * FROM $table_name");
+        $kolom_daftar = array();
+        $kolom_form = array();
+        $kolom_view = array();
+        $kolom_cari = array();
+        while ($field = mysqli_fetch_field($fields_result)) {
+          $field_name = $field->name;
+          $field_judul = ucwords(str_replace("_", " ", $field_name));
+          if ($field_name == 'id') {
+            // skip
+          } else {
+            $kolom_daftar[] = '"' . $field_judul . '"=>\'$item["' . $field_name . '"]\',';
+            $kolom_form[] = '
     <tr>
-      <td>'.$field_judul.'</td>
-      <td><?php input("'.$field_name.'", $data) ?></td>
+      <td>' . $field_judul . '</td>
+      <td><?php input("' . $field_name . '", $data) ?></td>
     </tr>';
-              $kolom_view[] = '
+            $kolom_view[] = '
   <tr>
-    <td>'.$field_judul.'</td>
-    <td><?php echo $data["'.$field_name.'"] ?></td>
+    <td>' . $field_judul . '</td>
+    <td><?php echo $data["' . $field_name . '"] ?></td>
   </tr>';
-              $kolom_cari[] = '
+            $kolom_cari[] = '
     <tr>
-			<td>'.$field_judul.'</td>
-      <td><?php input("'.$field_name.'", $data) ?></td>
+			<td>' . $field_judul . '</td>
+      <td><?php input("' . $field_name . '", $data) ?></td>
 		</tr>';
-            }
           }
-
-          $this->create_file($view_daftar,$template_daftar,array($table_name,implode("\n",$kolom_daftar)),array("nama_tabel","/*#kolom#*/"));
-          $this->create_file($view_form,$template_form,array($table_name,implode("\n",$kolom_form)),array("nama_tabel","/*#kolom#*/"));
-          $this->create_file($view_detil,$template_detil,array($table_name,implode("\n",$kolom_view)),array("nama_tabel","/*#kolom#*/"));
-          $this->create_file($view_cari,$template_cari,array($table_name,implode("\n",$kolom_cari)),array("nama_tabel","/*#kolom#*/"));
         }
 
-        if ($table_name == "user") {
-          $create_user_flag = false;
-        }
-        if ($table_name == "page") {
-          $create_page_flag = false;
-        }
+        $this->create_file($view_daftar, $template_daftar, array($table_name, implode("\n", $kolom_daftar)),
+          array("nama_tabel", "/*#kolom#*/"));
+        $this->create_file($view_form, $template_form, array($table_name, implode("\n", $kolom_form)),
+          array("nama_tabel", "/*#kolom#*/"));
+        $this->create_file($view_detil, $template_detil, array($table_name, implode("\n", $kolom_view)),
+          array("nama_tabel", "/*#kolom#*/"));
+        $this->create_file($view_cari, $template_cari, array($table_name, implode("\n", $kolom_cari)),
+          array("nama_tabel", "/*#kolom#*/"));
+      }
 
-        $tables[] = $table_name;
+      if ($table_name == "user") {
+        $create_user_flag = false;
+      }
+      if ($table_name == "page") {
+        $create_page_flag = false;
       }
     }
 
